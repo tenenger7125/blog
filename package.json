@@ -11,16 +11,17 @@
     "commit": "cz"
   },
   "dependencies": {
-    "dotori-components": "0.0.10-alpha.2",
+    "dotori-components": "0.0.10-alpha.4",
     "dotori-context": "^0.0.2",
     "dotori-hooks": "0.0.5-alpha.0",
-    "dotori-icons": "^0.0.8",
+    "dotori-icons": "^0.0.9-alpha.0",
     "dotori-utils": "^0.0.20",
     "next": "14.2.9",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@tenenger/git-cz": "^0.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -39,6 +40,7 @@
     "postcss": "^8",
     "postcss-import": "^16.1.0",
     "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
