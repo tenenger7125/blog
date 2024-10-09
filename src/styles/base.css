@@ -1,0 +1,55 @@
+@layer base {
+  * {
+    line-height: 1;
+  }
+
+  input,
+  textarea {
+    font-size: inherit;
+    text-align: inherit;
+    background-color: inherit;
+    font-weight: inherit;
+    outline: none;
+    cursor: inherit;
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    appearance: none;
+    position: absolute;
+  }
+
+  input[type='file'] {
+    display: none;
+  }
+
+  ul,
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  td {
+    padding: 0;
+    margin: 0;
+  }
+
+  th {
+    font-weight: 400;
+    text-align: start;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: theme('colors.gray.400');
+    border-radius: theme('borderRadius.sm');
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: theme('borderRadius.sm');
+  }
+}
