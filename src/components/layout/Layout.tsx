@@ -4,11 +4,11 @@ const Header = dynamic(() => import('./Header'), { ssr: false });
 const Footer = dynamic(() => import('./Footer'), { ssr: false });
 
 const Layout = ({ children }: LayoutProps) => (
-  <div className="m-auto max-w-5xl">
-    <Header className="px-3 py-4" />
-    <main className="px-4">{children}</main>
-    <Footer className="w-full max-w-5xl px-3 py-4" />
-  </div>
+  <>
+    <Header />
+    <main className="relative z-[2] m-auto max-w-5xl bg-white px-4">{children}</main>
+    <Footer />
+  </>
 );
 
 interface LayoutProps {
