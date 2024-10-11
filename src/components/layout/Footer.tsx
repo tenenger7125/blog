@@ -1,7 +1,6 @@
-'use client';
-
-import { ActionIcon, Entity, Tooltip } from 'dotori-components';
 import { getNowMonthDate } from 'dotori-utils';
+
+import GithubIcon from '@/assets/logoes/github.svg';
 
 const Footer = () => {
   const { year } = getNowMonthDate();
@@ -16,15 +15,12 @@ const Footer = () => {
                 <span>마크다운 블로그</span>
               </h4>
               <div>
-                <Entity className="mr-1" symbol="©" />
-                <span>{year} LEE_DONG_GYU, All rights reserved.</span>
+                &copy; <span>{year} LEE_DONG_GYU, All rights reserved.</span>
               </div>
             </div>
             <div>
               <a href="https://github.com/tenenger7125/blog" rel="noopener noreferrer">
-                <Tooltip label="github">
-                  <ActionIcon className="p-1" icon="github" size="xl" withoutPadding />
-                </Tooltip>
+                <GithubIcon className="h-6 w-6" />
               </a>
             </div>
           </div>
