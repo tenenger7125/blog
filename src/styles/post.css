@@ -1,0 +1,20 @@
+@layer components {
+  .post h1 a .icon.icon-link {
+    @apply mr-3 text-inherit before:content-['#'];
+  }
+  .post h2 a .icon.icon-link {
+    @apply mr-3 text-inherit before:content-['##'];
+  }
+  .post h3 a .icon.icon-link {
+    @apply mr-3 text-inherit before:content-['###'];
+  }
+  .post h4 a .icon.icon-link {
+    @apply mr-3 text-inherit before:content-['####'];
+  }
+  .post h5 a .icon.icon-link {
+    @apply mr-3 text-inherit before:content-['#####'];
+  }
+  .post h5 a .icon.icon-link {
+    @apply mr-3 text-inherit before:content-['######'];
+  }
+}

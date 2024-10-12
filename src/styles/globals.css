@@ -1,4 +1,6 @@
 @import './base.css';
+@import './post.css';
+@import './prism.css';
 
 @tailwind base;
 @tailwind components;

@@ -1,0 +1,13 @@
+@layer components {
+  .prism .code-line {
+    @apply -mx-4 border-l-4 border-gray-600 pl-4;
+  }
+
+  .prism .highlight-line {
+    @apply -mx-4 border-l-4 border-blue-600 bg-blue-400;
+  }
+
+  .prism .line-number::before {
+    @apply -ml-2 pr-4 text-gray-600 content-[attr(line)];
+  }
+}
