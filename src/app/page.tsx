@@ -1,3 +1,12 @@
-const Home = () => <div>테스트 입니다. 폰트 테스트</div>;
+import { Pagination, PostList } from '@/components/page/home';
+
+const Home = () => (
+  <div>
+    <div className="flex flex-wrap gap-2 leading-loose">
+      <PostList />
+    </div>
+    <Pagination />
+  </div>
+);
 
 export default Home;
