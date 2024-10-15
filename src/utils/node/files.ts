@@ -9,6 +9,8 @@ import remarkGfm from 'remark-gfm';
 
 import { FOLDER_PATH } from '@/constants/node';
 
+import type { Post } from '@/types/post';
+
 export const markdown = {
   async getFileNames(options?: Options) {
     const fileNames = await globby('**/*.md', { cwd: FOLDER_PATH.POSTS_ROOT, ...options });
@@ -19,7 +21,7 @@ export const markdown = {
   async readFile({ cwd, id }: { cwd?: string; id: string }) {
     const fileName = `${id}.md`;
     const source = await fs.readFile(`${cwd ?? FOLDER_PATH.POSTS_ROOT}/${fileName}`, 'utf-8');
-    const { content, frontmatter } = await compileMDX({
+    const { content, frontmatter } = await compileMDX<Post['metaData']>({
       source,
       options: {
         parseFrontmatter: true,
