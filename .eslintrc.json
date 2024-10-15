@@ -10,5 +10,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react-refresh/only-export-components": "off"
   }
 }
