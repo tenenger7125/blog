@@ -1,4 +1,4 @@
-import { Pagination, PostList } from '@/components/page/home';
+import { Pagination, PostList } from './_components';
 
 const Home = () => (
   <div>
