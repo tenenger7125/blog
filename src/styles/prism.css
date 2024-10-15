@@ -10,4 +10,8 @@
   .prism .line-number::before {
     @apply -ml-2 pr-4 text-gray-600 content-[attr(line)];
   }
+
+  .prism code:not(.code-highlight) {
+    @apply mx-1 bg-gray-200;
+  }
 }
