@@ -2,9 +2,7 @@ import { Pagination, PostList } from './_components';
 
 const Home = () => (
   <div>
-    <div className="flex flex-wrap gap-2 leading-loose">
-      <PostList />
-    </div>
+    <PostList />
     <Pagination />
   </div>
 );

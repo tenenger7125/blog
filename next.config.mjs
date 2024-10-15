@@ -5,6 +5,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+    ],
+  },
   webpack: config => {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find(rule => rule.test?.test?.('.svg'));

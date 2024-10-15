@@ -15,7 +15,7 @@ const Pagination = () => {
 
   return (
     <div className="py-7">
-      <DotoriPagination page={page} pageTotal={5} siblingCount={2} onChange={handlePageChange} />
+      <DotoriPagination page={page} pageTotal={1} siblingCount={2} onChange={handlePageChange} />
     </div>
   );
 };

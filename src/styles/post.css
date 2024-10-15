@@ -17,4 +17,16 @@
   .post h5 a .icon.icon-link {
     @apply mr-3 text-inherit before:content-['######'];
   }
+  .post ul {
+    list-style-type: disc;
+  }
+  .post ol {
+    list-style-type: decimal;
+  }
+  .post li::marker {
+    @apply text-gray-700;
+  }
+  .post a:not([aria-hidden='true']) {
+    @apply text-blue-600;
+  }
 }
