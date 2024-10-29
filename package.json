@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.15",
-    "dotori-components": "0.0.10-alpha.4",
+    "dotori-components": "0.0.10-alpha.8",
     "dotori-context": "^0.0.2",
     "dotori-hooks": "0.0.5-alpha.0",
-    "dotori-icons": "^0.0.9-alpha.0",
+    "dotori-icons": "^0.0.9-alpha.2",
     "dotori-utils": "^0.0.20",
     "next": "14.2.9",
     "next-mdx-remote": "^5.0.0",
