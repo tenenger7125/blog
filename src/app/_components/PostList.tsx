@@ -7,9 +7,11 @@ const PostList = async () => {
 
   return (
     <div className="flex flex-wrap gap-2 leading-loose">
-      {files.map(({ id, metaData }) => (
-        <Post key={id} metaData={metaData} postId={id} />
-      ))}
+      {files
+        .toSorted((a, b) => +b.id - +a.id)
+        .map(({ id, metaData }) => (
+          <Post key={id} metaData={metaData} postId={id} />
+        ))}
     </div>
   );
 };
