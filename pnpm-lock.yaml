@@ -29,6 +29,9 @@ importers:
       dotori-utils:
         specifier: ^0.0.20
         version: 0.0.20(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       next:
         specifier: 14.2.9
         version: 14.2.9(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
