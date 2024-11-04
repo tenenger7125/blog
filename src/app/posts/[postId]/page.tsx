@@ -29,4 +29,6 @@ export async function generateStaticParams() {
   return files.map(({ id }) => ({ postId: id }));
 }
 
+export const dynamicParams = false;
+
 export default Post;
