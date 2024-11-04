@@ -12,9 +12,9 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
       <div className="post prism prose max-w-full">{component}</div>
       <Side>
         <div className="flex flex-col gap-2">
-          {headings.map(({ title, link }) => (
+          {headings.map(({ depth, title, link }) => (
             <a key={title} className="block cursor-pointer py-1 hover:text-blue-300" href={link}>
-              {title}
+              {'-'.repeat(depth)} {title}
             </a>
           ))}
         </div>
