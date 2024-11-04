@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 
+import GithubSlugger from 'github-slugger';
 import { globby, Options } from 'globby';
 import { Root, Text } from 'mdast';
 import { compileMDX } from 'next-mdx-remote/rsc';
@@ -18,12 +19,14 @@ const getHeadingsWithHash = () => {
   const headings: { depth: number; title: string; link: string }[] = [];
 
   const extractHeadings = () => (tree: Root) => {
+    const slugger = new GithubSlugger();
+
     visit(tree, 'heading', node => {
       const text = node.children
         .filter((child): child is Text => child.type === 'text')
         .map(child => child.value)
         .join('');
-      const link = `#${text.split(' ').join('-').toLowerCase()}`;
+      const link = `#${slugger.slug(text)}`;
 
       headings.push({ depth: node.depth, title: text, link });
     });
