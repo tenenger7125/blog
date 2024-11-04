@@ -22,7 +22,9 @@ const Side = ({ children }: { children: React.ReactNode }) => {
           size="xl"
           onClick={open}
         />
-        <div className="sticky right-0 top-4 min-w-40 max-lg:hidden">{children}</div>
+        <div className="sticky right-0 top-4 max-h-svh min-w-40 overflow-y-scroll scrollbar-hide max-lg:hidden">
+          {children}
+        </div>
       </div>
       <Drawer close={close} isOpen={isOpen}>
         <div className="px-2 py-1">{children}</div>
