@@ -1,15 +1,77 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+import { cn } from 'dotori-utils';
 import Link from 'next/link';
 
 import { PATH } from '@/constants';
 
-const Header = () => (
-  <header className="sticky top-0 z-[3] mb-3 w-full border-b border-gray-100 bg-white px-3 py-4">
-    <div className="m-auto max-w-5xl">
-      <h2 className="text-2xl font-bold">
-        <Link href={PATH.HOME}>Home</Link>
-      </h2>
-    </div>
-  </header>
-);
+const Header = () => {
+  const [scroll, setScroll] = useState(defaultScroll);
+  const prev = useRef(scroll);
+
+  useEffect(() => {
+    setScroll(p => ({ ...p, ...getScrollPosition() }));
+  }, []);
+
+  useEffect(() => {
+    prev.current = scroll;
+
+    const onScroll = () => {
+      const prevScroll = prev.current;
+
+      const scrollPosition = getScrollPosition();
+      const newIsScrollDown =
+        scrollPosition.y === prevScroll.y ? prevScroll.isScrollDown : scrollPosition.y > prevScroll.y;
+      const newIsScrollUp = scrollPosition.y === prevScroll.y ? prevScroll.isScrollUp : scrollPosition.y < prevScroll.y;
+
+      const newScroll = {
+        ...scrollPosition,
+        isScrollDown: newIsScrollDown,
+        isScrollUp: newIsScrollUp,
+      };
+
+      setScroll(newScroll);
+    };
+
+    window.addEventListener('scroll', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [scroll]);
+
+  return (
+    <header className={headerStyle({ hidden: scroll.isScrollDown })}>
+      <div className="m-auto max-w-5xl">
+        <h2 className="text-2xl font-bold">
+          <Link href={PATH.HOME}>Home</Link>
+        </h2>
+      </div>
+    </header>
+  );
+};
+
+const getScrollPosition = () => ({
+  x: window.scrollX,
+  y: window.scrollY,
+});
+
+const defaultScroll = {
+  x: 0,
+  y: 0,
+  isScrollDown: false,
+  isScrollUp: false,
+};
+
+const headerStyle = cn('sticky z-[3] mb-3 w-full border-b border-gray-100 bg-white transition-all px-3 py-4', {
+  variants: {
+    hidden: {
+      true: '-top-full',
+      false: 'top-0',
+    },
+  },
+});
 
 export default Header;
