@@ -11,5 +11,9 @@ export const extend: Config['theme'] = {
   maxWidth: {
     112: '28rem',
     '1/2': '50%',
+    '8xl': '84rem',
+  },
+  screens: {
+    '2lg': '1500px',
   },
 };
