@@ -15,7 +15,7 @@ import { FOLDER_PATH } from '@/constants/node';
 import type { Post } from '@/types/post';
 
 const getHeadingsWithHash = () => {
-  const headings: { title: string; link: string }[] = [];
+  const headings: { depth: number; title: string; link: string }[] = [];
 
   const extractHeadings = () => (tree: Root) => {
     visit(tree, 'heading', node => {
@@ -25,7 +25,7 @@ const getHeadingsWithHash = () => {
         .join('');
       const link = `#${text.split(' ').join('-').toLowerCase()}`;
 
-      headings.push({ title: text, link });
+      headings.push({ depth: node.depth, title: text, link });
     });
   };
 
