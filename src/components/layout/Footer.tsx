@@ -7,8 +7,8 @@ const Footer = () => {
 
   return (
     <footer className="relative z-[1] h-48 w-full bg-gray-0 text-xs shadow-inner">
-      <div className="m-auto max-w-5xl">
-        <div className="h-inherit fixed bottom-0 z-[5] mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-4 px-3 py-4">
+      <div className="m-auto max-w-8xl">
+        <div className="h-inherit fixed bottom-0 z-[5] mx-auto flex w-full max-w-8xl flex-wrap items-center justify-between gap-4 px-3 py-4">
           <div className="flex w-full justify-between">
             <div className="flex flex-col gap-2">
               <h4 className="typo-xs700">

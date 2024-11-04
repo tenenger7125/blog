@@ -44,7 +44,7 @@ const Header = () => {
 
   return (
     <header className={headerStyle({ hidden: scroll.isScrollDown })}>
-      <div className="m-auto max-w-5xl">
+      <div className="m-auto max-w-8xl">
         <h2 className="text-2xl font-bold">
           <Link href={PATH.HOME}>Home</Link>
         </h2>
@@ -65,7 +65,7 @@ const defaultScroll = {
   isScrollUp: false,
 };
 
-const headerStyle = cn('sticky z-[3] mb-3 w-full border-b border-gray-100 bg-white transition-all px-3 py-4', {
+const headerStyle = cn('sticky z-[1] mb-3 w-full border-b border-gray-100 bg-white transition-all px-3 py-4', {
   variants: {
     hidden: {
       true: '-top-full',
