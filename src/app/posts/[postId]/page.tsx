@@ -29,6 +29,16 @@ export async function generateStaticParams() {
   return files.map(({ id }) => ({ postId: id }));
 }
 
+export async function generateMetadata({ params }: { params: { postId: string } }) {
+  const { postId } = params;
+  const { metaData } = await markdown.readFile({ id: postId });
+
+  return {
+    title: metaData.title,
+    description: metaData.description,
+  };
+}
+
 export const dynamicParams = false;
 
 export default Post;
