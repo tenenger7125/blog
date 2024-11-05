@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { markdown } from '@/utils/node/files';
 
 import Side from './_components/Side';
@@ -5,11 +7,18 @@ import Side from './_components/Side';
 import 'prismjs/themes/prism-tomorrow.css';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
-  const { component, headings } = await markdown.readFile({ id: postId });
+  const { component, headings, metaData } = await markdown.readFile({ id: postId });
 
   return (
     <div className="flex gap-5">
-      <div className="post prism prose max-w-full">{component}</div>
+      <div className="post prism prose max-w-full">
+        {metaData.thumbnail && (
+          <div className="relative my-4 h-160">
+            <Image alt="thumbnail" className="m-0" objectFit="cover" src={metaData.thumbnail} fill></Image>
+          </div>
+        )}
+        {component}
+      </div>
       <Side>
         <div className="flex flex-col gap-2">
           {headings.map(({ depth, title, link }) => (

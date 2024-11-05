@@ -7,6 +7,7 @@ export const extend: Config['theme'] = {
   },
   height: {
     13: '3.25rem',
+    160: '40rem',
   },
   maxWidth: {
     112: '28rem',

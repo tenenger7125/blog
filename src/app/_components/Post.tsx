@@ -18,9 +18,9 @@ const Post = ({ postId, metaData: { title, description, tags, thumbnail } }: Pos
         <Image
           alt="post image"
           className="h-40 w-full object-cover transition-all group-hover:scale-125"
-          height={0}
+          height={160}
           src={thumbnail || 'https://placehold.co/600x400'}
-          width={0}
+          width={450}
         />
         {isExistTag && <span className={tagStyle({ className: tagClassName })}>{mainTag}</span>}
       </div>
