@@ -15,8 +15,8 @@ importers:
         specifier: ^4.0.4
         version: 4.0.4
       dotori-components:
-        specifier: 0.0.10-alpha.8
-        version: 0.0.10-alpha.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.10-alpha.9
+        version: 0.0.10-alpha.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dotori-context:
         specifier: ^0.0.2
         version: 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1754,8 +1754,8 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
-  dotori-components@0.0.10-alpha.8:
-    resolution: {integrity: sha512-xVoxNj6cOJsBoC24qlM2Siklu6hJG7a6IQmSTi68WqVoyNhm3UghFx/7D8f4nBWE4zW73g7PFutgdMajT1EHyA==}
+  dotori-components@0.0.10-alpha.9:
+    resolution: {integrity: sha512-9n8QEb1k34NrInArLjGfcQmzMIEpzJD0B6Kg2G/hxIhG6zOEiaWA8lm6NpX6sMrugW4J53cPpWr/zCElkYayow==}
     engines: {node: '>= 20.15.0'}
     peerDependencies:
       react: '>=18.0.0'
@@ -6001,7 +6001,7 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.7.0
 
-  dotori-components@0.0.10-alpha.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  dotori-components@0.0.10-alpha.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       dompurify: 3.1.7
       react: 18.3.1
