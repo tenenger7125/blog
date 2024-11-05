@@ -166,5 +166,6 @@ export const defaultTheme: Config['theme'] = {
   },
   fontFamily: {
     pretendard: ['var(--font-pretendard)'],
+    yOnepickBold: ['var(--font-YOnepick-Bold)'],
   },
 };
