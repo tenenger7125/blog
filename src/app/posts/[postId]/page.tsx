@@ -36,6 +36,8 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   );
 };
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const files = await markdown.readFiles();
 
