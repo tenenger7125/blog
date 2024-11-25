@@ -14,4 +14,7 @@
   .prism code:not(.code-highlight) {
     @apply mx-1 bg-gray-200;
   }
+  .prism .code-highlight {
+    @apply whitespace-pre-wrap;
+  }
 }
