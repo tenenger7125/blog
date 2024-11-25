@@ -15,13 +15,11 @@ const Side = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative max-w-60">
         <div className="sticky right-0 top-16 rounded-lg bg-white lg:hidden">
           <ActionIcon icon="hamburger" size="xl" onClick={open} />
         </div>
-        <div className="sticky right-0 top-16 max-h-svh min-w-40 overflow-y-scroll scrollbar-hide max-lg:hidden">
-          {children}
-        </div>
+        <div className="sticky right-0 top-16 max-h-svh overflow-y-scroll scrollbar-hide max-lg:hidden">{children}</div>
       </div>
       <Drawer close={close} isOpen={isOpen}>
         <div className="px-2 py-1">{children}</div>

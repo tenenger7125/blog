@@ -11,7 +11,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
 
   return (
     <div className="flex gap-5">
-      <div className="post prism prose max-w-full">
+      <div className="post prism prose max-w-full flex-1">
         {metaData.thumbnail && (
           <div className="relative my-4 h-160">
             <Image
