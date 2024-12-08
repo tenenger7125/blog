@@ -39,6 +39,8 @@ const tagMapStyle = {
   js: 'bg-yellow-400 text-black',
   cs: 'bg-cyan-400 text-white',
   algorithm: 'bg-red-400 text-white',
+  'react-query': 'bg-red-600 text-white',
+  hackerton: 'bg-teal-600 text-white',
 };
 
 const PostStyle = cn([
