@@ -65,7 +65,7 @@ const defaultScroll = {
   isScrollUp: false,
 };
 
-const headerStyle = cn('sticky z-[3] mb-3 w-full border-b border-gray-100 bg-white transition-all px-3 py-4', {
+const headerStyle = cn('sticky z-[3] w-full border-b border-gray-100 bg-white transition-all px-3 py-4', {
   variants: {
     hidden: {
       true: '-top-full',
