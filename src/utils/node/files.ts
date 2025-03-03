@@ -15,6 +15,12 @@ import { FOLDER_PATH } from '@/constants/node';
 
 import type { Post } from '@/types/post';
 
+const remarkReplaceImageSrc = () => (tree: Root) => {
+  visit(tree, 'image', node => {
+    Object.assign(node, { url: `${process.env.NEXT_PUBLIC_BASE_PATH}${node.url}` });
+  });
+};
+
 const getHeadingsWithHash = () => {
   const headings: { depth: number; title: string; link: string }[] = [];
 
@@ -52,7 +58,7 @@ export const markdown = {
       options: {
         parseFrontmatter: true,
         mdxOptions: {
-          remarkPlugins: [remarkParse, extractHeadings, remarkGfm],
+          remarkPlugins: [remarkParse, remarkReplaceImageSrc, extractHeadings, remarkGfm],
           rehypePlugins: [
             rehypeSlug,
             [rehypeAutolinkHeadings, { behavior: 'prepend' }],
