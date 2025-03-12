@@ -4,8 +4,6 @@ import { markdown } from '@/utils/node/files';
 
 import Side from './_components/Side';
 
-import 'prismjs/themes/prism-tomorrow.css';
-
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   const { component, headings, metaData } = await markdown.readFile({ id: postId });
 
