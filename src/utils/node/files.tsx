@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import GithubSlugger from 'github-slugger';
 import { globby, Options } from 'globby';
 import { Root, Text } from 'mdast';
+import dynamic from 'next/dynamic';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
@@ -14,6 +15,8 @@ import { visit } from 'unist-util-visit';
 import { FOLDER_PATH } from '@/constants/node';
 
 import type { Post } from '@/types/post';
+
+const CodeBlock = dynamic(() => import('../../app/posts/[postId]/_components/CodeBlock'), { ssr: false });
 
 const getHeadingsWithHash = () => {
   const headings: { depth: number; title: string; link: string }[] = [];
@@ -62,6 +65,7 @@ export const markdown = {
       },
       components: {
         img: props => <img {...props} alt={props.alt} src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${props.src}`} />,
+        pre: CodeBlock,
       },
     });
 
