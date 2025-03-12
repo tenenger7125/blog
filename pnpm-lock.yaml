@@ -15,14 +15,14 @@ importers:
         specifier: ^4.0.4
         version: 4.0.4
       dotori-components:
-        specifier: 0.0.10-alpha.9
-        version: 0.0.10-alpha.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.10-alpha.12
+        version: 0.0.10-alpha.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dotori-context:
         specifier: ^0.0.2
         version: 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dotori-hooks:
-        specifier: 0.0.5-alpha.0
-        version: 0.0.5-alpha.0(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.5-alpha.2
+        version: 0.0.5-alpha.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dotori-icons:
         specifier: ^0.0.9-alpha.2
         version: 0.0.9-alpha.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -76,17 +76,17 @@ importers:
         specifier: ^8
         version: 8.57.0
       eslint-config-dotori-base:
-        specifier: ^0.0.9
-        version: 0.0.9(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-jsx-a11y@6.10.0(eslint@8.57.0))(eslint-plugin-react-hooks@4.6.2(eslint@8.57.0))(eslint-plugin-react@7.35.2(eslint@8.57.0))(eslint@8.57.0)
+        specifier: ^0.0.10
+        version: 0.0.10(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-jsx-a11y@6.10.0(eslint@8.57.0))(eslint-plugin-react-hooks@4.6.2(eslint@8.57.0))(eslint-plugin-react@7.35.2(eslint@8.57.0))(eslint@8.57.0)
       eslint-config-dotori-import-sort:
-        specifier: ^0.0.6
-        version: 0.0.6(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)
+        specifier: ^0.0.7
+        version: 0.0.7(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)
       eslint-config-dotori-react:
-        specifier: ^0.0.4
-        version: 0.0.4(eslint@8.57.0)
+        specifier: ^0.0.5
+        version: 0.0.5(eslint@8.57.0)
       eslint-config-dotori-typescript:
-        specifier: ^0.0.14
-        version: 0.0.14(eslint@8.57.0)(typescript@5.6.2)
+        specifier: ^0.0.17
+        version: 0.0.17(eslint@8.57.0)(typescript@5.6.2)
       eslint-config-next:
         specifier: 14.2.9
         version: 14.2.9(eslint@8.57.0)(typescript@5.6.2)
@@ -1764,8 +1764,8 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
-  dotori-components@0.0.10-alpha.9:
-    resolution: {integrity: sha512-9n8QEb1k34NrInArLjGfcQmzMIEpzJD0B6Kg2G/hxIhG6zOEiaWA8lm6NpX6sMrugW4J53cPpWr/zCElkYayow==}
+  dotori-components@0.0.10-alpha.12:
+    resolution: {integrity: sha512-tKm/dFEaGWx3uY5ZhWaXC9Anzpr31gd49svqKuLAV+Z7RHsrvm8D67CJl6c0+HaQwnkBOI8MT3LwgRen5D6viw==}
     engines: {node: '>= 20.15.0'}
     peerDependencies:
       react: '>=18.0.0'
@@ -1778,8 +1778,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  dotori-hooks@0.0.5-alpha.0:
-    resolution: {integrity: sha512-+nAygsjwkzOWaX0W0Raermg+rFlN0+2GDBuH2mfb4XNNIb8amAt3RXV7Ew/W+QIPwm4kO3bHVr3KSt3eeEp8mA==}
+  dotori-hooks@0.0.5-alpha.2:
+    resolution: {integrity: sha512-FBPoHkL0Vcrgyov35agsrNLc0T1TRhRiezmUA5TtyoYT+RZ8KcIYVqcS44AaJhK1WXtrtIO50ewaF0PkxviU1w==}
     engines: {node: '>= 20.15.0'}
     peerDependencies:
       react: '>=18.0.0'
@@ -1916,23 +1916,23 @@ packages:
       eslint-plugin-react: ^7.28.0
       eslint-plugin-react-hooks: ^4.3.0
 
-  eslint-config-dotori-base@0.0.9:
-    resolution: {integrity: sha512-uP2qp3Xml25ut7+r9RMBa8AwccZ9fTl99AGsPUYIXCi5Svg4XI7/rQD8BAzPpT38nqnMBkHClqJ4p9qNlWe76Q==}
+  eslint-config-dotori-base@0.0.10:
+    resolution: {integrity: sha512-274+Ti/5b26GJ6i+xl/AFA32aK43S+qm0O1lgNiUlKeGUG+ykCLSPMVSXHXW0THIvWvZE7cToiNdEcDZ3GKPaQ==}
     peerDependencies:
       eslint: ^8.2.0
 
-  eslint-config-dotori-import-sort@0.0.6:
-    resolution: {integrity: sha512-GLQ6iyip8MnL3LVdoKIC0MmfLheOwyuMuU8p5OpcKzgsqUkWJ8UewtN38tTSBzfAbayZz5RHr65Rp+E1ajVq4A==}
+  eslint-config-dotori-import-sort@0.0.7:
+    resolution: {integrity: sha512-05y29owGMKruUTWmTY8A15zE0rE0/8TkTs/C8NNXNz1gjH2/jyNF8iLHiIjtWKSKXf7XsIlWPPiIzivTsfv2GA==}
     peerDependencies:
       eslint: ^8.2.0
 
-  eslint-config-dotori-react@0.0.4:
-    resolution: {integrity: sha512-v+XZfJ6Uf9XBajNaI+UFvpNfubhfz8B8KrMFrWKteU3BpQNxesNY4Fy2g5DiW4vmxmOO/iEooivbWk3LNknEXQ==}
+  eslint-config-dotori-react@0.0.5:
+    resolution: {integrity: sha512-IVumpGUG90O28q3PKHfE09rQjlSsWTxnJczGbUZbFhqggxX7DX+o5onEMzAnu/z55JBAfegZv4TF4hxX8rCCrQ==}
     peerDependencies:
       eslint: ^8.2.0
 
-  eslint-config-dotori-typescript@0.0.14:
-    resolution: {integrity: sha512-TfCFvtQJcjVDzkLfvDT8XvOc4j1fC0MMuyvsFALjZI+If8gvWO5qNVF7WBmE7zbID296MApimqYmvU0JZB8hqA==}
+  eslint-config-dotori-typescript@0.0.17:
+    resolution: {integrity: sha512-h2AB4nJgWSEUCIPeaSCpqnyXUlSdkmXORLPcLn+SSUk26kGQgJavQqjyDPizb0Tt9GZZ6TDPsd89cVuUVY6Mzw==}
     peerDependencies:
       eslint: ^8.2.0
 
@@ -2020,6 +2020,15 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
+
+  eslint-plugin-unused-imports@4.1.4:
+    resolution: {integrity: sha512-YptD6IzQjDardkl0POxnnRBhU1OEePMV0nd6siHaRBbd+lyh6NAhFEobiznKU7kTsSsDeSD62Pe7kAM1b7dAZQ==}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^8.0.0-0 || ^7.0.0 || ^6.0.0 || ^5.0.0
+      eslint: ^9.0.0 || ^8.0.0
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
 
   eslint-scope@7.2.2:
     resolution: {integrity: sha512-dOt21O7lTMhDM+X9mB4GX+DZrZtCUJPL/wlcTqxyrx5IvO0IYtILdtrQGQp+8n5S0gwSVmOf9NQrjMOgfQZlIg==}
@@ -2756,6 +2765,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.isfunction@3.0.9:
     resolution: {integrity: sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==}
@@ -6075,7 +6085,7 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.7.0
 
-  dotori-components@0.0.10-alpha.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  dotori-components@0.0.10-alpha.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       dompurify: 3.1.7
       react: 18.3.1
@@ -6087,7 +6097,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  dotori-hooks@0.0.5-alpha.0(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  dotori-hooks@0.0.5-alpha.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@tanstack/react-query': 5.59.0(react@18.3.1)
       exceljs: 4.4.0
@@ -6286,7 +6296,7 @@ snapshots:
       object.assign: 4.1.5
       object.entries: 1.1.8
 
-  eslint-config-dotori-base@0.0.9(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-jsx-a11y@6.10.0(eslint@8.57.0))(eslint-plugin-react-hooks@4.6.2(eslint@8.57.0))(eslint-plugin-react@7.35.2(eslint@8.57.0))(eslint@8.57.0):
+  eslint-config-dotori-base@0.0.10(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-jsx-a11y@6.10.0(eslint@8.57.0))(eslint-plugin-react-hooks@4.6.2(eslint@8.57.0))(eslint-plugin-react@7.35.2(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
       eslint-config-airbnb: 19.0.4(eslint-plugin-import@2.30.0)(eslint-plugin-jsx-a11y@6.10.0(eslint@8.57.0))(eslint-plugin-react-hooks@4.6.2(eslint@8.57.0))(eslint-plugin-react@7.35.2(eslint@8.57.0))(eslint@8.57.0)
@@ -6301,7 +6311,7 @@ snapshots:
       - eslint-plugin-react-hooks
       - supports-color
 
-  eslint-config-dotori-import-sort@0.0.6(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0):
+  eslint-config-dotori-import-sort@0.0.7(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
       eslint-plugin-import: 2.30.0(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)
@@ -6311,7 +6321,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-config-dotori-react@0.0.4(eslint@8.57.0):
+  eslint-config-dotori-react@0.0.5(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
       eslint-plugin-jsx-a11y: 6.10.0(eslint@8.57.0)
@@ -6319,7 +6329,7 @@ snapshots:
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
       eslint-plugin-react-refresh: 0.4.11(eslint@8.57.0)
 
-  eslint-config-dotori-typescript@0.0.14(eslint@8.57.0)(typescript@5.6.2):
+  eslint-config-dotori-typescript@0.0.17(eslint@8.57.0)(typescript@5.6.2):
     dependencies:
       '@typescript-eslint/eslint-plugin': 7.18.0(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)(typescript@5.6.2)
       '@typescript-eslint/parser': 7.18.0(eslint@8.57.0)(typescript@5.6.2)
@@ -6327,6 +6337,7 @@ snapshots:
       eslint-config-airbnb-typescript: 18.0.0(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)(typescript@5.6.2))(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0)
       eslint-config-prettier: 9.1.0(eslint@8.57.0)
       eslint-plugin-import: 2.30.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)
+      eslint-plugin-unused-imports: 4.1.4(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -6520,6 +6531,12 @@ snapshots:
       semver: 6.3.1
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
+
+  eslint-plugin-unused-imports@4.1.4(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0):
+    dependencies:
+      eslint: 8.57.0
+    optionalDependencies:
+      '@typescript-eslint/eslint-plugin': 7.18.0(@typescript-eslint/parser@8.5.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)(typescript@5.6.2)
 
   eslint-scope@7.2.2:
     dependencies:
