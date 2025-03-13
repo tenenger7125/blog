@@ -16,7 +16,7 @@ import { FOLDER_PATH } from '@/constants/node';
 
 import type { Post } from '@/types/post';
 
-const CodeBlock = dynamic(() => import('../../app/posts/[postId]/_components/CodeBlock'), { ssr: false });
+const CodeBlock = dynamic(() => import('@/components/CodeBlock'), { ssr: false });
 
 const getHeadingsWithHash = () => {
   const headings: { depth: number; title: string; link: string }[] = [];
