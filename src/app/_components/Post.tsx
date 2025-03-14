@@ -41,6 +41,7 @@ const tagMapStyle = {
   algorithm: 'bg-red-400 text-white',
   'react-query': 'bg-red-600 text-white',
   hackerton: 'bg-teal-600 text-white',
+  prismjs: 'text-white bg-gray-900',
 };
 
 const PostStyle = cn([
