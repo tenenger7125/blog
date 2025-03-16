@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cn } from 'dotori-utils';
 import Link from 'next/link';
@@ -11,36 +11,38 @@ const Header = () => {
   const [scroll, setScroll] = useState(defaultScroll);
   const prev = useRef(scroll);
 
+  const onScroll = useCallback(() => {
+    prev.current = scroll;
+
+    const prevScroll = prev.current;
+
+    const scrollPosition = getScrollPosition();
+    const newIsScrollDown =
+      scrollPosition.y === prevScroll.y ? prevScroll.isScrollDown : scrollPosition.y > prevScroll.y;
+    const newIsScrollUp = scrollPosition.y === prevScroll.y ? prevScroll.isScrollUp : scrollPosition.y < prevScroll.y;
+
+    const newScroll = {
+      ...scrollPosition,
+      isScrollDown: newIsScrollDown,
+      isScrollUp: newIsScrollUp,
+    };
+
+    setScroll(newScroll);
+  }, [scroll]);
+
   useEffect(() => {
     setScroll(p => ({ ...p, ...getScrollPosition() }));
+    onScroll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    prev.current = scroll;
-
-    const onScroll = () => {
-      const prevScroll = prev.current;
-
-      const scrollPosition = getScrollPosition();
-      const newIsScrollDown =
-        scrollPosition.y === prevScroll.y ? prevScroll.isScrollDown : scrollPosition.y > prevScroll.y;
-      const newIsScrollUp = scrollPosition.y === prevScroll.y ? prevScroll.isScrollUp : scrollPosition.y < prevScroll.y;
-
-      const newScroll = {
-        ...scrollPosition,
-        isScrollDown: newIsScrollDown,
-        isScrollUp: newIsScrollUp,
-      };
-
-      setScroll(newScroll);
-    };
-
     window.addEventListener('scroll', onScroll);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [scroll]);
+  }, [onScroll]);
 
   return (
     <header className={headerStyle({ hidden: scroll.isScrollDown })}>
