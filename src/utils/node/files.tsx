@@ -89,7 +89,7 @@ export const markdown = {
 
     const sortedContentsById = contents.toSorted((a, b) => +b.id - +a.id);
 
-    const [start, end] = [Math.max(1, limit * (page - 1)), Math.min(fileNames.length, limit * page)];
+    const [start, end] = [Math.max(0, limit * (page - 1)), Math.min(fileNames.length, limit * page)];
     const sliced = sortedContentsById.slice(start, end);
 
     return {
