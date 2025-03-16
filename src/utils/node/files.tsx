@@ -84,6 +84,6 @@ export const markdown = {
       fileNames.map(fileName => this.readFile({ cwd: options?.cwd, id: fileName.replace(/.md$/g, '') })),
     );
 
-    return contents;
+    return contents.toSorted((a, b) => +b.id - +a.id);
   },
 };
