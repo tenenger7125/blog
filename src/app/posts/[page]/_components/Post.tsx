@@ -3,8 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { PATH } from '@/constants';
-
-import type { Post as PostType } from '@/types/post';
+import { MarkdownFile } from '@/utils/node/files';
 
 const Post = ({ postId, metaData: { title, description, tags, thumbnail } }: PostProps) => {
   const isExistTag = tags.length > 0;
@@ -13,7 +12,7 @@ const Post = ({ postId, metaData: { title, description, tags, thumbnail } }: Pos
   const tagClassName = tagMapStyle[mainTag as keyof typeof tagMapStyle];
 
   return (
-    <Link className={PostStyle()} href={`${PATH.POSTS}/${postId}`}>
+    <Link className={PostStyle()} href={`${PATH.POST}/${postId}`}>
       <div className="relative h-40 w-full overflow-hidden bg-red-100">
         <Image
           alt="thumbnail"
@@ -30,8 +29,8 @@ const Post = ({ postId, metaData: { title, description, tags, thumbnail } }: Pos
 };
 
 interface PostProps {
-  postId: PostType['id'];
-  metaData: PostType['metaData'];
+  postId: MarkdownFile['id'];
+  metaData: MarkdownFile['metaData'];
 }
 
 const tagMapStyle = {

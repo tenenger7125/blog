@@ -1,10 +1,9 @@
-import { Pagination, PostList } from './_components';
+import { redirect } from 'next/navigation';
 
-const Home = () => (
-  <div>
-    <PostList />
-    <Pagination />
-  </div>
-);
+import { PATH } from '../constants';
 
-export default Home;
+const HOME = () => {
+  redirect(PATH.POSTS);
+};
+
+export default HOME;

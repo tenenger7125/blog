@@ -14,7 +14,7 @@ import { visit } from 'unist-util-visit';
 
 import { FOLDER_PATH } from '@/constants/node';
 
-import type { Post } from '@/types/post';
+import type { MetaData } from '@/types/post';
 
 const CodeBlock = dynamic(() => import('@/components/CodeBlock'), { ssr: false });
 
@@ -50,7 +50,7 @@ export const markdown = {
     const source = await fs.readFile(`${cwd ?? FOLDER_PATH.POSTS_ROOT}/${fileName}`, 'utf-8');
     const { extractHeadings, headings } = getHeadingsWithHash();
 
-    const { content, frontmatter } = await compileMDX<Post['metaData']>({
+    const { content, frontmatter } = await compileMDX<MetaData>({
       source,
       options: {
         parseFrontmatter: true,
@@ -78,12 +78,29 @@ export const markdown = {
     };
   },
 
-  async readFiles(options?: Options & { cwd: string }) {
+  async readFiles(options?: Options & Partial<{ cwd: string }> & Partial<{ page: number; limit: number }>) {
+    const defaultOptions = { page: 1, limit: Infinity };
+    const { page, limit } = { ...defaultOptions, ...options };
+
     const fileNames = await this.getFileNames(options);
     const contents = await Promise.all(
       fileNames.map(fileName => this.readFile({ cwd: options?.cwd, id: fileName.replace(/.md$/g, '') })),
     );
 
-    return contents.toSorted((a, b) => +b.id - +a.id);
+    const sortedContentsById = contents.toSorted((a, b) => +b.id - +a.id);
+
+    const [start, end] = [Math.max(1, limit * (page - 1)), Math.min(fileNames.length, limit * page)];
+    const sliced = sortedContentsById.slice(start, end);
+
+    return {
+      page,
+      limit,
+      contents: sliced,
+      totalPage: Math.ceil(fileNames.length / limit),
+      totalCount: fileNames.length,
+      currentPageCount: fileNames.length,
+    };
   },
 };
+
+export type MarkdownFile = Awaited<ReturnType<(typeof markdown)['readFile']>>;

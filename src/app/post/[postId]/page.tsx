@@ -43,7 +43,7 @@ export const revalidate = 60;
 export async function generateStaticParams() {
   const files = await markdown.readFiles();
 
-  return files.map(({ id }) => ({ postId: id }));
+  return files.contents.map(({ id }) => ({ postId: id }));
 }
 
 export async function generateMetadata({ params }: { params: { postId: string } }) {
