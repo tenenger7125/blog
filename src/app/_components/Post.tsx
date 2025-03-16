@@ -46,10 +46,10 @@ const tagMapStyle = {
 
 const PostStyle = cn([
   'group box-border w-full h-80 font-bold border border-gray-100 rounded-lg hover:bg-gray-100 p-2',
-  'max-md:w-full', // md 이하: full width
+  'w-full', // md 이하: full width
   'md:max-w-[calc(50%-5px)]', // md 이상: 50% - 5px
   'lg:max-w-[calc(33%-3px)]', // lg 이상: 33% - 3px
-  '2lg:w-80', // 2lg 이상: 80rem
+  '2lg:max-w-[calc(25%-7px)]', // 2lg 이상: 80rem
 ]);
 
 const tagStyle = cn('absolute right-2 top-2 text-xs font-normal uppercase py-1 px-2 rounded-lg bg-gray-400 text-black');
