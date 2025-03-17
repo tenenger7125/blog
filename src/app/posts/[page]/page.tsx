@@ -2,7 +2,7 @@ import { markdown } from '@/utils/node/files';
 
 import { Pagination, PostList } from './_components';
 
-const LIMIT_POST = 12;
+const LIMIT_POST = 24;
 
 const POSTS = async ({ params }: PostProps) => {
   const page = +params.page;
@@ -10,7 +10,7 @@ const POSTS = async ({ params }: PostProps) => {
   const files = await markdown.readFiles({ page, limit: LIMIT_POST });
 
   return (
-    <div>
+    <div className="flex flex-col justify-between">
       <PostList posts={files.contents} />
       <Pagination page={page} totalPage={files.totalPage} />
     </div>
