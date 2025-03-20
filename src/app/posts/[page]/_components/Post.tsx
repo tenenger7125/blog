@@ -13,12 +13,13 @@ const Post = ({ postId, metaData: { title, description, tags, thumbnail } }: Pos
 
   return (
     <Link className={PostStyle()} href={`${PATH.POST}/${postId}`}>
-      <div className="relative h-40 w-full overflow-hidden bg-red-100">
+      <div className="relative h-40 w-full overflow-hidden bg-inherit">
         <Image
           alt="thumbnail"
           className="object-cover transition-all group-hover:scale-125"
           src={`${process.env.NEXT_PUBLIC_BASE_PATH}${thumbnail}` || 'https://placehold.co/600x400'}
           fill
+          priority
         />
         {isExistTag && <span className={tagStyle({ className: tagClassName })}>{mainTag}</span>}
       </div>
