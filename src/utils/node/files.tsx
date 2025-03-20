@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import fs from 'fs/promises';
 
 import GithubSlugger from 'github-slugger';
@@ -64,7 +65,13 @@ export const markdown = {
         },
       },
       components: {
-        img: props => <img {...props} alt={props.alt} src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${props.src}`} />,
+        img: props => (
+          <img
+            {...props}
+            alt={props.alt}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${props.src?.replace('/public', '')}`}
+          />
+        ),
         pre: CodeBlock,
       },
     });
@@ -74,7 +81,7 @@ export const markdown = {
       source,
       headings,
       component: content,
-      metaData: frontmatter,
+      metaData: { ...frontmatter, thumbnail: frontmatter.thumbnail?.replace('/public', '') } as MetaData,
     };
   },
 
