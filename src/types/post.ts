@@ -3,4 +3,5 @@ export interface MetaData {
   description: string;
   tags: string[];
   thumbnail?: string;
+  date: string;
 }
