@@ -15,8 +15,8 @@ importers:
         specifier: ^4.0.4
         version: 4.0.4
       dotori-components:
-        specifier: ^0.0.15
-        version: 0.0.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.0.16
+        version: 0.0.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dotori-context:
         specifier: ^0.0.2
         version: 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -24,8 +24,8 @@ importers:
         specifier: 0.0.6
         version: 0.0.6(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dotori-icons:
-        specifier: 0.0.10
-        version: 0.0.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.0.11
+        version: 0.0.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dotori-utils:
         specifier: ^0.0.21
         version: 0.0.21(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1767,8 +1767,8 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
-  dotori-components@0.0.15:
-    resolution: {integrity: sha512-Wu3FlDa+5U16egdoWkIeRKeqVcf01gk+N4C5254IU55m1a7/+3Zy9EWMa1KdwDPISy2F9uEl0cQlbkFW9xS/xQ==}
+  dotori-components@0.0.16:
+    resolution: {integrity: sha512-8uGBAUgYTLbmrGpbKZs9vMMqmGCjI2NgoaP4oO93rLNf/4S3Nv9QmIRsbJgbjVUdCTz8P/E3wY9pCChAT/7dGw==}
     engines: {node: '>= 20.15.0'}
     peerDependencies:
       react: '>=18.0.0'
@@ -1788,8 +1788,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  dotori-icons@0.0.10:
-    resolution: {integrity: sha512-XFilah1dhH5HDRjx0rIHL75HktVVN+yzYcDV4kyVhOz1MDqQRfr+3rgW0vYfmdc9sT95HZRXAGiwlIrrXwKOLQ==}
+  dotori-icons@0.0.11:
+    resolution: {integrity: sha512-RixNDoGAfRgx8gZX+uyu7kpQIjG21+PTDepAx04+n6ZiyDPRHKzl6Npbu3LKoVszkk5qIflLrdQsqswoFilZOw==}
     engines: {node: '>= 20.15.0'}
     peerDependencies:
       react: '>=18.0.0'
@@ -6093,7 +6093,7 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.7.0
 
-  dotori-components@0.0.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  dotori-components@0.0.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       dompurify: 3.2.4
       react: 18.3.1
@@ -6117,7 +6117,7 @@ snapshots:
       - '@types/react'
       - immer
 
-  dotori-icons@0.0.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  dotori-icons@0.0.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

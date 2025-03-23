@@ -16,10 +16,10 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdast": "^4.0.4",
-    "dotori-components": "^0.0.15",
+    "dotori-components": "^0.0.16",
     "dotori-context": "^0.0.2",
     "dotori-hooks": "0.0.6",
-    "dotori-icons": "0.0.10",
+    "dotori-icons": "^0.0.11",
     "dotori-utils": "^0.0.21",
     "gh-pages": "^6.2.0",
     "github-slugger": "^2.0.0",
