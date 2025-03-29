@@ -9,6 +9,7 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
+import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import { visit } from 'unist-util-visit';
@@ -56,7 +57,7 @@ export const markdown = {
       options: {
         parseFrontmatter: true,
         mdxOptions: {
-          remarkPlugins: [remarkParse, extractHeadings, remarkGfm],
+          remarkPlugins: [remarkParse, remarkBreaks, extractHeadings, remarkGfm],
           rehypePlugins: [
             rehypeSlug,
             [rehypeAutolinkHeadings, { behavior: 'prepend' }],
