@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="flex w-full justify-between">
             <div className="flex flex-col gap-2">
               <h4 className="typo-xs700">
-                <span>마크다운 블로그</span>
+                <span>동그라미 블로그</span>
               </h4>
               <div>
                 &copy; <span>{year} LEE_DONG_GYU, All rights reserved.</span>
