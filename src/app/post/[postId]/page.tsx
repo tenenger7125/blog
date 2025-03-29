@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import { markdown } from '@/utils/node/files';
 
+import PostBreadcrumb from './_components/PostBreadcrumb';
 import Side from './_components/Side';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
@@ -10,6 +11,8 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   return (
     <div className="flex gap-5">
       <div className="post prism prose max-w-full flex-1">
+        <PostBreadcrumb postId={postId} />
+
         {metaData.thumbnail && (
           <div className="relative my-4 h-96 w-full">
             <Image
