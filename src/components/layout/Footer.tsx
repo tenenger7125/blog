@@ -1,6 +1,5 @@
+import { Icon } from 'dotori-icons';
 import { getNowMonthDate } from 'dotori-utils';
-
-import GithubIcon from '@/assets/logoes/github.svg';
 
 const Footer = () => {
   const { year } = getNowMonthDate();
@@ -20,7 +19,7 @@ const Footer = () => {
             </div>
             <div>
               <a href="https://github.com/tenenger7125/blog" rel="noopener noreferrer">
-                <GithubIcon className="h-6 w-6" />
+                <Icon icon="github" />
               </a>
             </div>
           </div>
