@@ -1,48 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-
 import { cn } from 'dotori-utils';
 import Link from 'next/link';
 
 import { PATH } from '@/constants';
+import { useScroll } from '@/hooks';
 
 const Header = () => {
-  const [scroll, setScroll] = useState(defaultScroll);
-  const prev = useRef(scroll);
-
-  const onScroll = useCallback(() => {
-    prev.current = scroll;
-
-    const prevScroll = prev.current;
-
-    const scrollPosition = getScrollPosition();
-    const newIsScrollDown =
-      scrollPosition.y === prevScroll.y ? prevScroll.isScrollDown : scrollPosition.y > prevScroll.y;
-    const newIsScrollUp = scrollPosition.y === prevScroll.y ? prevScroll.isScrollUp : scrollPosition.y < prevScroll.y;
-
-    const newScroll = {
-      ...scrollPosition,
-      isScrollDown: newIsScrollDown,
-      isScrollUp: newIsScrollUp,
-    };
-
-    setScroll(newScroll);
-  }, [scroll]);
-
-  useEffect(() => {
-    setScroll(p => ({ ...p, ...getScrollPosition() }));
-    onScroll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [onScroll]);
+  const scroll = useScroll();
 
   return (
     <header className={headerStyle({ hidden: scroll.isScrollDown })}>
@@ -53,18 +18,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
-
-const getScrollPosition = () => ({
-  x: window.scrollX,
-  y: window.scrollY,
-});
-
-const defaultScroll = {
-  x: 0,
-  y: 0,
-  isScrollDown: false,
-  isScrollUp: false,
 };
 
 const headerStyle = cn('sticky z-[3] w-full border-b border-gray-100 bg-white transition-all px-3 py-4', {
