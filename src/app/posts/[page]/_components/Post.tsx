@@ -1,18 +1,18 @@
 import { Icon } from 'dotori-icons';
 import { cn } from 'dotori-utils';
-import Image from 'next/image';
 import Link from 'next/link';
 
+import { NextImage } from '@/components';
 import { PATH } from '@/constants';
 import { MarkdownFile } from '@/utils/node/files';
 
 const Post = ({ postId, metaData: { title, description, tags, thumbnail, date } }: PostProps) => (
   <Link className={PostStyle()} href={`${PATH.POST}/${postId}`}>
     <div className="relative min-h-40 w-full overflow-hidden bg-inherit">
-      <Image
+      <NextImage
         alt="thumbnail"
         className="object-cover transition-all group-hover:scale-125"
-        src={`${process.env.NEXT_PUBLIC_BASE_PATH}${thumbnail}` || 'https://placehold.co/600x400'}
+        src={thumbnail || ''}
         fill
         priority
       />
