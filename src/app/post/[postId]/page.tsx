@@ -1,6 +1,7 @@
 import { NextImage } from '@/components';
 import { markdown } from '@/utils/node/files';
 
+import Comment from './_components/Comment';
 import PostBreadcrumb from './_components/PostBreadcrumb';
 import Side from './_components/Side';
 
@@ -18,6 +19,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
           </div>
         )}
         {component}
+        <Comment />
       </div>
       <Side>
         <div className="flex flex-col gap-2 border-l-2 border-gray-200">
