@@ -19,7 +19,7 @@ const Post = ({ postId, metaData: { title, description, tags, thumbnail, date } 
     </div>
     <div className="flex-1">
       <div className="line-clamp-1 flex flex-nowrap items-start gap-1">
-        {tags.map(tag => (
+        {sortedTags(tags).map(tag => (
           <span key={tag} className={tagStyle()}>
             {tag}
           </span>
@@ -41,6 +41,8 @@ interface PostProps {
   postId: MarkdownFile['id'];
   metaData: MarkdownFile['metaData'];
 }
+
+const sortedTags = (tags: string[]) => tags.toSorted((tagA, tagB) => tagA.localeCompare(tagB));
 
 const PostStyle = cn([
   'group box-border w-full h-80 font-bold border border-gray-100 rounded-lg hover:bg-gray-100 p-2 flex flex-col gap-2',
