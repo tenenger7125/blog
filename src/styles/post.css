@@ -1,21 +1,52 @@
 @layer components {
+  .post strong {
+    @apply text-inherit;
+  }
+
+  .post h1,
+  .post h2,
+  .post h3,
+  .post h4,
+  .post h5,
+  .post h6 {
+    @apply mr-3 text-inherit dark:text-gray-300;
+  }
+
+  .post h1 a,
+  .post h2 a,
+  .post h3 a,
+  .post h4 a,
+  .post h5 a,
+  .post h6 a {
+    @apply dark:decoration-white;
+  }
+
+  .post h1 a .icon.icon-link,
+  .post h2 a .icon.icon-link,
+  .post h3 a .icon.icon-link,
+  .post h4 a .icon.icon-link,
+  .post h5 a .icon.icon-link,
+  .post h6 a .icon.icon-link {
+    @apply before:mr-2 before:dark:text-white;
+  }
+
   .post h1 a .icon.icon-link {
-    @apply mr-3 text-inherit before:content-['#'];
+    @apply before:content-['#'];
   }
   .post h2 a .icon.icon-link {
-    @apply mr-3 text-inherit before:content-['##'];
+    @apply before:content-['##'];
   }
   .post h3 a .icon.icon-link {
-    @apply mr-3 text-inherit before:content-['###'];
+    @apply before:content-['###'];
   }
   .post h4 a .icon.icon-link {
-    @apply mr-3 text-inherit before:content-['####'];
+    @apply before:content-['####'];
   }
   .post h5 a .icon.icon-link {
-    @apply mr-3 text-inherit before:content-['#####'];
+    @apply before:content-['#####'];
   }
   .post h5 a .icon.icon-link {
-    @apply mr-3 text-inherit before:content-['######'];
+    @apply before:content-['######'];
   }
   .post ul {
     list-style-type: disc;
@@ -24,7 +55,7 @@
     list-style-type: decimal;
   }
   .post li::marker {
-    @apply text-gray-700;
+    @apply text-gray-700 dark:text-gray-400 dark:marker:text-gray-300;
   }
   .post a:not([aria-hidden='true']) {
     @apply text-blue-600;

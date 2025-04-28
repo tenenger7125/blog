@@ -32,7 +32,7 @@ interface PostBreadcrumbProps {
 const breadcrumbStyle = cn('', {
   variants: {
     disabled: {
-      true: 'pointer-events-none !text-gray-900 decoration-transparent',
+      true: 'pointer-events-none !text-gray-900 decoration-transparent dark:!text-gray-600',
       false: '',
     },
   },

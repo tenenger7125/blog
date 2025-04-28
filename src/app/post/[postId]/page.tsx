@@ -10,7 +10,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
 
   return (
     <div className="flex gap-5">
-      <div className="post prism prose max-w-full flex-1">
+      <div className="post prism prose max-w-full flex-1 dark:text-gray-300">
         <PostBreadcrumb postId={postId} />
 
         {metaData.thumbnail && (
@@ -22,7 +22,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
         <Comment />
       </div>
       <Side>
-        <div className="flex flex-col gap-2 border-l-2 border-gray-200">
+        <div className="flex flex-col gap-2 border-l-2 border-gray-200 dark:text-gray-600">
           {headings.map(({ depth, title, link }) => (
             <a
               key={link}

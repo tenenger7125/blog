@@ -46,6 +46,7 @@ const sortedTags = (tags: string[]) => tags.toSorted((tagA, tagB) => tagA.locale
 
 const PostStyle = cn([
   'group box-border w-full h-80 font-bold border border-gray-100 rounded-lg hover:bg-gray-100 p-2 flex flex-col gap-2',
+  'dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-gray-400',
   'w-full', // md 이하: full width
   'md:max-w-[calc(50%-5px)]', // md 이상: 50% - 5px
   'lg:max-w-[calc(33%-3px)]', // lg 이상: 33% - 3px
