@@ -17,6 +17,23 @@ const Layout = ({ children }: LayoutProps) => (
       </main>
       <ScrollToTop />
       <Footer />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+              (function() {
+                try {
+                  var mode = localStorage.getItem('lightMode');
+                  if (mode === 'true') {
+                    document.documentElement.classList.add('light');
+                  } else if (mode === 'false') {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+        }}
+        defer
+      />
     </body>
   </>
 );
