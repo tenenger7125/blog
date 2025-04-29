@@ -13,6 +13,7 @@ export const extend: Config['theme'] = {
     112: '28rem',
     '1/2': '50%',
     '8xl': '84rem',
+    initial: 'initial',
   },
   screens: {
     '2lg': '1500px',

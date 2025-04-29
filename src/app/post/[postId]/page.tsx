@@ -9,8 +9,8 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   const { component, headings, metaData } = await markdown.readFile({ id: postId });
 
   return (
-    <div className="flex gap-5">
-      <div className="post prism prose max-w-full flex-1 dark:text-gray-300">
+    <div className="relative flex w-full max-w-full justify-center gap-5">
+      <div className="post prism prose max-w-full dark:text-gray-300 lg:max-w-[70%]">
         <PostBreadcrumb postId={postId} />
 
         {metaData.thumbnail && (
