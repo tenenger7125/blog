@@ -16,7 +16,7 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdast": "^4.0.4",
-    "dotori-components": "^0.0.20",
+    "dotori-components": "0.0.22-alpha.1",
     "dotori-context": "^0.0.2",
     "dotori-hooks": "0.0.7",
     "dotori-icons": "^0.0.12",
