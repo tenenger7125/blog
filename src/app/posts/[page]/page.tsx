@@ -10,7 +10,7 @@ const POSTS = async ({ params }: PostProps) => {
   const files = await markdown.readFiles({ page, limit: LIMIT_POST });
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex w-full flex-col justify-between">
       <PostList posts={files.contents} />
       <Pagination page={page} totalPage={files.totalPage} />
     </div>
