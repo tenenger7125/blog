@@ -15,11 +15,11 @@ const isLightMode =
   localLightMode === undefined ? (systemLightMode === undefined ? false : systemLightMode) : localLightMode;
 
 const LightModeSwitch = () => {
-  const { isOpen: isLight, open: darkOn, close: darkOff } = useDisClosure(false);
+  const { isOpen: isLight, open: lightOn, close: lightOff } = useDisClosure(false);
 
   useEffect(() => {
-    if (isLightMode) darkOn();
-    else darkOff();
+    if (isLightMode) lightOn();
+    else lightOff();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -32,7 +32,7 @@ const LightModeSwitch = () => {
 
   return (
     <>
-      <DotoriSwitch checked={isLight} off={darkOff} on={darkOn} />
+      <DotoriSwitch checked={isLight} off={lightOff} on={lightOn} />
     </>
   );
 };
