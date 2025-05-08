@@ -29,7 +29,9 @@ const Layout = ({ children }: LayoutProps) => (
         defer
       />
       <Header />
-      <main className="relative z-[2] mx-auto mt-10 flex h-full w-full flex-1 bg-inherit px-4 pb-10">{children}</main>
+      <main className="relative z-[2] mx-auto mt-10 flex h-full w-full max-w-8xl flex-1 bg-inherit px-4 pb-10">
+        {children}
+      </main>
       <ScrollToTop />
       <Footer />
     </body>
