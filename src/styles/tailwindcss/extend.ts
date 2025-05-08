@@ -15,6 +15,9 @@ export const extend: Config['theme'] = {
     '8xl': '84rem',
     initial: 'initial',
   },
+  maxHeight: {
+    128: '32rem',
+  },
   screens: {
     '2lg': '1500px',
   },
