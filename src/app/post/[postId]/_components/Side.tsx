@@ -27,7 +27,7 @@ const Side = ({ children }: { children: React.ReactNode }) => {
         </Drawer>
       </div>
 
-      <div className="sticky right-0 top-20 max-h-128 min-w-72 overflow-y-scroll max-lg:hidden">{children}</div>
+      <div className="sticky right-0 top-20 max-h-128 min-w-72 overflow-y-auto max-lg:hidden">{children}</div>
     </>
   );
 };
