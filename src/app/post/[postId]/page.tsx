@@ -1,3 +1,4 @@
+import { metadata } from '@/app/config/metadata';
 import { NextImage } from '@/components';
 import { markdown } from '@/utils/node/files';
 
@@ -51,6 +52,7 @@ export async function generateMetadata({ params }: { params: { postId: string } 
   const { metaData } = await markdown.readFile({ id: postId });
 
   return {
+    ...metadata,
     title: metaData.title,
     description: metaData.description,
   };
