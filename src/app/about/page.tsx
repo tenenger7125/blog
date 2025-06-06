@@ -17,6 +17,7 @@ const contents = [
     company: '크리스타비전',
     iconSrc: crystarIcon.src,
     date: '2024.12 ~ 2025.04',
+    job: '프론트엔드',
     children: [
       {
         title: '안과 의사를 위한 안저 질환 AI 판별 웹사이트',
@@ -88,6 +89,7 @@ const contents = [
     company: '진학어플라이',
     iconSrc: jinhakapplyIcon.src,
     date: '2023.08 ~ 2024.09',
+    job: '프론트엔드',
     children: [
       {
         title: '대학 입학관리 프로그램, SQL 프로시저, 출력물 유지보수',
@@ -100,6 +102,7 @@ const contents = [
     company: '원티드 프리온보딩 프론트엔드',
     iconSrc: wantedIcon.src,
     date: '2023.06 ~ 2023.07',
+    job: '교육생',
     children: [
       {
         title: '프론트엔드 교육 프로그램 참여',
@@ -113,6 +116,7 @@ const contents = [
   {
     company: '제로베이스 프론트엔드 부트캠프',
     date: '2023.01 ~ 2023.05',
+    job: '교육생',
     iconSrc: zerobaseIcon.src,
     children: [
       {
@@ -127,6 +131,7 @@ const contents = [
   },
   {
     company: '한국외국어대학교',
+    job: '프론트엔드',
     icon: <HufsIcon />,
     date: '2022.04 ~ 2022.12',
     children: [{ title: '대학교 홈페이지 유지보수', descriptions: ['기술스택 : HTML, CSS, Javascript'] }],
@@ -161,13 +166,7 @@ const AboutPage = () => (
       <h2 className="text-2xl font-bold">타임라인</h2>
       <div className="flex flex-col gap-2">
         {contents.map((content, index) => (
-          <VerticalTimelineElement
-            key={index}
-            company={content.company}
-            date={content.date}
-            icon={content.icon}
-            iconSrc={content.iconSrc}
-            position={index % 2 === 0 ? 'left' : 'right'}>
+          <VerticalTimelineElement {...content} key={index} position={index % 2 === 0 ? 'left' : 'right'}>
             <div className="flex flex-col gap-2 p-4">
               {content.children.map(({ title, descriptions }) => (
                 <div key={title}>
@@ -193,6 +192,7 @@ const VerticalTimelineElement = ({
   iconSrc,
   date,
   alt,
+  job,
 }: VerticalTimelineElementProps) => (
   <div>
     <div className={verticalTimelineElementStyle({ position })}>
@@ -211,7 +211,7 @@ const VerticalTimelineElement = ({
             />
           )}
           <div className={dateStyle({ position })}>
-            <div>{company}</div>
+            <div>{[company, job].filter(Boolean).join(' / ')}</div>
             <div>{date}</div>
           </div>
         </div>
@@ -231,6 +231,7 @@ interface VerticalTimelineElementProps {
   iconSrc?: string;
   date: string;
   alt?: string;
+  job?: string;
 }
 
 const verticalTimelineElementStyle = cn('flex p-5 lg:flex', {
