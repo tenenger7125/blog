@@ -4,13 +4,9 @@ import { cn } from 'dotori-utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import armyIcon from '@/assets/career/army.jpeg';
 import crystarIcon from '@/assets/career/crystar_lightmode 2.png';
 import HufsIcon from '@/assets/career/hufs.svg';
 import jinhakapplyIcon from '@/assets/career/jinhakapply.png';
-import KNUIcon from '@/assets/career/knu.svg';
-import wantedIcon from '@/assets/career/wanted.png';
-import zerobaseIcon from '@/assets/career/zb.png';
 
 const contents = [
   {
@@ -99,54 +95,11 @@ const contents = [
     ],
   },
   {
-    company: '원티드 프리온보딩 프론트엔드',
-    iconSrc: wantedIcon.src,
-    date: '2023.06 ~ 2023.07',
-    job: '교육생',
-    children: [
-      {
-        title: '프론트엔드 교육 프로그램 참여',
-        descriptions: [
-          '개인 과제 : API 호출을 최소화한 캐시 기능으로 성능을 고려한 효율적인 개발',
-          '팀 과제 : 프론트엔드 개발자들간의 협업, Best Pratice 공유',
-        ],
-      },
-    ],
-  },
-  {
-    company: '제로베이스 프론트엔드 부트캠프',
-    date: '2023.01 ~ 2023.05',
-    job: '교육생',
-    iconSrc: zerobaseIcon.src,
-    children: [
-      {
-        title: '프론트엔드 교육 부트캠프 참여',
-        descriptions: ['모던 자바스크립트 책 학습', '바닐라 자바스크립트 및 리액트 페어 프로그래밍'],
-      },
-      {
-        title: '신발 쇼핑몰 팀 프로젝트',
-        descriptions: ['기술스택 : React, Javascript, Styled-Components, Mantine, React-Query, Express, Mongodb, AWS'],
-      },
-    ],
-  },
-  {
     company: '한국외국어대학교',
     job: '프론트엔드',
     icon: <HufsIcon />,
     date: '2022.04 ~ 2022.12',
     children: [{ title: '대학교 홈페이지 유지보수', descriptions: ['기술스택 : HTML, CSS, Javascript'] }],
-  },
-  {
-    company: '군 복무',
-    iconSrc: armyIcon.src,
-    date: '2019.03 ~ 2021.06',
-    children: [{ title: 'ROTC 화생방 장교', descriptions: ['27사단 포병여단'] }],
-  },
-  {
-    company: '강원대학교',
-    icon: <KNUIcon />,
-    date: '2015.03 ~ 2019.02',
-    children: [{ title: '생명과학 졸업', descriptions: [] }],
   },
 ];
 
