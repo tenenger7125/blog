@@ -22,9 +22,6 @@ const Header = () => {
             <li>
               <Link href={PATH.POSTS}>포스트</Link>
             </li>
-            <li>
-              <Link href={PATH.ABOUT}>소개</Link>
-            </li>
           </ol>
         </div>
 
