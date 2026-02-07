@@ -24,7 +24,9 @@ const Side = ({ children }: { children: React.ReactNode }) => {
           <SheetContent>
             <SheetHeader>
               <SheetTitle></SheetTitle>
-              <SheetDescription asChild>{children}</SheetDescription>
+              <SheetDescription asChild>
+                <div>{children}</div>
+              </SheetDescription>
             </SheetHeader>
           </SheetContent>
         </Sheet>
