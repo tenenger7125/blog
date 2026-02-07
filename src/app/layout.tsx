@@ -9,7 +9,7 @@ import '@/styles/globals.css';
 import 'prismjs/themes/prism-tomorrow.css';
 
 const RootLayout = ({ children }: RootLayoutProps) => (
-  <html lang="ko">
+  <html lang="ko" suppressHydrationWarning>
     <ClientProvider />
     <Layout>{children}</Layout>
   </html>

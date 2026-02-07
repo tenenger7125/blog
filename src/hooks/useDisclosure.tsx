@@ -6,8 +6,9 @@ const useDisClosure = (initialIsOpen: boolean = false) => {
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
   const toggle = useCallback(() => setIsOpen(prev => !prev), []);
+  const set = useCallback((value: boolean) => setIsOpen(value), []);
 
-  return { isOpen, open, close, toggle };
+  return [isOpen, { open, close, toggle, set }] as const;
 };
 
 export default useDisClosure;
