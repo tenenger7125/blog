@@ -1,5 +1,6 @@
+import Image from 'next/image';
+
 import { metadata } from '@/app/config/metadata';
-import { NextImage } from '@/components';
 import { markdown } from '@/utils/node/files';
 
 import Comment from './_components/Comment';
@@ -16,7 +17,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
 
         {metaData.thumbnail && (
           <div className="relative my-4 h-96 w-full">
-            <NextImage alt="thumbnail" className="m-0 object-contain" src={metaData.thumbnail} fill />
+            <Image alt="thumbnail" className="m-0 object-contain" src={metaData.thumbnail} fill />
           </div>
         )}
         {component}
