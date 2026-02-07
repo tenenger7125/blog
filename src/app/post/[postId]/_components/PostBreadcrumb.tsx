@@ -1,7 +1,12 @@
-import { cn } from 'dotori-utils';
-import Link from 'next/link';
+import React from 'react';
 
-import { Breadcrumb } from '@/components';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 import { PATH } from '@/constants';
 
 const PostBreadcrumb = ({ postId }: PostBreadcrumbProps) => {
@@ -13,14 +18,16 @@ const PostBreadcrumb = ({ postId }: PostBreadcrumbProps) => {
 
   return (
     <Breadcrumb>
-      {breadcrumbs.map((breadcrumb, index) => (
-        <Link
-          key={index}
-          className={breadcrumbStyle({ disabled: index === breadcrumbs.length - 1 })}
-          href={breadcrumb.href}>
-          {breadcrumb.title}
-        </Link>
-      ))}
+      <BreadcrumbList>
+        {breadcrumbs.map((breadcrumb, index) => (
+          <React.Fragment key={breadcrumb.title}>
+            <BreadcrumbItem>
+              <BreadcrumbLink href={breadcrumb.href}>{breadcrumb.title}</BreadcrumbLink>
+            </BreadcrumbItem>
+            {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+          </React.Fragment>
+        ))}
+      </BreadcrumbList>
     </Breadcrumb>
   );
 };
@@ -28,14 +35,5 @@ const PostBreadcrumb = ({ postId }: PostBreadcrumbProps) => {
 interface PostBreadcrumbProps {
   postId: string;
 }
-
-const breadcrumbStyle = cn('', {
-  variants: {
-    disabled: {
-      true: 'pointer-events-none !text-gray-900 decoration-transparent dark:!text-gray-600',
-      false: '',
-    },
-  },
-});
 
 export default PostBreadcrumb;
