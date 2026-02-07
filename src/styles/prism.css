@@ -3,6 +3,10 @@
     @apply -mx-4 border-l-4 border-gray-600 pl-4;
   }
 
+  .prism pre > code {
+    @apply flex flex-col;
+  }
+
   .prism .highlight-line {
     @apply -mx-4 border-l-4 border-blue-600 bg-blue-400;
   }
@@ -14,6 +18,7 @@
   .prism code:not(.code-highlight) {
     @apply mx-1 bg-gray-200;
   }
+
   .prism .code-highlight {
     @apply overflow-auto px-4 py-3;
   }

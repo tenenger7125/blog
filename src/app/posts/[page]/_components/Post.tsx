@@ -1,5 +1,5 @@
-import { Icon } from 'dotori-icons';
 import { cn } from 'dotori-utils';
+import { Calendar } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -12,6 +12,7 @@ const Post = ({ postId, metaData: { title, description, tags, thumbnail, date } 
       <Image
         alt="thumbnail"
         className="object-cover transition-all group-hover:scale-125"
+        sizes="(max-width: 768px) 100vw, 1200px"
         src={thumbnail || ''}
         fill
         priority
@@ -30,7 +31,7 @@ const Post = ({ postId, metaData: { title, description, tags, thumbnail, date } 
     </div>
     <div className="text-xs font-normal">
       <span className="flex items-center gap-1">
-        <Icon className="fill-gray-700" icon="calendar" size="sm" />
+        <Calendar className="size-4" />
         <span>{date}</span>
       </span>
     </div>

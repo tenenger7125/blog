@@ -5,6 +5,7 @@ import { markdown } from '@/utils/node/files';
 
 import Comment from './_components/Comment';
 import PostBreadcrumb from './_components/PostBreadcrumb';
+import ScrollRestoration from './_components/scroll-restoration';
 import TableOfContent from './_components/table-of-content';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
@@ -17,13 +18,20 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
 
         {metaData.thumbnail && (
           <div className="relative my-4 h-96 w-full">
-            <Image alt="thumbnail" className="m-0 object-contain" src={metaData.thumbnail} fill />
+            <Image
+              alt="thumbnail"
+              className="m-0 object-contain"
+              sizes="(max-width: 768px) 100vw, 1200px"
+              src={metaData.thumbnail}
+              fill
+            />
           </div>
         )}
         {component}
         <Comment />
       </div>
       <TableOfContent headings={headings} />
+      <ScrollRestoration />
     </div>
   );
 };

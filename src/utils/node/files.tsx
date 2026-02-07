@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 import GithubSlugger from 'github-slugger';
 import { globby, Options } from 'globby';
 import { Root, Text } from 'mdast';
-import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
@@ -17,8 +17,6 @@ import { visit } from 'unist-util-visit';
 import { FOLDER_PATH } from '@/constants/node';
 
 import type { MetaData } from '@/types/post';
-
-const CodeBlock = dynamic(() => import('@/components/CodeBlock'), { ssr: false });
 
 const getHeadingsWithHash = () => {
   const headings: { depth: number; title: string; link: string }[] = [];
@@ -67,13 +65,19 @@ export const markdown = {
       },
       components: {
         img: props => (
-          <img
+          <Image
             {...props}
-            alt={props.alt}
+            alt={props.alt || ''}
+            className="m-0 object-contain"
+            height={undefined}
+            sizes="(max-width: 768px) 100vw, 1200px"
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${props.src?.replace('/public', '')}`}
+            width={undefined}
+            fill
+            priority
           />
         ),
-        pre: CodeBlock,
+        // Render code blocks as a plain <pre> so SSR/CSR markup stays identical and avoids hydration mismatch.
       },
     });
 
