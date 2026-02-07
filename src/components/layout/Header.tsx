@@ -3,17 +3,17 @@
 import { cn } from 'dotori-utils';
 import Link from 'next/link';
 
+import DarkModeButton from '@/components/shared/dark-mode-button';
 import { PATH } from '@/constants';
 import { useScroll } from '@/hooks';
 
-import LightModeSwitch from '../LightModeSwitch';
 
 const Header = () => {
   const scroll = useScroll();
 
   return (
     <header className={headerStyle({ hidden: scroll.isScrollDown })}>
-      <div className="m-auto flex max-w-8xl justify-between">
+      <div className="max-w-8xl m-auto flex justify-between">
         <div className="flex items-center gap-10">
           <h2 className="inline-block font-yOnepickBold text-2xl font-bold">
             <Link href={PATH.HOME}>동그라미</Link>
@@ -25,7 +25,7 @@ const Header = () => {
           </ol>
         </div>
 
-        <LightModeSwitch />
+        <DarkModeButton />
       </div>
     </header>
   );
