@@ -1,11 +1,21 @@
+import { useEffect } from 'react';
+
 import { cn } from 'dotori-utils';
+import cookie from 'js-cookie';
 import { Moon, Sun } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { STORAGE_KEYS } from '@/constants';
 import { darkModeStore } from '@/store/dark-mode-store';
 
 const DarkModeButton = () => {
   const darkModeHandler = darkModeStore();
+
+  useEffect(() => {
+    if (darkModeHandler.isDarkMode) {
+      cookie.set(STORAGE_KEYS.DOTORI_BLOG_DARK_MODE_STORAGE, JSON.stringify(darkModeHandler.isDarkMode));
+    }
+  }, [darkModeHandler.isDarkMode]);
 
   return (
     <Button
