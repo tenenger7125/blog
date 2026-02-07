@@ -2,7 +2,7 @@ import { metadata } from '@/app/config/metadata';
 import { Layout } from '@/components';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
-import ClientProvider from './_components/provider/ClientProvider';
+import ClientProvider from './_components/provider/client-provider';
 
 import '@/styles/globals.css';
 import 'prismjs/plugins/toolbar/prism-toolbar.min.css';

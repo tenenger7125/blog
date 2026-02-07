@@ -1,6 +1,7 @@
 import { markdown } from '@/utils/node/files';
 
-import { PostPagination, PostList } from './_components';
+import PostList from './_components/post-list';
+import PostPagination from './_components/post-pagination';
 
 const LIMIT_POST = 12;
 

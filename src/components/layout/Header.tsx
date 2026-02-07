@@ -5,8 +5,7 @@ import Link from 'next/link';
 
 import DarkModeButton from '@/components/shared/dark-mode-button';
 import { PATH } from '@/constants';
-import { useScroll } from '@/hooks';
-
+import useScroll from '@/hooks/use-scroll';
 
 const Header = () => {
   const scroll = useScroll();

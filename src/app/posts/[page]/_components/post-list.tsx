@@ -1,6 +1,6 @@
 import { MarkdownFile } from '@/utils/node/files';
 
-import Post from './Post';
+import Post from './post';
 
 const PostList = ({ posts }: PostListProps) => (
   <div className="flex flex-wrap gap-2 leading-loose">

@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { metadata } from '@/app/config/metadata';
 import { markdown } from '@/utils/node/files';
 
-import Comment from './_components/Comment';
-import PostBreadcrumb from './_components/PostBreadcrumb';
+import Comment from './_components/comment';
+import PostBreadcrumb from './_components/post-breadcrumb';
 import ScrollRestoration from './_components/scroll-restoration';
 import TableOfContent from './_components/table-of-content';
 

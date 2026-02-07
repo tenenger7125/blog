@@ -5,9 +5,9 @@ import { SquareMenu } from 'lucide-react';
 import ActionIconButton from '@/components/shared/action-icon-button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { useDisClosure } from '@/hooks';
+import useDisClosure from '@/hooks/use-disclouse';
 
-const Side = ({ children }: { children: React.ReactNode }) => {
+const IndexSheet = ({ children }: { children: React.ReactNode }) => {
   const [isSheetOpen, sheetHandler] = useDisClosure();
 
   return (
@@ -39,4 +39,4 @@ const Side = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Side;
+export default IndexSheet;

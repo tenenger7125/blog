@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { cn } from 'dotori-utils';
 
-import Side from './Side';
+import IndexSheet from './index-sheet';
 
 interface TableOfContentProps {
   headings: { depth: number; title: string; link: string }[];
@@ -66,7 +66,7 @@ const TableOfContent = ({ headings }: TableOfContentProps) => {
   }, [targets]);
 
   return (
-    <Side>
+    <IndexSheet>
       {headings.map(({ depth, title, link }) => (
         <a
           key={link}
@@ -76,7 +76,7 @@ const TableOfContent = ({ headings }: TableOfContentProps) => {
           {title}
         </a>
       ))}
-    </Side>
+    </IndexSheet>
   );
 };
 
