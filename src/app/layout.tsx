@@ -1,5 +1,5 @@
 import { metadata } from '@/app/config/metadata';
-import { Layout } from '@/components';
+import Layout from '@/components/layout/layout';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
 import ClientProvider from './_components/provider/client-provider';
