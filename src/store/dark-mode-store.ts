@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-import { STORAGE_KEYS } from '../constants/key';
+import { STORAGE_KEYS } from '@/constants';
 
 interface DarkModeState {
   isDarkMode: boolean;

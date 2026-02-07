@@ -25,7 +25,6 @@
     "clsx": "^2.1.1",
     "dotori-components": "0.0.22-alpha.1",
     "dotori-context": "^0.0.2",
-    "dotori-hooks": "0.0.7",
     "dotori-icons": "^0.0.12",
     "dotori-utils": "^0.0.22",
     "gh-pages": "^6.2.0",

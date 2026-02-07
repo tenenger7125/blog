@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { PATH } from '../constants';
+import { PATH } from '@/constants';
 
 const HOME = () => {
   redirect(PATH.POSTS);

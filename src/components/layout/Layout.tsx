@@ -1,5 +1,5 @@
 import { pretendardFont, yOnepickBoldFont } from '@/app/config/font';
-import { STORAGE_KEYS } from '@/constants/key';
+import { STORAGE_KEYS } from '@/constants';
 
 import Footer from './Footer';
 import Header from './Header';

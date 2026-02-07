@@ -5,7 +5,7 @@ import { SquareMenu } from 'lucide-react';
 import ActionIconButton from '@/components/shared/action-icon-button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import useDisClosure from '@/hooks/useDisclosure';
+import { useDisClosure } from '@/hooks';
 
 const Side = ({ children }: { children: React.ReactNode }) => {
   const [isSheetOpen, sheetHandler] = useDisClosure();
