@@ -16,7 +16,7 @@ const Side = ({ children }: { children: React.ReactNode }) => {
         <Sheet open={isSheetOpen} onOpenChange={sheetHandler.set}>
           <SheetTrigger asChild>
             <div>
-              <ActionIconButton size={8} onClick={sheetHandler.open}>
+              <ActionIconButton iconSize={8} label="목차 보기" onClick={sheetHandler.open}>
                 <SquareMenu />
               </ActionIconButton>
             </div>
