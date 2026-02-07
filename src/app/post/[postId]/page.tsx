@@ -4,7 +4,7 @@ import { markdown } from '@/utils/node/files';
 
 import Comment from './_components/Comment';
 import PostBreadcrumb from './_components/PostBreadcrumb';
-import Side from './_components/Side';
+import TableOfContent from './_components/table-of-content';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   const { component, headings, metaData } = await markdown.readFile({ id: postId });
@@ -22,19 +22,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
         {component}
         <Comment />
       </div>
-      <Side>
-        <div className="flex flex-col gap-2 border-l-2 border-gray-200 dark:text-gray-600">
-          {headings.map(({ depth, title, link }) => (
-            <a
-              key={link}
-              className="block cursor-pointer break-all border-l-2 border-transparent py-1 hover:border-blue-600 hover:text-blue-300"
-              href={link}
-              style={{ paddingLeft: depth * 10 }}>
-              {title}
-            </a>
-          ))}
-        </div>
-      </Side>
+      <TableOfContent headings={headings} />
     </div>
   );
 };
