@@ -1,8 +1,8 @@
 import { markdown } from '@/utils/node/files';
 
-import { Pagination, PostList } from './_components';
+import { PostPagination, PostList } from './_components';
 
-const LIMIT_POST = 24;
+const LIMIT_POST = 12;
 
 const POSTS = async ({ params }: PostProps) => {
   const page = +params.page;
@@ -12,7 +12,7 @@ const POSTS = async ({ params }: PostProps) => {
   return (
     <div className="flex w-full flex-col justify-between">
       <PostList posts={files.contents} />
-      <Pagination page={page} totalPage={files.totalPage} />
+      <PostPagination page={page} totalPage={files.totalPage} />
     </div>
   );
 };
