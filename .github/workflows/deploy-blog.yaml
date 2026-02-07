@@ -3,6 +3,7 @@ on: push
 
 jobs:
   build-and-deploy:
+    if: false # disabled
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

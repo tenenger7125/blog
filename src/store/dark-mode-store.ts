@@ -1,3 +1,4 @@
+import cookie from 'js-cookie';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
@@ -21,22 +22,14 @@ export const darkModeStore = create<DarkModeState & DarkModeActions>()(
       setDarkMode: (isDarkMode: boolean) => {
         set({ isDarkMode });
         document.documentElement.classList.toggle('dark', isDarkMode);
+        cookie.set(STORAGE_KEYS.DOTORI_BLOG_DARK_MODE_STORAGE, isDarkMode.toString());
       },
       toggle: () => {
         const isDarkMode = !get().isDarkMode;
-        set({ isDarkMode });
-        document.documentElement.classList.toggle('dark', isDarkMode);
+        get().setDarkMode(isDarkMode);
       },
-      on: () => {
-        const isDarkMode = true;
-        set({ isDarkMode });
-        document.documentElement.classList.toggle('dark', isDarkMode);
-      },
-      off: () => {
-        const isDarkMode = false;
-        set({ isDarkMode });
-        document.documentElement.classList.toggle('dark', isDarkMode);
-      },
+      on: () => get().setDarkMode(true),
+      off: () => get().setDarkMode(false),
     }),
     {
       name: STORAGE_KEYS.DOTORI_BLOG_DARK_MODE_STORAGE,
