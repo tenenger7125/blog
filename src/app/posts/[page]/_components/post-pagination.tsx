@@ -39,4 +39,11 @@ interface PostPaginationProps {
   totalPage: number;
 }
 
-const pageItemStyle = cn('dark:bg-gray-800 dark:text-white');
+const pageItemStyle = cn('dark:bg-gray-800 dark:text-gray-0', {
+  variants: {
+    isActive: {
+      true: 'dark:bg-gray-800 hover:',
+      false: 'text-gray-0 dark',
+    },
+  },
+});

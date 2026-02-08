@@ -20,10 +20,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="h-fit">
-              <ActionIconButton
-                className="h-fit bg-gray-800 p-1 dark:bg-gray-400 dark:hover:bg-gray-100"
-                label="깃허브"
-                asChild>
+              <ActionIconButton className="p-1 dark:bg-black dark:hover:bg-gray-800" label="깃허브" asChild>
                 <a href="https://github.com/tenenger7125/blog" rel="noopener noreferrer">
                   <Icon icon="github" />
                 </a>

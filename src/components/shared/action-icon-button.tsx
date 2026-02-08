@@ -7,7 +7,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 const ActionIconButton = ({ children, className, label, iconSize, ...props }: ActionIconButtonProps) => (
   <Tooltip>
     <TooltipTrigger asChild>
-      <Button className={actionIconButtonStyle({ className, iconSize })} {...props}>
+      <Button className={actionIconButtonStyle({ className, iconSize })} variant="white" {...props}>
         {children}
       </Button>
     </TooltipTrigger>
@@ -24,7 +24,8 @@ interface ActionIconButtonProps extends ButtonProps, VariantProps<typeof actionI
   label: string;
 }
 
-const actionIconButtonStyle = cn('h-full w-full p-0', {
+// 'bg-gray-800 dark:hover:bg-gray-100'
+const actionIconButtonStyle = cn('h-fit p-0', {
   variants: {
     iconSize: {
       4: '[&_svg]:size-4',

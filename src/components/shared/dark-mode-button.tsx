@@ -1,38 +1,32 @@
-import { useEffect } from 'react';
+'use client';
 
-import { cn } from 'dotori-utils';
-import cookie from 'js-cookie';
 import { Moon, Sun } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
-import { STORAGE_KEYS } from '@/constants';
-import { darkModeStore } from '@/store/dark-mode-store';
+import { Theme } from '@/constants/theme';
+import { useThemeContext } from '@/contexts/theme-context';
+
+import { Button } from '../ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 const DarkModeButton = () => {
-  const darkModeHandler = darkModeStore();
+  const [{ theme }, setTheme, mounted] = useThemeContext();
 
-  useEffect(() => {
-    if (darkModeHandler.isDarkMode) {
-      cookie.set(STORAGE_KEYS.DOTORI_BLOG_DARK_MODE_STORAGE, JSON.stringify(darkModeHandler.isDarkMode));
-    }
-  }, [darkModeHandler.isDarkMode]);
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <Button
-      className={darkModeButtonStyle({ isDarkMode: darkModeHandler.isDarkMode })}
-      onClick={darkModeHandler.toggle}>
-      {darkModeHandler.isDarkMode ? <Moon className="text-yellow-600" /> : <Sun className="text-red-600" />}
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="white" onClick={() => setTheme({ theme: theme === Theme.Dark ? Theme.Light : Theme.Dark })}>
+          {theme === Theme.Dark ? <Moon className="text-yellow-600" /> : <Sun className="text-red-800" />}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>다크모드</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 
 export default DarkModeButton;
-
-const darkModeButtonStyle = cn('', {
-  variants: {
-    isDarkMode: {
-      true: 'bg-gray-800 hover:bg-gray-100',
-      false: 'bg-white hover:bg-gray-100',
-    },
-  },
-});

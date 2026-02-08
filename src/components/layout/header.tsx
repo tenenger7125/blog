@@ -31,7 +31,7 @@ const Header = () => {
 };
 
 const headerStyle = cn(
-  'sticky z-[3] w-full border-b dark:border-gray-900 border-gray-100 bg-white transition-all px-3 py-4 dark:bg-gray-900 dark:text-gray-100',
+  'sticky z-[3] w-full border-b dark:border-gray-900 border-gray-100 bg-gray-0 transition-all px-3 py-4 dark:bg-gray-900 dark:text-gray-100',
   {
     variants: {
       hidden: {
