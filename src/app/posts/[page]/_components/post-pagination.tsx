@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import { cn } from 'dotori-utils';
 import { useRouter } from 'next/navigation';
 
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
@@ -22,7 +21,7 @@ const PostPagination = ({ page: defaultPage, totalPage }: PostPaginationProps) =
       <Pagination>
         <PaginationContent>
           {Array.from({ length: totalPage }, (_, i) => i + 1).map(pageNumber => (
-            <PaginationItem key={pageNumber} className={pageItemStyle()} onClick={() => handlePageChange(pageNumber)}>
+            <PaginationItem key={pageNumber} onClick={() => handlePageChange(pageNumber)}>
               <PaginationLink isActive={pageNumber === page}>{pageNumber}</PaginationLink>
             </PaginationItem>
           ))}
@@ -38,12 +37,3 @@ interface PostPaginationProps {
   page: number;
   totalPage: number;
 }
-
-const pageItemStyle = cn('dark:bg-gray-800 dark:text-gray-0', {
-  variants: {
-    isActive: {
-      true: 'dark:bg-gray-800 hover:',
-      false: 'text-gray-0 dark',
-    },
-  },
-});

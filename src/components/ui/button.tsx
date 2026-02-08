@@ -25,11 +25,17 @@ const buttonVariants = cva(
         lg: 'h-10 rounded-md px-8',
         icon: 'h-9 w-9',
       },
+      isActive: {
+        true: '',
+        false: '',
+      },
     },
     defaultVariants: {
       variant: 'default',
       size: 'default',
+      isActive: false,
     },
+    compoundVariants: [{ variant: 'white', isActive: true, className: 'bg-gray-100 dark:bg-black' }],
   },
 );
 

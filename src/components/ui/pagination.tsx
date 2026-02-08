@@ -39,7 +39,8 @@ const PaginationLink = ({ href, className, isActive, size = 'icon', ...props }: 
     href={href || '#'}
     className={cn(
       buttonVariants({
-        variant: isActive ? 'outline' : 'ghost',
+        variant: 'white',
+        isActive,
         size,
       }),
       className,
