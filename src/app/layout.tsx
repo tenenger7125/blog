@@ -1,6 +1,6 @@
-import { metadata } from '@/app/config/metadata';
 import Layout from '@/components/layout/layout';
-import { TooltipProvider } from '@/components/ui/tooltip';
+
+import { pretendardFont, yOnepickBoldFont } from './config/font';
 
 import '@/styles/globals.css';
 import 'prismjs/plugins/toolbar/prism-toolbar.min.css';
@@ -8,9 +8,10 @@ import 'prismjs/themes/prism-tomorrow.css';
 
 const RootLayout = ({ children }: RootLayoutProps) => (
   <html lang="ko" suppressHydrationWarning>
-    <TooltipProvider delayDuration={0}>
+    <body
+      className={`${pretendardFont.className} ${yOnepickBoldFont.variable} flex min-h-screen flex-col overflow-x-hidden bg-white text-gray-900 dark:bg-gray-800`}>
       <Layout>{children}</Layout>
-    </TooltipProvider>
+    </body>
   </html>
 );
 
@@ -20,4 +21,4 @@ interface RootLayoutProps {
 
 export default RootLayout;
 
-export { metadata };
+export { metadata } from '@/app/config/metadata';

@@ -17,7 +17,7 @@ export const createSafeContext = <T extends object>(
 
   const context = createContext<ContextValue | undefined>(undefined);
 
-  const Provider = ({ children }: { children: React.ReactNode }) => {
+  const Provider = ({ nonce, children }: { nonce: string | null; children: React.ReactNode }) => {
     const [state, setStateInternal] = useState<T>(defaultValue);
     const [mounted, setMounted] = useState(false);
 
@@ -45,7 +45,11 @@ export const createSafeContext = <T extends object>(
     return (
       <context.Provider value={providerValue}>
         {strategy?.scriptString && (
-          <script dangerouslySetInnerHTML={{ __html: strategy.scriptString }} suppressHydrationWarning />
+          <script
+            dangerouslySetInnerHTML={{ __html: strategy.scriptString }}
+            nonce={nonce ? (typeof window === 'undefined' ? nonce : '') : undefined}
+            suppressHydrationWarning
+          />
         )}
         {children}
       </context.Provider>
