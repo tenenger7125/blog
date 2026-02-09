@@ -1,6 +1,8 @@
 @import './base.css';
 @import './post.css';
 @import './prism.css';
+@import './_variables.scss';
+@import './_keyframe-animations.scss';
 
 @tailwind base;
 @tailwind components;

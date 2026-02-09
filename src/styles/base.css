@@ -76,11 +76,11 @@
     cursor: inherit;
   }
 
-  input[type='checkbox'],
+  /* input[type='checkbox'],
   input[type='radio'] {
     appearance: none;
     position: absolute;
-  }
+  } */
 
   input[type='file'] {
     display: none;
