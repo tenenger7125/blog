@@ -28,8 +28,8 @@ interface ActionIconButtonProps extends ButtonProps, VariantProps<typeof actionI
 const actionIconButtonStyle = cn('h-fit p-0', {
   variants: {
     iconSize: {
-      4: '[&_svg]:size-4',
-      default: '[&_svg]:size-6',
+      default: '[&_svg]:size-4',
+      6: '[&_svg]:size-6',
       8: '[&_svg]:size-8',
     },
   },

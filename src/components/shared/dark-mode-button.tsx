@@ -1,6 +1,6 @@
 'use client';
 
-import { Moon, Sun } from 'lucide-react';
+import { LoaderCircle, Moon, Sun } from 'lucide-react';
 
 import { Theme } from '@/constants/theme';
 import { useThemeContext } from '@/contexts/theme-context';
@@ -8,11 +8,17 @@ import { useThemeContext } from '@/contexts/theme-context';
 import { Button } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
+import ActionIconButton from './action-icon-button';
+
 const DarkModeButton = () => {
   const [{ theme }, setTheme, mounted] = useThemeContext();
 
   if (!mounted) {
-    return null;
+    return (
+      <ActionIconButton className="px-4 py-2" label="로그인">
+        <LoaderCircle className="animate-spin dark:text-white" />
+      </ActionIconButton>
+    );
   }
 
   return (
