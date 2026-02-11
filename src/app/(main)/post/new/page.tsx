@@ -1,6 +1,6 @@
 'use client';
 
-import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
+import { SimpleEditor } from '@/components/shared/tiptap/tiptap-templates/simple/simple-editor';
 import useBodyScrollDisable from '@/hooks/use-body-scroll-disable';
 
 const Page = () => {

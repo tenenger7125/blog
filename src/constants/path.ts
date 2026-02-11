@@ -3,4 +3,5 @@ export const PATH = {
   LOGIN: '/login',
   POSTS: '/posts',
   POST: '/post',
+  POST_NEW: '/post/new',
 };
