@@ -15,7 +15,8 @@
     "react-refresh/only-export-components": "off",
     "no-await-in-loop": "warn",
     "no-continue": "warn",
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "jsx-a11y/no-autofocus": "off"
   },
   "ignorePatterns": ["node_modules/", "public/", ".next/"]
 }
