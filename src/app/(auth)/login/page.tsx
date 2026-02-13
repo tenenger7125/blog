@@ -58,7 +58,7 @@ const LoginPage = () => {
               </Field>
               <Field>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input id="password" type="password" required {...form.register('password')} />
+                <Input id="password" placeholder="••••••••" type="password" required {...form.register('password')} />
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
