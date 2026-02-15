@@ -50,7 +50,9 @@ const NotFound = async () => {
                 <CardHeader className="hover:scale-105">
                   <CardTitle>{file.metaData.title}</CardTitle>
                   <CardDescription className="line-clamp-3">{file.metaData.description}</CardDescription>
-                  <Button variant="white">보러 가기</Button>
+                  <Link href={`${PATH.POST}/${file.id}`}>
+                    <Button variant="white">보러 가기</Button>
+                  </Link>
                 </CardHeader>
               </Card>
             ))}
