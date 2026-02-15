@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+# 해야할 일.
+
+## 백엔드 연결
+
+### Route Handler로 연결
+
+### 로그인(+ 응답값 타입 정하기, + swagger 관련 응답 타입 자동 추론 하기.)
+
+### 토큰(액세스, 리프레시) 둘 다 Route Handler에서 쿠키로 저장
+
+### axios 로 401 에러면 refresh 로 accessToken 재발급 및 재 요청, 그래도 안되면 에러 던지기.

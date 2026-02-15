@@ -1,5 +1,6 @@
 import { headers } from 'next/headers';
 
+import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/contexts/theme-context';
 
@@ -16,6 +17,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     <html lang="ko" suppressHydrationWarning>
       <body
         className={`${pretendardFont.className} ${yOnepickBoldFont.variable} flex min-h-screen flex-col overflow-x-hidden bg-white text-gray-900 dark:bg-gray-800`}>
+        <Toaster position="top-center" />
         <ThemeProvider nonce={nonce}>
           <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
         </ThemeProvider>

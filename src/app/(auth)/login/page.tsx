@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,8 +12,8 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui
 import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants';
 import { cn } from '@/lib/utils';
-import { delay } from '@/utils/delay';
-import { userLocalStorage } from '@/utils/local-storage';
+import { LoginResponseData } from '@/types/auth';
+import { httpClient } from '@/utils/http/client';
 
 import { loginSchema, type LoginSchema } from './_schema/login.schema';
 
@@ -23,17 +24,13 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (data: LoginSchema) => {
-    await delay(1000);
-
-    userLocalStorage.set({
-      email: data.email,
-      profileImageUrl: null,
-      name: 'name',
-      accessToken: 'accessToken',
-      refreshToken: 'refreshToken',
-    });
-
-    router.push(PATH.HOME);
+    const res = await httpClient.post<LoginResponseData>('/api/auth/login', data);
+    if (res.ok) {
+      toast.success('Login successful!');
+      router.push(PATH.HOME);
+    } else {
+      toast.error('Failed to login. Please try again.');
+    }
   };
 
   return (

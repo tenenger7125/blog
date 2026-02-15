@@ -1,14 +1,14 @@
 'use client';
 
 import { cn } from 'dotori-utils';
-import { LogIn } from 'lucide-react';
 import Link from 'next/link';
 
 import DarkModeButton from '@/components/shared/dark-mode-button';
 import { PATH } from '@/constants';
 import useScroll from '@/hooks/use-scroll';
 
-import ActionIconButton from '../shared/action-icon-button';
+import AuthButton from './auth-button';
+import CreatePostButton from './create-post-button';
 
 const Header = () => {
   const scroll = useScroll();
@@ -28,11 +28,8 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link href={PATH.LOGIN}>
-            <ActionIconButton className="px-4 py-2" label="로그인">
-              <LogIn className="dark:text-white" />
-            </ActionIconButton>
-          </Link>
+          <CreatePostButton />
+          <AuthButton />
           <DarkModeButton />
         </div>
       </div>

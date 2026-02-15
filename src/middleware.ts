@@ -2,7 +2,7 @@ import { status } from 'http-status';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { PATH } from './constants';
-import { AUTH_REQUIRED_PATHS } from './constants/auth-path';
+import { AUTH_EXEMPT_PATHS, AUTH_REQUIRED_PATHS } from './constants/auth-path';
 
 export const middleware = (request: NextRequest) => {
   const response = NextResponse.next();
@@ -13,6 +13,15 @@ export const middleware = (request: NextRequest) => {
     const accessToken = request.cookies.get('accessToken')?.value;
     if (!accessToken) {
       return NextResponse.redirect(new URL(PATH.LOGIN, request.url));
+    }
+  }
+
+  const isAuthExcluded = AUTH_EXEMPT_PATHS.some(path => request.nextUrl.pathname.startsWith(path));
+
+  if (isAuthExcluded) {
+    const accessToken = request.cookies.get('accessToken')?.value;
+    if (accessToken) {
+      return NextResponse.redirect(new URL(PATH.HOME, request.url));
     }
   }
 
