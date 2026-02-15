@@ -1,12 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants';
 import { cn } from '@/lib/utils';
@@ -61,7 +62,12 @@ const LoginPage = () => {
                 <Input id="password" placeholder="••••••••" type="password" required {...form.register('password')} />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit" variant="black">
+                  Login
+                </Button>
+                <FieldDescription className="text-center">
+                  Don&apos;t have an account? <Link href={PATH.SIGNUP}>Sign up</Link>
+                </FieldDescription>
               </Field>
             </FieldGroup>
           </form>
