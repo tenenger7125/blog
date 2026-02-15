@@ -1,5 +1,3 @@
-import status from 'http-status';
-
 import { COOKIE_KEYS } from '@/constants';
 import { setCookie } from '@/lib/node/cookie';
 import { fetchServer } from '@/lib/node/fetch-server';
@@ -15,5 +13,5 @@ export async function POST(request: Request) {
   setCookie(COOKIE_KEYS.ACCESS_TOKEN, result.data?.accessToken || '');
   setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data?.refreshToken || '');
 
-  return Response.json(result, { status: status.OK });
+  return Response.json(result, { status: result.statusCode });
 }

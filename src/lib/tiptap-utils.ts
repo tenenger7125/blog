@@ -2,7 +2,9 @@ import { AllSelection, NodeSelection, Selection, TextSelection } from '@tiptap/p
 import { cellAround, CellSelection } from '@tiptap/pm/tables';
 import { findParentNodeClosestToPos, type Editor, type NodeWithPos } from '@tiptap/react';
 
-import { delay } from '../utils/delay';
+import { ImageUploadResponse } from '@/types/image';
+
+import { httpClient } from '../utils/http/client';
 
 import type { Node as PMNode } from '@tiptap/pm/model';
 import type { Transaction } from '@tiptap/pm/state';
@@ -333,6 +335,7 @@ export const handleImageUpload = async (
   abortSignal?: AbortSignal,
 ): Promise<string> => {
   // Validate file
+
   if (!file) {
     throw new Error('No file provided');
   }
@@ -343,15 +346,15 @@ export const handleImageUpload = async (
 
   // For demo/testing: Simulate upload progress. In production, replace the following code
   // with your own upload implementation.
-  for (let progress = 0; progress <= 100; progress += 10) {
-    if (abortSignal?.aborted) {
-      throw new Error('Upload cancelled');
-    }
-    await delay(500);
-    onProgress?.({ progress });
+  const formData = new FormData();
+  formData.append('file', file);
+  const { data } = await httpClient.postFormData<ImageUploadResponse, FormData>('/api/image/upload', formData);
+
+  if (!data) {
+    throw new Error('No response data from upload');
   }
 
-  return '/images/tiptap-ui-placeholder-image.jpg';
+  return `/api/image/static/${data.id}`;
 };
 
 type ProtocolOptions = {

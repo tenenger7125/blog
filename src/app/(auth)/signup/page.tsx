@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants';
+import { SignupRequestData, SignupResponseData } from '@/types/auth';
 import { httpClient } from '@/utils/http/client';
 
 import { SignupSchema, signupSchema } from './_schema/signup.schema';
@@ -22,7 +23,7 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (data: SignupSchema) => {
-    const res = await httpClient.post<null>('/api/auth/signup', data);
+    const res = await httpClient.post<SignupResponseData, SignupRequestData>('/api/auth/signup', data);
     if (res.ok) {
       toast.success('Account created successfully!');
       router.push(PATH.LOGIN);

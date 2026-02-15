@@ -1,5 +1,3 @@
-import status from 'http-status';
-
 import { fetchServer } from '@/lib/node/fetch-server';
 
 export async function POST(request: Request) {
@@ -9,5 +7,5 @@ export async function POST(request: Request) {
     body: JSON.stringify(await request.json()),
   });
 
-  return Response.json(result, { status: status.CREATED });
+  return Response.json(result, { status: result.statusCode });
 }
