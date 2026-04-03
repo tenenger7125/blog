@@ -13,6 +13,8 @@ import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Save } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
 import { ArrowLeftIcon } from '@/components/shared/tiptap/tiptap-icons/arrow-left-icon';
@@ -38,6 +40,7 @@ import { UndoRedoButton } from '@/components/shared/tiptap/tiptap-ui/undo-redo-b
 import { Button } from '@/components/shared/tiptap/tiptap-ui-primitive/button';
 import { Spacer } from '@/components/shared/tiptap/tiptap-ui-primitive/spacer';
 import { Toolbar, ToolbarGroup, ToolbarSeparator } from '@/components/shared/tiptap/tiptap-ui-primitive/toolbar';
+import { PATH } from '@/constants';
 import { useCursorVisibility } from '@/hooks/use-cursor-visibility';
 import { useIsBreakpoint } from '@/hooks/use-is-breakpoint';
 import { useWindowSize } from '@/hooks/use-window-size';
@@ -167,6 +170,7 @@ export function SimpleEditor({
   postId: number;
   isEdit?: boolean;
 }) {
+  const router = useRouter();
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
   const [mobileView, setMobileView] = useState<'main' | 'highlighter' | 'link'>('main');
@@ -256,15 +260,18 @@ export function SimpleEditor({
           published: publishOption === 'public',
         });
       } else {
-        await httpClient.post('/api/posts', {
+        const res = await httpClient.post('/api/posts', {
           title,
           content: html,
           published: publishOption === 'public',
         });
-      }
 
-      console.log('Saving content:', html);
-      console.log({ title, publishOption });
+        if (res.ok) {
+          router.replace(PATH.HOME);
+        } else {
+          toast.error('Failed to save the post. Please try again.');
+        }
+      }
     }
   };
 
