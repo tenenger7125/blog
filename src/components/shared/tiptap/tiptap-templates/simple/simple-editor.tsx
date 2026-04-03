@@ -38,7 +38,6 @@ import { UndoRedoButton } from '@/components/shared/tiptap/tiptap-ui/undo-redo-b
 import { Button } from '@/components/shared/tiptap/tiptap-ui-primitive/button';
 import { Spacer } from '@/components/shared/tiptap/tiptap-ui-primitive/spacer';
 import { Toolbar, ToolbarGroup, ToolbarSeparator } from '@/components/shared/tiptap/tiptap-ui-primitive/toolbar';
-import useBodyScrollDisable from '@/hooks/use-body-scroll-disable';
 import { useCursorVisibility } from '@/hooks/use-cursor-visibility';
 import { useIsBreakpoint } from '@/hooks/use-is-breakpoint';
 import { useWindowSize } from '@/hooks/use-window-size';
@@ -219,12 +218,32 @@ export function SimpleEditor({
   });
 
   useEffect(() => {
+    const toolbarEl = toolbarRef.current;
+    const headerEl = document.querySelector('header');
+
+    if (!toolbarEl || !headerEl) {
+      return undefined;
+    }
+
+    const updateTop = () => {
+      const headerRect = headerEl.getBoundingClientRect();
+      toolbarEl.style.top = `${Math.sign(headerRect.top) ? 0 : headerRect.height}px`;
+    };
+
+    headerEl.addEventListener('transitionrun', updateTop);
+    headerEl.addEventListener('transitionend', updateTop);
+
+    return () => {
+      headerEl.removeEventListener('transitionrun', updateTop);
+      headerEl.removeEventListener('transitionend', updateTop);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isMobile && mobileView !== 'main') {
       setMobileView('main');
     }
   }, [isMobile, mobileView]);
-
-  useBodyScrollDisable();
 
   const handleSave = async (publishOption: 'public' | 'private') => {
     if (editor) {
@@ -254,6 +273,7 @@ export function SimpleEditor({
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}
+          className="transition-all"
           style={{
             ...(isMobile
               ? {

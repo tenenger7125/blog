@@ -14,7 +14,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   const nonce = headers().get('x-nonce');
 
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko" style={{ height: 'auto' }} suppressHydrationWarning>
       <body
         className={`${pretendardFont.className} ${yOnepickBoldFont.variable} flex min-h-screen flex-col overflow-x-hidden bg-white text-gray-900 dark:bg-gray-800`}>
         <Toaster position="top-center" />
