@@ -1,6 +1,16 @@
 import { ApiResponse } from '@/types/api';
 
-export const fetchServer = async <ResponseData>(input: RequestInfo, init?: RequestInit) => {
+type Result<ResponseData> = {
+  ok: boolean;
+  statusCode: number;
+  message: string | object | null;
+  data: ResponseData | null;
+};
+
+export const fetchServer = async <ResponseData>(
+  input: RequestInfo,
+  init?: RequestInit,
+): Promise<Result<ResponseData>> => {
   try {
     const res = await fetch(input, init);
     const body = (await res.json()) as ApiResponse<ResponseData>;

@@ -1,11 +1,9 @@
-export const GET = async (_request: Request, { params }: { params: { imageId: string } }) => {
-  const { imageId } = params;
+import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 
-  if (!process.env.BLOG_SERVER) {
-    return new Response('Blog server not configured', { status: 500 });
-  }
+export const GET = async (_request: Request, ctx: { params: { imageId: string } }) => {
+  const { imageId } = ctx.params;
 
-  const upstream = await fetch(`${process.env.BLOG_SERVER}/images/static/${imageId}`);
+  const upstream = await fetch(`${EXTERNAL_URL_IN_NODE.STATIC_IMAGE}/${imageId}`);
 
   if (!upstream.ok) {
     const contentType = upstream.headers.get('content-type') || 'text/plain';

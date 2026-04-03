@@ -1,4 +1,4 @@
-import { INTERNAL_URL } from '@/constants/url';
+import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostsDataResponse } from '@/types/post';
 import { httpClient } from '@/utils/http/client';
 
@@ -10,7 +10,9 @@ const LIMIT_POST = 10;
 const POSTS = async ({ params }: PostProps) => {
   const page = +params.page;
 
-  const res = await httpClient.get<PostsDataResponse>(`${INTERNAL_URL.POSTS}?page=${page}&pageSize=${LIMIT_POST}`);
+  const res = await httpClient.get<PostsDataResponse>(
+    `${INTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
+  );
 
   const posts = res.data?.posts || [];
   const totalPage = res.data?.totalPage || 0;

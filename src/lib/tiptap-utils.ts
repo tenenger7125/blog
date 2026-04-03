@@ -4,6 +4,7 @@ import { findParentNodeClosestToPos, type Editor, type NodeWithPos } from '@tipt
 
 import { ImageUploadResponse } from '@/types/image';
 
+import { INTERNAL_URL_IN_CLIENT } from '../constants/url';
 import { httpClient } from '../utils/http/client';
 
 import type { Node as PMNode } from '@tiptap/pm/model';
@@ -348,13 +349,17 @@ export const handleImageUpload = async (
   // with your own upload implementation.
   const formData = new FormData();
   formData.append('file', file);
-  const { data } = await httpClient.postFormData<ImageUploadResponse, FormData>('/api/image/upload', formData);
+
+  const { data } = await httpClient.postFormData<ImageUploadResponse, FormData>(
+    INTERNAL_URL_IN_CLIENT.IMAGE_UPLOAD,
+    formData,
+  );
 
   if (!data) {
     throw new Error('No response data from upload');
   }
 
-  return `/api/image/static/${data.id}`;
+  return `${INTERNAL_URL_IN_CLIENT.STATIC_IMAGE}/${data.id}`;
 };
 
 type ProtocolOptions = {

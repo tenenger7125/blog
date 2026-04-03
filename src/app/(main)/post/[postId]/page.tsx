@@ -1,6 +1,6 @@
 import { metadata } from '@/app/config/metadata';
 import { Separator } from '@/components/ui/separator';
-import { INTERNAL_URL } from '@/constants/url';
+import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostDataResponse } from '@/types/post';
 import { httpClient } from '@/utils/http/client';
 import { markdown } from '@/utils/node/files';
@@ -11,7 +11,7 @@ import PostBreadcrumb from './_components/post-breadcrumb';
 import ScrollRestoration from './_components/scroll-restoration';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
-  const res = await httpClient.get<PostDataResponse>(`${INTERNAL_URL.POSTS}/${postId}`);
+  const res = await httpClient.get<PostDataResponse>(`${INTERNAL_URL_IN_NODE.POSTS}/${postId}`);
 
   const post = res.data;
 
