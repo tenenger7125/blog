@@ -1,17 +1,17 @@
-import { MarkdownFile } from '@/utils/node/files';
+import { PostData } from '@/types/post';
 
 import Post from './post';
 
 const PostList = ({ posts }: PostListProps) => (
   <div className="flex flex-wrap gap-2 leading-loose">
-    {posts.map(({ id, metaData }) => (
-      <Post key={id} metaData={metaData} postId={id} />
+    {posts.map(post => (
+      <Post key={post.id} post={post} />
     ))}
   </div>
 );
 
 interface PostListProps {
-  posts: MarkdownFile[];
+  posts: PostData[];
 }
 
 export default PostList;

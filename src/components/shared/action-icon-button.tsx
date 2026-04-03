@@ -1,23 +1,28 @@
+import { forwardRef } from 'react';
+
 import { cn, VariantProps } from 'dotori-utils';
 
 import { Button, ButtonProps } from '@/components/ui/button';
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
-const ActionIconButton = ({ children, className, label, iconSize, ...props }: ActionIconButtonProps) => (
-  <Tooltip>
-    <TooltipTrigger asChild>
-      <Button className={actionIconButtonStyle({ className, iconSize })} variant="white" {...props}>
-        {children}
-      </Button>
-    </TooltipTrigger>
-    <TooltipContent>
-      <p>{label}</p>
-    </TooltipContent>
-  </Tooltip>
+const ActionIconButton = forwardRef<HTMLButtonElement, ActionIconButtonProps>(
+  ({ children, className, label, iconSize, ...props }, ref) => (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button ref={ref} className={actionIconButtonStyle({ className, iconSize })} variant="white" {...props}>
+          {children}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{label}</p>
+      </TooltipContent>
+    </Tooltip>
+  ),
 );
-
 export default ActionIconButton;
+
+ActionIconButton.displayName = 'ActionIconButton'; // 디버깅을 위해 이름을 설정합니다.
 
 interface ActionIconButtonProps extends ButtonProps, VariantProps<typeof actionIconButtonStyle> {
   children: React.ReactNode;

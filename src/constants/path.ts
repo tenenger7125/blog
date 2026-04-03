@@ -4,5 +4,6 @@ export const PATH = {
   SIGNUP: '/signup',
   POSTS: '/posts',
   POST: '/post',
+  POST_EDIT: (postId: string) => `/post/${postId}/edit`,
   POST_NEW: '/post/new',
 };

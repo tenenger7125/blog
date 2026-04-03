@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { LoaderCircle, LogIn, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { COOKIE_KEYS, PATH } from '@/constants';
 import { getCookie as getCookieClient } from '@/lib/cookie';
@@ -12,6 +13,7 @@ import { setCookie as setCookieClient } from '@/lib/node/cookie';
 import ActionIconButton from '../shared/action-icon-button';
 
 const AuthButton = () => {
+  const router = useRouter();
   const [cookie, setCookie] = useState<string | null | undefined>(undefined);
 
   useEffect(() => {
@@ -23,6 +25,7 @@ const AuthButton = () => {
     setCookieClient(COOKIE_KEYS.ACCESS_TOKEN, '', { maxAge: 0 });
     setCookieClient(COOKIE_KEYS.REFRESH_TOKEN, '', { maxAge: 0 });
     setCookie(null);
+    router.push(PATH.HOME);
   };
 
   if (cookie === undefined) {

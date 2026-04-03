@@ -1,36 +1,35 @@
-import Image from 'next/image';
-
 import { metadata } from '@/app/config/metadata';
+import { Separator } from '@/components/ui/separator';
+import { fetchServer } from '@/lib/node/fetch-server';
+import { PostData } from '@/types/post';
 import { markdown } from '@/utils/node/files';
 
 import Comment from './_components/comment';
+import EditPostButton from './_components/edit-post-button';
 import PostBreadcrumb from './_components/post-breadcrumb';
 import ScrollRestoration from './_components/scroll-restoration';
-import TableOfContent from './_components/table-of-content';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
-  const { component, headings, metaData } = await markdown.readFile({ id: postId });
+  const res = await fetchServer<PostData>(`${process.env.BLOG_SERVER}/posts/${postId}`);
+  const post = res.data;
+
+  if (!post) {
+    return null;
+  }
 
   return (
-    <div className="relative flex w-full max-w-full justify-center gap-5">
-      <div className="post prism prose max-w-full dark:text-gray-300 lg:max-w-[70%]">
-        <PostBreadcrumb postId={postId} />
-
-        {metaData.thumbnail && (
-          <div className="relative my-4 h-96 w-full">
-            <Image
-              alt="thumbnail"
-              className="m-0 object-contain"
-              sizes="(max-width: 768px) 100vw, 1200px"
-              src={metaData.thumbnail}
-              fill
-            />
-          </div>
-        )}
-        {component}
-        <Comment />
+    <div className="relative mx-auto flex w-full max-w-5xl flex-col justify-center gap-5">
+      <div className="post prism prose min-h-screen w-full max-w-full dark:text-gray-300">
+        <div className="flex justify-end">
+          <EditPostButton postId={postId} />
+        </div>
+        <PostBreadcrumb postId={post.id.toString()} />
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
-      <TableOfContent headings={headings} />
+      <Separator />
+      <Comment />
+
+      {/* <TableOfContent headings={headings} /> */}
       <ScrollRestoration />
     </div>
   );

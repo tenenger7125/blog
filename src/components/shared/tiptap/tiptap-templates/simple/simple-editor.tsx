@@ -12,13 +12,15 @@ import { Typography } from '@tiptap/extension-typography';
 import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
+import { Save } from 'lucide-react';
 
+import ActionIconButton from '@/components/shared/action-icon-button';
 import { ArrowLeftIcon } from '@/components/shared/tiptap/tiptap-icons/arrow-left-icon';
 import { HighlighterIcon } from '@/components/shared/tiptap/tiptap-icons/highlighter-icon';
 import { LinkIcon } from '@/components/shared/tiptap/tiptap-icons/link-icon';
 import { HorizontalRule } from '@/components/shared/tiptap/tiptap-node/horizontal-rule-node/horizontal-rule-node-extension';
 import { ImageUploadNode } from '@/components/shared/tiptap/tiptap-node/image-upload-node/image-upload-node-extension';
-import content from '@/components/shared/tiptap/tiptap-templates/simple/data/content.json';
+// import content from '@/components/shared/tiptap/tiptap-templates/simple/data/content.json';
 import { BlockquoteButton } from '@/components/shared/tiptap/tiptap-ui/blockquote-button';
 import { CodeBlockButton } from '@/components/shared/tiptap/tiptap-ui/code-block-button';
 import {
@@ -36,10 +38,14 @@ import { UndoRedoButton } from '@/components/shared/tiptap/tiptap-ui/undo-redo-b
 import { Button } from '@/components/shared/tiptap/tiptap-ui-primitive/button';
 import { Spacer } from '@/components/shared/tiptap/tiptap-ui-primitive/spacer';
 import { Toolbar, ToolbarGroup, ToolbarSeparator } from '@/components/shared/tiptap/tiptap-ui-primitive/toolbar';
+import useBodyScrollDisable from '@/hooks/use-body-scroll-disable';
 import { useCursorVisibility } from '@/hooks/use-cursor-visibility';
 import { useIsBreakpoint } from '@/hooks/use-is-breakpoint';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
+import { httpClient } from '@/utils/http/client';
+
+import SaveContentDrawer from '../../tiptap-ui/save-content-drawer/save-content-drawer';
 
 import '@/components/shared/tiptap/tiptap-node/blockquote-node/blockquote-node.scss';
 import '@/components/shared/tiptap/tiptap-node/code-block-node/code-block-node.scss';
@@ -53,10 +59,12 @@ import '@/components/shared/tiptap/tiptap-templates/simple/simple-editor.scss';
 const MainToolbarContent = ({
   onHighlighterClick,
   onLinkClick,
+  onSave,
   isMobile,
 }: {
   onHighlighterClick: () => void;
   onLinkClick: () => void;
+  onSave: (publishOption: 'public' | 'private') => Promise<void>;
   isMobile: boolean;
 }) => (
   <>
@@ -110,6 +118,16 @@ const MainToolbarContent = ({
       <ImageUploadButton text="Add" />
     </ToolbarGroup>
 
+    <ToolbarSeparator />
+
+    <ToolbarGroup>
+      <SaveContentDrawer onSave={onSave}>
+        <ActionIconButton label="저장">
+          <Save />
+        </ActionIconButton>
+      </SaveContentDrawer>
+    </ToolbarGroup>
+
     <Spacer />
 
     {isMobile && <ToolbarSeparator />}
@@ -139,7 +157,17 @@ const MobileToolbarContent = ({ type, onBack }: { type: 'highlighter' | 'link'; 
   </>
 );
 
-export function SimpleEditor() {
+export function SimpleEditor({
+  title = '',
+  content = '',
+  postId,
+  isEdit = false,
+}: {
+  title?: string;
+  content?: string;
+  postId: number;
+  isEdit?: boolean;
+}) {
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
   const [mobileView, setMobileView] = useState<'main' | 'highlighter' | 'link'>('main');
@@ -196,8 +224,33 @@ export function SimpleEditor() {
     }
   }, [isMobile, mobileView]);
 
+  useBodyScrollDisable();
+
+  const handleSave = async (publishOption: 'public' | 'private') => {
+    if (editor) {
+      const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
+
+      if (isEdit) {
+        await httpClient.put(`/api/posts/${postId}`, {
+          title,
+          content: html,
+          published: publishOption === 'public',
+        });
+      } else {
+        await httpClient.post('/api/posts', {
+          title,
+          content: html,
+          published: publishOption === 'public',
+        });
+      }
+
+      console.log('Saving content:', html);
+      console.log({ title, publishOption });
+    }
+  };
+
   return (
-    <div className="simple-editor-wrapper">
+    <div className="simple-editor-wrapper !w-full">
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}
@@ -213,6 +266,7 @@ export function SimpleEditor() {
               isMobile={isMobile}
               onHighlighterClick={() => setMobileView('highlighter')}
               onLinkClick={() => setMobileView('link')}
+              onSave={handleSave}
             />
           ) : (
             <MobileToolbarContent

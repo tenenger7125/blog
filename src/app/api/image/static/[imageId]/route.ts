@@ -5,7 +5,7 @@ export const GET = async (_request: Request, { params }: { params: { imageId: st
     return new Response('Blog server not configured', { status: 500 });
   }
 
-  const upstream = await fetch(`${process.env.BLOG_SERVER}/image/static/${imageId}`);
+  const upstream = await fetch(`${process.env.BLOG_SERVER}/images/static/${imageId}`);
 
   if (!upstream.ok) {
     const contentType = upstream.headers.get('content-type') || 'text/plain';
