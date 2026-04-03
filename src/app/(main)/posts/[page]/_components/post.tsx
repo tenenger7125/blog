@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATH } from '@/constants';
-import { PostData } from '@/types/post';
+import { PostDataResponse } from '@/types/post';
 
 const Post = ({ post }: PostProps) => (
   <Link className="w-full" href={`${PATH.POST}/${post.id}`}>
@@ -13,7 +13,7 @@ const Post = ({ post }: PostProps) => (
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="line-clamp-2 h-12">{post.content}</p>
+        <div className="line-clamp-2 h-12" dangerouslySetInnerHTML={{ __html: post.content }} />
       </CardContent>
       <CardFooter>
         <span className="flex items-center gap-1">
@@ -26,7 +26,7 @@ const Post = ({ post }: PostProps) => (
 );
 
 interface PostProps {
-  post: PostData;
+  post: PostDataResponse;
 }
 
 export default Post;

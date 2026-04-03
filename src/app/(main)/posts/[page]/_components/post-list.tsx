@@ -1,4 +1,4 @@
-import { PostData } from '@/types/post';
+import { PostDataResponse } from '@/types/post';
 
 import Post from './post';
 
@@ -11,7 +11,7 @@ const PostList = ({ posts }: PostListProps) => (
 );
 
 interface PostListProps {
-  posts: PostData[];
+  posts: PostDataResponse[];
 }
 
 export default PostList;

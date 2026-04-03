@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { SimpleEditor } from '@/components/shared/tiptap/tiptap-templates/simple/simple-editor';
 import { Input } from '@/components/ui/input';
-import { PostData } from '@/types/post';
+import { PostDataResponse } from '@/types/post';
 
 const PostEditor = ({ post }: PostEditorProps) => {
   const [input, setInput] = useState(post.title);
@@ -27,5 +27,5 @@ const PostEditor = ({ post }: PostEditorProps) => {
 export default PostEditor;
 
 interface PostEditorProps {
-  post: PostData;
+  post: PostDataResponse;
 }

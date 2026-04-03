@@ -1,5 +1,6 @@
-import { fetchServer } from '@/lib/node/fetch-server';
-import { PostDataResponse } from '@/types/post';
+import { INTERNAL_URL } from '@/constants/url';
+import { PostsDataResponse } from '@/types/post';
+import { httpClient } from '@/utils/http/client';
 
 import PostList from './_components/post-list';
 import PostPagination from './_components/post-pagination';
@@ -9,10 +10,8 @@ const LIMIT_POST = 10;
 const POSTS = async ({ params }: PostProps) => {
   const page = +params.page;
 
-  // const files = await markdown.readFiles({ page, limit: LIMIT_POST });
-  const res = await fetchServer<PostDataResponse>(
-    `${process.env.BLOG_SERVER}/posts?page=${page}&pageSize=${LIMIT_POST}`,
-  );
+  const res = await httpClient.get<PostsDataResponse>(`${INTERNAL_URL.POSTS}?page=${page}&pageSize=${LIMIT_POST}`);
+
   const posts = res.data?.posts || [];
   const totalPage = res.data?.totalPage || 0;
 

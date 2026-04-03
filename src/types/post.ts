@@ -12,16 +12,16 @@ export type UploadPostRequest = {
   published: boolean;
 };
 
-export type PostDataResponse = {
+export type PostsDataResponse = {
   page: number;
   pageSize: number;
   totalPage: number;
   offset: number;
   total: number;
-  posts: PostData[];
+  posts: PostDataResponse[];
 };
 
-export type PostData = {
+export type PostDataResponse = {
   id: number;
   title: string;
   content: string;

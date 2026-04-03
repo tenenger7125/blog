@@ -1,16 +1,19 @@
+import { COOKIE_KEYS } from '@/constants';
 import { EXTERNAL_URL } from '@/constants/node/url';
+import { getCookie } from '@/lib/node/cookie';
 import { fetchServer } from '@/lib/node/fetch-server';
+import { PostsDataResponse } from '@/types/post';
 
-import { COOKIE_KEYS } from '../../../constants';
-import { getCookie } from '../../../lib/node/cookie';
+import type { NextRequest } from 'next/server';
 
-export const GET = async (_request: Request, { query }: { query: { page?: string; limit?: string } }) => {
-  const { page, limit } = query;
+export async function GET(req: NextRequest) {
+  const page = req.nextUrl.searchParams.get('page');
+  const pageSize = req.nextUrl.searchParams.get('pageSize');
 
-  const data = await fetchServer(`${EXTERNAL_URL.POSTS}?page=${page}&limit=${limit}`);
+  const result = await fetchServer<PostsDataResponse>(`${EXTERNAL_URL.POSTS}?page=${page}&pageSize=${pageSize}`);
 
-  return Response.json(data, { status: 200 });
-};
+  return Response.json(result, { status: 200 });
+}
 
 export async function POST(request: Request) {
   const accessToken = (await getCookie(COOKIE_KEYS.ACCESS_TOKEN)) || '';
