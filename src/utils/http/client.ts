@@ -2,12 +2,7 @@ import { ApiResponse } from '@/types/api';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-export const request = async <Data, Body = unknown>(
-  method: HttpMethod,
-  url: string,
-  body?: Body,
-  init?: RequestInit,
-) => {
+const request = async <Data, Body = unknown>(method: HttpMethod, url: string, body?: Body, init?: RequestInit) => {
   const isFormData = body instanceof FormData;
 
   const headers: HeadersInit = isFormData
