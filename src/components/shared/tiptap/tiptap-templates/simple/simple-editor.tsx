@@ -15,6 +15,7 @@ import { StarterKit } from '@tiptap/starter-kit';
 import { Save } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
 import { ArrowLeftIcon } from '@/components/shared/tiptap/tiptap-icons/arrow-left-icon';
@@ -170,6 +171,8 @@ export function SimpleEditor({
   postId: number;
   isEdit?: boolean;
 }) {
+  const uuid = uuidv4();
+
   const router = useRouter();
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
@@ -209,7 +212,7 @@ export function SimpleEditor({
         accept: 'image/*',
         maxSize: MAX_FILE_SIZE,
         limit: 3,
-        upload: handleImageUpload,
+        upload: handleImageUpload(uuid),
         onError: error => console.error('Upload failed:', error),
       }),
     ],
