@@ -5,6 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATH } from '@/constants';
 import { PostDataResponse } from '@/types/post';
+import { formatRelativeDate } from '@/utils/date';
 
 const Post = ({ post }: PostProps) => {
   const clean = sanitizeHtml(post.content, {
@@ -24,7 +25,7 @@ const Post = ({ post }: PostProps) => {
         <CardFooter>
           <span className="flex items-center gap-1">
             <Calendar className="size-5" />
-            <span>{new Date(post.createdAt).toLocaleString('ko-KR', { timeZone: 'UTC' })}</span>
+            <span>{formatRelativeDate(post.createdAt)}</span>
           </span>
         </CardFooter>
       </Card>
