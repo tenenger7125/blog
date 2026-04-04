@@ -16,6 +16,8 @@ module.exports = {
     'perf',
     'type',
     'init',
+    'delete',
+    'api',
   ],
   maxMessageLength: 64,
   minMessageLength: 3,
@@ -27,13 +29,18 @@ module.exports = {
       emoji: '🎉',
       value: 'init',
     },
+    api: {
+      description: 'Changes related to API integration or updates',
+      emoji: '🔌',
+      value: 'api',
+    },
     feat: {
       description: 'Add a new feature',
       emoji: '🎸',
       value: 'feat',
     },
     fix: {
-      description: 'Modify production, UI,UX code',
+      description: 'Fix a bug or issue',
       emoji: '🐛',
       value: 'fix',
     },
@@ -43,12 +50,12 @@ module.exports = {
       value: 'docs',
     },
     style: {
-      description: 'Add or update code format (not updation production, UI,UX code)',
+      description: 'Add or update styles and UI components',
       emoji: '💄',
       value: 'style',
     },
     refactor: {
-      description: 'Code change that neither fixes a bug nor adds a feature',
+      description: 'Refactor code without changing its behavior',
       emoji: '💡',
       value: 'refactor',
     },
@@ -91,6 +98,11 @@ module.exports = {
       description: 'Add or update static assets (images, fonts, etc.)',
       emoji: '📦',
       value: 'asset',
+    },
+    delete: {
+      description: 'Remove files or code',
+      emoji: '🗑️',
+      value: 'delete',
     },
     messages: {
       type: "Select the type of change that you're committing:",
