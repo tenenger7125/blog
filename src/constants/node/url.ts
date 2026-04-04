@@ -4,6 +4,7 @@ export const EXTERNAL_URL_IN_NODE = {
   LOGIN: `${BLOG_SERVER_BASE_URL}/api/auth/login`,
   SIGNUP: `${BLOG_SERVER_BASE_URL}/api/auth/signup`,
   LOGOUT: `${BLOG_SERVER_BASE_URL}/api/auth/logout`,
+  REFRESH: `${BLOG_SERVER_BASE_URL}/api/auth/refresh`,
   IMAGE_UPLOAD: `${BLOG_SERVER_BASE_URL}/api/images/upload`,
   STATIC_IMAGE: `${BLOG_SERVER_BASE_URL}/api/static/images`,
   POSTS: `${BLOG_SERVER_BASE_URL}/api/posts`,

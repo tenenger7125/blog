@@ -1,7 +1,5 @@
-import { COOKIE_KEYS } from '@/constants';
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
-import { getCookie } from '@/lib/node/cookie';
-import { fetchServer } from '@/lib/node/fetch-server';
+import { fetchServer, fetchServerWithAuth } from '@/lib/node/fetch-server';
 import { PostsDataResponse } from '@/types/post';
 
 import type { NextRequest } from 'next/server';
@@ -18,14 +16,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(request: Request) {
-  const accessToken = (await getCookie(COOKIE_KEYS.ACCESS_TOKEN)) || '';
-
-  const result = await fetchServer(EXTERNAL_URL_IN_NODE.POSTS, {
+  const result = await fetchServerWithAuth(EXTERNAL_URL_IN_NODE.POSTS, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(await request.json()),
   });
 

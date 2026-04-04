@@ -1,4 +1,8 @@
+import { COOKIE_KEYS } from '@/constants/key';
+import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { ApiResponse } from '@/types/api';
+
+import { getCookie, setCookie } from './cookie';
 
 type Result<ResponseData> = {
   ok: boolean;
@@ -33,4 +37,53 @@ export const fetchServer = async <ResponseData>(
       data: null,
     };
   }
+};
+
+type RefreshResponseData = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export const fetchServerWithAuth = async <ResponseData>(
+  input: RequestInfo,
+  init?: RequestInit,
+): Promise<Result<ResponseData>> => {
+  const accessToken = (await getCookie(COOKIE_KEYS.ACCESS_TOKEN)) ?? '';
+
+  const result = await fetchServer<ResponseData>(input, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (result.statusCode !== 401) {
+    return result;
+  }
+
+  const refreshToken = (await getCookie(COOKIE_KEYS.REFRESH_TOKEN)) ?? '';
+
+  const refreshResult = await fetchServer<RefreshResponseData>(EXTERNAL_URL_IN_NODE.REFRESH, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ refreshToken }),
+  });
+
+  if (!refreshResult.ok || !refreshResult.data?.accessToken) {
+    return result;
+  }
+
+  setCookie(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken);
+  if (refreshResult.data.refreshToken) {
+    setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken);
+  }
+
+  return fetchServer<ResponseData>(input, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      Authorization: `Bearer ${refreshResult.data.accessToken}`,
+    },
+  });
 };
