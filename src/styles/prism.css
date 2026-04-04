@@ -15,7 +15,7 @@
     @apply -ml-2 pr-4 text-gray-600 content-[attr(line)];
   }
 
-  .prism code:not(.code-highlight) {
+  .prism :not(pre) > code {
     @apply mx-1 bg-gray-200;
   }
 
