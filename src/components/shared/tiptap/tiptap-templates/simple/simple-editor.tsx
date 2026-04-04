@@ -283,6 +283,7 @@ export function SimpleEditor({
 
         if (res.ok) {
           router.replace(`${PATH.POST}/${postId}`);
+          router.refresh();
         } else {
           toast.error('포스트 업데이트에 실패했습니다. 다시 시도해주세요.');
         }
