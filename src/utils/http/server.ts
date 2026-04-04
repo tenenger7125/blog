@@ -1,17 +1,19 @@
-'use client';
+import { redirect } from 'next/navigation';
+
+import { PATH } from '@/constants/path';
 
 import { AuthError, baseHttp } from './request';
 
-async function withAuthRedirect<T>(fn: () => Promise<T>) {
-  return fn().catch(e => {
-    if (e instanceof AuthError) {
-      window.location.href = '/login';
-    }
-    throw e;
-  });
+async function withAuthRedirect<T>(fn: () => Promise<T>): Promise<T> {
+  try {
+    return await fn();
+  } catch (err) {
+    if (err instanceof AuthError) redirect(PATH.LOGIN);
+    throw err;
+  }
 }
 
-export const clientHttp = {
+export const serverHttp = {
   get<Data>(url: string, init?: RequestInit) {
     return withAuthRedirect(() => baseHttp.get<Data>(url, init));
   },

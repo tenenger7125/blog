@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants';
 import { cn } from '@/lib/utils';
 import { LoginRequestData, LoginResponseData } from '@/types/auth';
-import { httpClient } from '@/utils/http/client';
+import { clientHttp } from '@/utils/http/client';
 
 import { loginSchema, type LoginSchema } from './_schema/login.schema';
 
@@ -24,7 +24,7 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (data: LoginSchema) => {
-    const res = await httpClient.post<LoginResponseData, LoginRequestData>('/api/auth/login', data);
+    const res = await clientHttp.post<LoginResponseData, LoginRequestData>('/api/auth/login', data);
     if (res.ok) {
       toast.success('Login successful!');
       router.push(PATH.HOME);

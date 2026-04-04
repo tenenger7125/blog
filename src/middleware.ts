@@ -1,4 +1,3 @@
-import { status } from 'http-status';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { PATH } from './constants';
@@ -23,10 +22,6 @@ export const middleware = (request: NextRequest) => {
     if (accessToken) {
       return NextResponse.redirect(new URL(PATH.HOME, request.url));
     }
-  }
-
-  if (response.status === status.UNAUTHORIZED) {
-    return NextResponse.redirect(new URL(PATH.LOGIN, request.url));
   }
 
   return response;

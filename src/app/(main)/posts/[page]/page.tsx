@@ -1,6 +1,6 @@
 import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostsDataResponse } from '@/types/post';
-import { httpClient } from '@/utils/http/client';
+import { serverHttp } from '@/utils/http/server';
 
 import PostList from './_components/post-list';
 import PostPagination from './_components/post-pagination';
@@ -10,7 +10,7 @@ const LIMIT_POST = 10;
 const POSTS = async ({ params }: PostProps) => {
   const page = +params.page;
 
-  const res = await httpClient.get<PostsDataResponse>(
+  const res = await serverHttp.get<PostsDataResponse>(
     `${INTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
   );
 

@@ -3,9 +3,9 @@ import { cellAround, CellSelection } from '@tiptap/pm/tables';
 import { findParentNodeClosestToPos, type Editor, type NodeWithPos } from '@tiptap/react';
 
 import { ImageUploadResponse } from '@/types/image';
+import { serverHttp } from '@/utils/http/server';
 
 import { INTERNAL_URL_IN_CLIENT } from '../constants/url';
-import { httpClient } from '../utils/http/client';
 
 import type { Node as PMNode } from '@tiptap/pm/model';
 import type { Transaction } from '@tiptap/pm/state';
@@ -353,7 +353,7 @@ export const handleImageUpload =
     formData.append('file', file);
     formData.append('uuid', uuid);
 
-    const { data } = await httpClient.postFormData<ImageUploadResponse, FormData>(
+    const { data } = await serverHttp.postFormData<ImageUploadResponse, FormData>(
       INTERNAL_URL_IN_CLIENT.IMAGE_UPLOAD,
       formData,
     );

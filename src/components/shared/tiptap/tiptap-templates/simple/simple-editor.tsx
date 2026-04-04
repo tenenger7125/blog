@@ -46,7 +46,7 @@ import { useCursorVisibility } from '@/hooks/use-cursor-visibility';
 import { useIsBreakpoint } from '@/hooks/use-is-breakpoint';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
-import { httpClient } from '@/utils/http/client';
+import { clientHttp } from '@/utils/http/client';
 
 import SaveContentDrawer from '../../tiptap-ui/save-content-drawer/save-content-drawer';
 
@@ -257,13 +257,13 @@ export function SimpleEditor({
       const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
 
       if (isEdit) {
-        await httpClient.put(`/api/posts/${postId}`, {
+        await clientHttp.put(`/api/posts/${postId}`, {
           title,
           content: html,
           published: publishOption === 'public',
         });
       } else {
-        const res = await httpClient.post('/api/posts', {
+        const res = await clientHttp.post('/api/posts', {
           title,
           content: html,
           published: publishOption === 'public',
