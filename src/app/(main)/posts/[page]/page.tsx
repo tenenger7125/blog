@@ -30,3 +30,5 @@ interface PostProps {
 }
 
 export default POSTS;
+
+export const revalidate = 60;
