@@ -7,8 +7,6 @@ import { ThemeProvider } from '@/contexts/theme-context';
 import { pretendardFont, yOnepickBoldFont } from './config/font';
 
 import '@/styles/globals.css';
-import 'prismjs/plugins/toolbar/prism-toolbar.min.css';
-import 'prismjs/themes/prism-tomorrow.css';
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   const nonce = headers().get('x-nonce');

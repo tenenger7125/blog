@@ -1,13 +1,22 @@
 import Link from 'next/link';
 
+import { Button } from '@/components/ui/button';
 import { PATH } from '@/constants';
+import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { PostsDataResponse } from '@/types/post';
+import { requestHttp } from '@/utils/http/request';
+import { excludeImageTag } from '@/utils/sanitize';
 
-import { Button } from '../components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { markdown } from '../utils/node/files';
+
+const LIMIT_POST = 2;
 
 const NotFound = async () => {
-  const files = await markdown.readFiles({ page: 1, limit: 2 });
+  const res = await requestHttp.get<PostsDataResponse>(
+    `${INTERNAL_URL_IN_NODE.POSTS}?page=${1}&pageSize=${LIMIT_POST}`,
+  );
+
+  const posts = res.data?.posts || [];
 
   return (
     <div className="m-auto flex items-center justify-center bg-gradient-to-br px-4">
@@ -45,12 +54,14 @@ const NotFound = async () => {
         <div className="mt-16 border-t pt-8 dark:border-white">
           <p className="mb-6 text-sm dark:text-white">최근 블로그 글</p>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {files.contents.map(file => (
-              <Card key={file.id}>
+            {posts.map(post => (
+              <Card key={post.id}>
                 <CardHeader className="hover:scale-105">
-                  <CardTitle>{file.metaData.title}</CardTitle>
-                  <CardDescription className="line-clamp-3">{file.metaData.description}</CardDescription>
-                  <Link href={`${PATH.POST}/${file.id}`}>
+                  <CardTitle className="leading-normal">{post.title}</CardTitle>
+                  <CardDescription className="line-clamp-3">
+                    <div dangerouslySetInnerHTML={{ __html: excludeImageTag(post.content) }} />
+                  </CardDescription>
+                  <Link href={`${PATH.POST}/${post.id}`}>
                     <Button variant="white">보러 가기</Button>
                   </Link>
                 </CardHeader>
