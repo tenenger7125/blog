@@ -2,7 +2,7 @@ import { metadata } from '@/app/config/metadata';
 import { Separator } from '@/components/ui/separator';
 import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostDataResponse } from '@/types/post';
-import { serverHttp } from '@/utils/http/server';
+import { requestHttp } from '@/utils/http/request';
 import { markdown } from '@/utils/node/files';
 
 import Comment from './_components/comment';
@@ -11,7 +11,7 @@ import PostBreadcrumb from './_components/post-breadcrumb';
 import ScrollRestoration from './_components/scroll-restoration';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
-  const res = await serverHttp.get<PostDataResponse>(`${INTERNAL_URL_IN_NODE.POSTS}/${postId}`);
+  const res = await requestHttp.get<PostDataResponse>(`${INTERNAL_URL_IN_NODE.POSTS}/${postId}`);
 
   const post = res.data;
 

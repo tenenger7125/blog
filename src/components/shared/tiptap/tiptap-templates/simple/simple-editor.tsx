@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { Highlight } from '@tiptap/extension-highlight';
-import { Image } from '@tiptap/extension-image';
+import { Image as BaseImage } from '@tiptap/extension-image';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
@@ -46,7 +46,7 @@ import { useCursorVisibility } from '@/hooks/use-cursor-visibility';
 import { useIsBreakpoint } from '@/hooks/use-is-breakpoint';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
-import { clientHttp } from '@/utils/http/client';
+import { requestHttp } from '@/utils/http/request';
 
 import SaveContentDrawer from '../../tiptap-ui/save-content-drawer/save-content-drawer';
 
@@ -58,6 +58,22 @@ import '@/components/shared/tiptap/tiptap-node/image-node/image-node.scss';
 import '@/components/shared/tiptap/tiptap-node/list-node/list-node.scss';
 import '@/components/shared/tiptap/tiptap-node/paragraph-node/paragraph-node.scss';
 import '@/components/shared/tiptap/tiptap-templates/simple/simple-editor.scss';
+
+const Image = BaseImage.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      'data-image-id': {
+        default: null,
+        parseHTML: (element: HTMLElement) => element.getAttribute('data-image-id'),
+        renderHTML: (attributes: Record<string, string>) => {
+          if (!attributes['data-image-id']) return {};
+          return { 'data-image-id': attributes['data-image-id'] };
+        },
+      },
+    };
+  },
+});
 
 const MainToolbarContent = ({
   onHighlighterClick,
@@ -257,13 +273,13 @@ export function SimpleEditor({
       const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
 
       if (isEdit) {
-        await clientHttp.put(`/api/posts/${postId}`, {
+        await requestHttp.put(`/api/posts/${postId}`, {
           title,
           content: html,
           published: publishOption === 'public',
         });
       } else {
-        const res = await clientHttp.post('/api/posts', {
+        const res = await requestHttp.post('/api/posts', {
           title,
           content: html,
           published: publishOption === 'public',

@@ -75,9 +75,7 @@ export const fetchServerWithAuth = async <ResponseData>(
   }
 
   setCookie(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken);
-  if (refreshResult.data.refreshToken) {
-    setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken);
-  }
+  setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken);
 
   return fetchServer<ResponseData>(input, {
     ...init,

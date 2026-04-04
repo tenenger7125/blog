@@ -12,6 +12,7 @@ import { CloseIcon } from '@/components/shared/tiptap/tiptap-icons/close-icon';
 import { Button } from '@/components/shared/tiptap/tiptap-ui-primitive/button';
 import { focusNextNode, isValidPosition } from '@/lib/tiptap-utils';
 
+import type { UploadResult } from '@/components/shared/tiptap/tiptap-node/image-upload-node/image-upload-node-extension';
 import type { NodeViewProps } from '@tiptap/react';
 
 import '@/components/shared/tiptap/tiptap-node/image-upload-node/image-upload-node.scss';
@@ -68,7 +69,11 @@ export interface UploadOptions {
    * @param {AbortSignal} signal - Signal that can be used to abort the upload
    * @returns {Promise<string>} Promise resolving to the URL of the uploaded file
    */
-  upload: (file: File, onProgress: (event: { progress: number }) => void, signal: AbortSignal) => Promise<string>;
+  upload: (
+    file: File,
+    onProgress: (event: { progress: number }) => void,
+    signal: AbortSignal,
+  ) => Promise<string | UploadResult>;
   /**
    * Callback triggered when a file is uploaded successfully
    * @param {string} url - URL of the successfully uploaded file
@@ -89,7 +94,7 @@ export interface UploadOptions {
 function useFileUpload(options: UploadOptions) {
   const [fileItems, setFileItems] = useState<FileItem[]>([]);
 
-  const uploadFile = async (file: File): Promise<string | null> => {
+  const uploadFile = async (file: File): Promise<UploadResult | null> => {
     if (file.size > options.maxSize) {
       const error = new Error(`File size exceeds maximum allowed (${options.maxSize / 1024 / 1024}MB)`);
       options.onError?.(error);
@@ -114,7 +119,7 @@ function useFileUpload(options: UploadOptions) {
         throw new Error('Upload function is not defined');
       }
 
-      const url = await options.upload(
+      const uploadResult = await options.upload(
         file,
         (event: { progress: number }) => {
           setFileItems(prev => prev.map(item => (item.id === fileId ? { ...item, progress: event.progress } : item)));
@@ -122,14 +127,18 @@ function useFileUpload(options: UploadOptions) {
         abortController.signal,
       );
 
-      if (!url) throw new Error('Upload failed: No URL returned');
+      if (!uploadResult) throw new Error('Upload failed: No URL returned');
+
+      const result: UploadResult = typeof uploadResult === 'string' ? { src: uploadResult } : uploadResult;
 
       if (!abortController.signal.aborted) {
         setFileItems(prev =>
-          prev.map(item => (item.id === fileId ? { ...item, status: 'success', url, progress: 100 } : item)),
+          prev.map(item =>
+            item.id === fileId ? { ...item, status: 'success', url: result.src, progress: 100 } : item,
+          ),
         );
-        options.onSuccess?.(url);
-        return url;
+        options.onSuccess?.(result.src);
+        return result;
       }
 
       return null;
@@ -142,7 +151,7 @@ function useFileUpload(options: UploadOptions) {
     }
   };
 
-  const uploadFiles = async (files: File[]): Promise<string[]> => {
+  const uploadFiles = async (files: File[]): Promise<UploadResult[]> => {
     if (!files || files.length === 0) {
       options.onError?.(new Error('No files to upload'));
       return [];
@@ -158,7 +167,7 @@ function useFileUpload(options: UploadOptions) {
     const results = await Promise.all(uploadPromises);
 
     // Filter out null results (failed uploads)
-    return results.filter((url): url is string => url !== null);
+    return results.filter((r): r is UploadResult => r !== null);
   };
 
   const removeFileItem = (fileId: string) => {
@@ -418,15 +427,17 @@ export const ImageUploadNode: React.FC<NodeViewProps> = props => {
       const pos = props.getPos();
 
       if (isValidPosition(pos)) {
-        const imageNodes = urls.map((url, index) => {
+        const imageNodes = urls.map((result, index) => {
           const filename = files[index]?.name.replace(/\.[^/.]+$/, '') || 'unknown';
+          const { src, ...extraAttrs } = result;
           return {
             type: extension.options.type,
             attrs: {
               ...extension.options,
-              src: url,
+              src,
               alt: filename,
               title: filename,
+              ...extraAttrs,
             },
           };
         });

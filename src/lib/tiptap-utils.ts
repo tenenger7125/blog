@@ -2,10 +2,9 @@ import { AllSelection, NodeSelection, Selection, TextSelection } from '@tiptap/p
 import { cellAround, CellSelection } from '@tiptap/pm/tables';
 import { findParentNodeClosestToPos, type Editor, type NodeWithPos } from '@tiptap/react';
 
+import { INTERNAL_URL_IN_CLIENT } from '@/constants/url';
 import { ImageUploadResponse } from '@/types/image';
-import { serverHttp } from '@/utils/http/server';
-
-import { INTERNAL_URL_IN_CLIENT } from '../constants/url';
+import { requestHttp } from '@/utils/http/request';
 
 import type { Node as PMNode } from '@tiptap/pm/model';
 import type { Transaction } from '@tiptap/pm/state';
@@ -336,7 +335,7 @@ export const handleImageUpload =
     file: File,
     onProgress?: (event: { progress: number }) => void,
     abortSignal?: AbortSignal,
-  ): Promise<string> => {
+  ): Promise<{ src: string; 'data-image-id': string }> => {
     // Validate file
 
     if (!file) {
@@ -353,7 +352,7 @@ export const handleImageUpload =
     formData.append('file', file);
     formData.append('uuid', uuid);
 
-    const { data } = await serverHttp.postFormData<ImageUploadResponse, FormData>(
+    const { data } = await requestHttp.postFormData<ImageUploadResponse, FormData>(
       INTERNAL_URL_IN_CLIENT.IMAGE_UPLOAD,
       formData,
     );
@@ -362,7 +361,10 @@ export const handleImageUpload =
       throw new Error('No response data from upload');
     }
 
-    return `${INTERNAL_URL_IN_CLIENT.STATIC_IMAGE}/${data.id}`;
+    return {
+      src: `${INTERNAL_URL_IN_CLIENT.STATIC_IMAGE}/${data.id}`,
+      'data-image-id': String(data.id),
+    };
   };
 
 type ProtocolOptions = {

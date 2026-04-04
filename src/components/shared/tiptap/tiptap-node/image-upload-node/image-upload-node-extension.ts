@@ -4,11 +4,13 @@ import { ImageUploadNode as ImageUploadNodeComponent } from '@/components/shared
 
 import type { NodeType } from '@tiptap/pm/model';
 
+export type UploadResult = { src: string } & Record<string, string>;
+
 export type UploadFunction = (
   file: File,
   onProgress?: (event: { progress: number }) => void,
   abortSignal?: AbortSignal,
-) => Promise<string>;
+) => Promise<string | UploadResult>;
 
 export interface ImageUploadNodeOptions {
   /**

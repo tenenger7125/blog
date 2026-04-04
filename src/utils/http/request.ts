@@ -1,3 +1,7 @@
+import { redirect } from 'next/navigation';
+
+import { PATH } from '@/constants';
+import { INTERNAL_URL_IN_CLIENT } from '@/constants/url';
 import { ApiResponse } from '@/types/api';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -33,7 +37,7 @@ const request = async <Data, Body = unknown>(method: HttpMethod, url: string, bo
   return response.json() as Promise<ApiResponse<Data>>;
 };
 
-export const baseHttp = {
+const baseHttp = {
   get<Data>(url: string, init?: RequestInit) {
     return request<Data>('GET', url, undefined, init);
   },
@@ -51,5 +55,42 @@ export const baseHttp = {
   },
   delete<Data>(url: string, init?: RequestInit) {
     return request<Data>('DELETE', url, undefined, init);
+  },
+};
+
+async function withAuthRedirect<T>(fn: () => Promise<T>): Promise<T> {
+  try {
+    return await fn();
+  } catch (err) {
+    if (err instanceof AuthError) {
+      if (typeof window === 'undefined') {
+        redirect(PATH.LOGIN);
+      } else {
+        await fetch(INTERNAL_URL_IN_CLIENT.LOGOUT, { method: 'POST' });
+        window.location.href = PATH.LOGIN;
+      }
+    }
+    throw err;
+  }
+}
+
+export const requestHttp = {
+  get<Data>(url: string, init?: RequestInit) {
+    return withAuthRedirect(() => baseHttp.get<Data>(url, init));
+  },
+  post<Data, Body = unknown>(url: string, body?: Body, init?: RequestInit) {
+    return withAuthRedirect(() => baseHttp.post<Data, Body>(url, body, init));
+  },
+  postFormData<Data, Body = FormData>(url: string, body?: Body, init?: RequestInit) {
+    return withAuthRedirect(() => baseHttp.postFormData<Data, Body>(url, body, init));
+  },
+  put<Data, Body = unknown>(url: string, body?: Body, init?: RequestInit) {
+    return withAuthRedirect(() => baseHttp.put<Data, Body>(url, body, init));
+  },
+  patch<Data, Body = unknown>(url: string, body?: Body, init?: RequestInit) {
+    return withAuthRedirect(() => baseHttp.patch<Data, Body>(url, body, init));
+  },
+  delete<Data>(url: string, init?: RequestInit) {
+    return withAuthRedirect(() => baseHttp.delete<Data>(url, init));
   },
 };

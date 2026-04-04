@@ -3,6 +3,7 @@ import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 export const GET = async (_request: Request, ctx: { params: { imageId: string } }) => {
   const { imageId } = ctx.params;
 
+  //* 캐시된 이미지 표시하도록 하기.
   const upstream = await fetch(`${EXTERNAL_URL_IN_NODE.STATIC_IMAGE}/${imageId}`);
 
   if (!upstream.ok) {
