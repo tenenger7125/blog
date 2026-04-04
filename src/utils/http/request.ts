@@ -24,6 +24,7 @@ const request = async <Data, Body = unknown>(method: HttpMethod, url: string, bo
       };
 
   const response = await fetch(url, {
+    cache: 'no-store',
     method,
     headers: method === 'GET' || method === 'DELETE' ? undefined : headers,
     body: method === 'GET' || method === 'DELETE' ? undefined : body instanceof FormData ? body : JSON.stringify(body),

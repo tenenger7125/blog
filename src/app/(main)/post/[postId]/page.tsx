@@ -1,9 +1,7 @@
-import { metadata } from '@/app/config/metadata';
 import { Separator } from '@/components/ui/separator';
 import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostDataResponse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
-import { markdown } from '@/utils/node/files';
 
 import Comment from './_components/comment';
 import EditPostButton from './_components/edit-post-button';
@@ -36,24 +34,5 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
     </div>
   );
 };
-
-export const revalidate = 60;
-
-export async function generateStaticParams() {
-  const files = await markdown.readFiles();
-
-  return files.contents.map(({ id }) => ({ postId: id }));
-}
-
-export async function generateMetadata({ params }: { params: { postId: string } }) {
-  const { postId } = params;
-  const { metaData } = await markdown.readFile({ id: postId });
-
-  return {
-    ...metadata,
-    title: metaData.title,
-    description: metaData.description,
-  };
-}
 
 export default Post;

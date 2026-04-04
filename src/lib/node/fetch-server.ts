@@ -16,7 +16,7 @@ export const fetchServer = async <ResponseData>(
   init?: RequestInit,
 ): Promise<Result<ResponseData>> => {
   try {
-    const res = await fetch(input, init);
+    const res = await fetch(input, { cache: 'no-store', ...init });
     const body = (await res.json()) as ApiResponse<ResponseData>;
 
     if (!res.ok) {

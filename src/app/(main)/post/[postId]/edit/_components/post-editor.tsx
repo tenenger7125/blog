@@ -13,8 +13,9 @@ const PostEditor = ({ post }: PostEditorProps) => {
     <div className="flex w-full flex-col">
       <div className="w-full">
         <Input
-          className="mb-4 text-2xl font-bold"
+          className="mx-auto mb-4 max-w-[80%]"
           placeholder="제목을 입력하세요"
+          sizing="lg"
           value={input}
           onChange={e => setInput(e.target.value)}
         />

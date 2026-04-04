@@ -42,6 +42,7 @@ import { Button } from '@/components/shared/tiptap/tiptap-ui-primitive/button';
 import { Spacer } from '@/components/shared/tiptap/tiptap-ui-primitive/spacer';
 import { Toolbar, ToolbarGroup, ToolbarSeparator } from '@/components/shared/tiptap/tiptap-ui-primitive/toolbar';
 import { PATH } from '@/constants';
+import { INTERNAL_URL_IN_CLIENT } from '@/constants/url';
 import { useCursorVisibility } from '@/hooks/use-cursor-visibility';
 import { useIsBreakpoint } from '@/hooks/use-is-breakpoint';
 import { useWindowSize } from '@/hooks/use-window-size';
@@ -273,13 +274,20 @@ export function SimpleEditor({
       const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
 
       if (isEdit) {
-        await requestHttp.put(`/api/posts/${postId}`, {
+        const res = await requestHttp.put(`${INTERNAL_URL_IN_CLIENT.POSTS}/${postId}`, {
           title,
           content: html,
           published: publishOption === 'public',
+          sessionId: uuid,
         });
+
+        if (res.ok) {
+          router.replace(`${PATH.POST}/${postId}`);
+        } else {
+          toast.error('포스트 업데이트에 실패했습니다. 다시 시도해주세요.');
+        }
       } else {
-        const res = await requestHttp.post('/api/posts', {
+        const res = await requestHttp.post(INTERNAL_URL_IN_CLIENT.POSTS, {
           title,
           content: html,
           published: publishOption === 'public',
@@ -288,7 +296,7 @@ export function SimpleEditor({
         if (res.ok) {
           router.replace(PATH.HOME);
         } else {
-          toast.error('Failed to save the post. Please try again.');
+          toast.error('포스트 저장에 실패했습니다. 다시 시도해주세요.');
         }
       }
     }

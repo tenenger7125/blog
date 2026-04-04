@@ -1,12 +1,13 @@
-import { fetchServer } from '@/lib/node/fetch-server';
+import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostDataResponse } from '@/types/post';
+import { requestHttp } from '@/utils/http/request';
 
 import PostEditor from './_components/post-editor';
 
 const EditPostPage = async ({ params: { postId } }: { params: { postId: string } }) => {
-  const { data: post } = await fetchServer<PostDataResponse>(`${process.env.BLOG_SERVER}/posts/${postId}`, {
-    method: 'GET',
-  });
+  const res = await requestHttp.get<PostDataResponse>(`${INTERNAL_URL_IN_NODE.POSTS}/${postId}`);
+
+  const post = res.data;
 
   if (!post) {
     return null;
