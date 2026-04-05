@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { Highlight } from '@tiptap/extension-highlight';
 import { Image as BaseImage } from '@tiptap/extension-image';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
@@ -12,6 +13,7 @@ import { Typography } from '@tiptap/extension-typography';
 import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
+import { all, createLowlight } from 'lowlight';
 import { Save } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -59,6 +61,9 @@ import '@/components/shared/tiptap/tiptap-node/image-node/image-node.scss';
 import '@/components/shared/tiptap/tiptap-node/list-node/list-node.scss';
 import '@/components/shared/tiptap/tiptap-node/paragraph-node/paragraph-node.scss';
 import '@/components/shared/tiptap/tiptap-templates/simple/simple-editor.scss';
+import 'highlight.js/styles/github-dark.css';
+
+const lowlight = createLowlight(all);
 
 const Image = BaseImage.extend({
   addAttributes() {
@@ -204,16 +209,21 @@ export function SimpleEditor({
         autocorrect: 'off',
         autocapitalize: 'off',
         'aria-label': 'Main content area, start typing to enter text.',
-        class: 'simple-editor',
+        class: 'simple-editor tiptap-content',
       },
     },
     extensions: [
       StarterKit.configure({
+        codeBlock: false,
         horizontalRule: false,
         link: {
           openOnClick: false,
           enableClickSelection: true,
         },
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
+        defaultLanguage: 'javascript',
       }),
       HorizontalRule,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
