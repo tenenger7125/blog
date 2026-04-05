@@ -8,3 +8,56 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+@layer base {
+  .simple-editor-content {
+    max-width: 648px;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .simple-editor-content .tiptap.ProseMirror.simple-editor {
+    flex: 1;
+    padding: 3rem 3rem 30vh;
+  }
+
+  @media screen and (max-width: 480px) {
+    .simple-editor-content .tiptap.ProseMirror.simple-editor {
+      padding: 1rem 1.5rem 30vh;
+    }
+  }
+
+  .tiptap-content pre {
+    background: #0d0d0d;
+    color: #fff;
+    font-family: 'JetBrainsMono', 'Fira Code', monospace;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .tiptap-content pre code {
+    color: inherit;
+    padding: 0;
+    background: none;
+    font-size: 0.9rem;
+  }
+
+  .tiptap-content pre .hljs-keyword {
+    font-weight: bold;
+  }
+
+  pre[class*='language-']::before {
+    content: attr(data-language);
+    display: block;
+    text-align: right;
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+}

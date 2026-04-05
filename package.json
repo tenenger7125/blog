@@ -27,6 +27,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tailwindcss/typography": "^0.5.15",
     "@tiptap/core": "^3.19.0",
+    "@tiptap/extension-bubble-menu": "^3.22.2",
     "@tiptap/extension-code-block-lowlight": "^3.22.2",
     "@tiptap/extension-highlight": "^3.19.0",
     "@tiptap/extension-horizontal-rule": "^3.19.0",

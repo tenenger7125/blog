@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { Highlight } from '@tiptap/extension-highlight';
 import { Image as BaseImage } from '@tiptap/extension-image';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
@@ -51,10 +50,11 @@ import { useWindowSize } from '@/hooks/use-window-size';
 import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
 import { requestHttp } from '@/utils/http/request';
 
+import { getHighlightedHtml } from '../../../../../lib/parse-html';
+import { CustomCodeBlock } from '../../tiptap-ui/code-block-extension/code-block-extension';
 import SaveContentDrawer from '../../tiptap-ui/save-content-drawer/save-content-drawer';
 
 import '@/components/shared/tiptap/tiptap-node/blockquote-node/blockquote-node.scss';
-import '@/components/shared/tiptap/tiptap-node/code-block-node/code-block-node.scss';
 import '@/components/shared/tiptap/tiptap-node/heading-node/heading-node.scss';
 import '@/components/shared/tiptap/tiptap-node/horizontal-rule-node/horizontal-rule-node.scss';
 import '@/components/shared/tiptap/tiptap-node/image-node/image-node.scss';
@@ -212,6 +212,7 @@ export function SimpleEditor({
         class: 'simple-editor tiptap-content',
       },
     },
+
     extensions: [
       StarterKit.configure({
         codeBlock: false,
@@ -221,9 +222,9 @@ export function SimpleEditor({
           enableClickSelection: true,
         },
       }),
-      CodeBlockLowlight.configure({
+      CustomCodeBlock.configure({
         lowlight,
-        defaultLanguage: 'javascript',
+        // defaultLanguage: 'javascript',
       }),
       HorizontalRule,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
@@ -282,11 +283,12 @@ export function SimpleEditor({
   const handleSave = async (publishOption: 'public' | 'private') => {
     if (editor) {
       const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
+      const highlighted = await getHighlightedHtml(html);
 
       if (isEdit) {
         const res = await requestHttp.put(`${INTERNAL_URL_IN_CLIENT.POSTS}/${postId}`, {
           title,
-          content: html,
+          content: highlighted,
           published: publishOption === 'public',
           sessionId: uuid,
         });
@@ -300,7 +302,7 @@ export function SimpleEditor({
       } else {
         const res = await requestHttp.post(INTERNAL_URL_IN_CLIENT.POSTS, {
           title,
-          content: html,
+          content: highlighted,
           published: publishOption === 'public',
         });
 
