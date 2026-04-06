@@ -54,7 +54,7 @@ export const fetchServerWithAuth = async <ResponseData>(
     ...init,
     headers: {
       ...init?.headers,
-      Authorization: `Bearer ${accessToken}`,
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
     },
   });
 

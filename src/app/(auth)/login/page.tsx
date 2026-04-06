@@ -28,6 +28,7 @@ const LoginPage = () => {
     if (res.ok) {
       toast.success('Login successful!');
       router.push(PATH.HOME);
+      router.refresh();
     } else {
       toast.error('Failed to login. Please try again.');
     }

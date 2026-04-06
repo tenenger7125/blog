@@ -16,17 +16,31 @@ export class AuthError extends Error {
 const request = async <Data, Body = unknown>(method: HttpMethod, url: string, body?: Body, init?: RequestInit) => {
   const isFormData = body instanceof FormData;
 
-  const headers: HeadersInit = isFormData
-    ? { ...(init?.headers ?? {}) } // FormData: Content-Type 제외
-    : {
-        'Content-Type': 'application/json',
-        ...(init?.headers ?? {}),
-      };
+  // 기본 헤더: init에 들어온 헤더를 기반으로 Content-Type을 필요한 경우에만 추가
+  const baseHeaders: Record<string, string> = { ...(init?.headers ?? {}) } as Record<string, string>;
+  if (!isFormData && method !== 'GET' && method !== 'DELETE') {
+    baseHeaders['Content-Type'] = 'application/json';
+  }
+
+  // 서버 사이드에서 동작할 때(SSR/route 등) 클라이언트로부터 전달된 쿠키를 포워딩
+  if (typeof window === 'undefined') {
+    try {
+      const { headers: nextHeaders } = await import('next/headers');
+      const cookieHeader = nextHeaders().get('cookie');
+      if (cookieHeader) {
+        baseHeaders.cookie = cookieHeader;
+      }
+    } catch (err) {
+      // ignore if next/headers isn't available
+    }
+  }
+
+  const finalHeaders: HeadersInit | undefined = Object.keys(baseHeaders).length ? baseHeaders : undefined;
 
   const response = await fetch(url, {
     cache: 'no-store',
     method,
-    headers: method === 'GET' || method === 'DELETE' ? undefined : headers,
+    headers: finalHeaders,
     body: method === 'GET' || method === 'DELETE' ? undefined : body instanceof FormData ? body : JSON.stringify(body),
     ...init,
   });

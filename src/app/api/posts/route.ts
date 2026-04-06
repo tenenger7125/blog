@@ -1,5 +1,5 @@
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
-import { fetchServer, fetchServerWithAuth } from '@/lib/node/fetch-server';
+import { fetchServerWithAuth } from '@/lib/node/fetch-server';
 import { PostsDataResponse } from '@/types/post';
 
 import type { NextRequest } from 'next/server';
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   const page = req.nextUrl.searchParams.get('page');
   const pageSize = req.nextUrl.searchParams.get('pageSize');
 
-  const result = await fetchServer<PostsDataResponse>(
+  const result = await fetchServerWithAuth<PostsDataResponse>(
     `${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${pageSize}`,
   );
 
