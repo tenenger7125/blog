@@ -45,3 +45,42 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
 };
 
 export default Post;
+
+export async function generateMetadata({ params }: { params: { postId: string } }) {
+  const res = await requestHttp.get<PostDataResponse>(`${INTERNAL_URL_IN_NODE.POSTS}/${params.postId}`);
+  const post = res.data;
+
+  if (!post) {
+    return { title: '포스트를 찾을 수 없습니다.' };
+  }
+
+  const plainText = post.content.replace(/<[^>]+>/g, '').trim();
+  const description = plainText.slice(0, 150) + (plainText.length > 150 ? '...' : '');
+
+  const postUrl = `https://blog-nu-dun-70.vercel.app/post/${params.postId}`;
+
+  return {
+    title: post.title,
+    description,
+    openGraph: {
+      type: 'article', // website → article
+      url: postUrl,
+      title: post.title,
+      description,
+      images: [
+        {
+          url: '/logo.png',
+          alt: '동그라미 블로그 로고',
+          width: 734,
+          height: 714,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary',
+      title: post.title,
+      description,
+      images: '/logo.png',
+    },
+  };
+}
