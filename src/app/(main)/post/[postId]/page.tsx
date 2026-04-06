@@ -7,6 +7,7 @@ import { requestHttp } from '@/utils/http/request';
 import Comment from './_components/comment';
 import EditPostButton from './_components/edit-post-button';
 import PostBreadcrumb from './_components/post-breadcrumb';
+import PostContentViewer from './_components/post-content-viewer';
 import ScrollRestoration from './_components/scroll-restoration';
 
 import 'highlight.js/styles/github-dark.css'; // 에디터와 동일한 CSS 로드
@@ -31,10 +32,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
         </div>
         <h2 className="text-center">{post.title}</h2>
         <article className="tiptap">
-          <div
-            className="tiptap-content simple-editor-content"
-            dangerouslySetInnerHTML={{ __html: highlightedContent }}
-          />
+          <div className="tiptap-content simple-editor-content">{<PostContentViewer html={highlightedContent} />}</div>
         </article>
       </div>
       <Separator />
