@@ -25,10 +25,11 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   return (
     <div className="relative mx-auto flex w-full max-w-5xl flex-col justify-center gap-5">
       <div className="post prose min-h-screen w-full max-w-full dark:text-gray-300">
-        <div className="flex justify-end">
+        <div className="flex items-center justify-between">
+          <PostBreadcrumb postId={post.id.toString()} />
           <EditPostButton postId={postId} />
         </div>
-        <PostBreadcrumb postId={post.id.toString()} />
+        <h2 className="text-center">{post.title}</h2>
         <article className="tiptap">
           <div
             className="tiptap-content simple-editor-content"
