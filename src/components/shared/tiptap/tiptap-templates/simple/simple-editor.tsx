@@ -12,7 +12,7 @@ import { Typography } from '@tiptap/extension-typography';
 import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
-import { all, createLowlight } from 'lowlight';
+import { common, createLowlight } from 'lowlight';
 import { Save } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -63,7 +63,7 @@ import '@/components/shared/tiptap/tiptap-node/paragraph-node/paragraph-node.scs
 import '@/components/shared/tiptap/tiptap-templates/simple/simple-editor.scss';
 import 'highlight.js/styles/github-dark.css';
 
-const lowlight = createLowlight(all);
+const lowlight = createLowlight(common);
 
 const Image = BaseImage.extend({
   addAttributes() {
