@@ -15,9 +15,9 @@ import { Field, FieldContent, FieldDescription, FieldLabel, FieldTitle } from '@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
 
-const SaveContentDrawer = ({ children, onSave }: SaveContentDrawerProps) => {
+const SaveContentDrawer = ({ published, children, onSave }: SaveContentDrawerProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [publishOption, setPublishOption] = useState<'public' | 'private'>('public');
+  const [publishOption, setPublishOption] = useState<'public' | 'private'>(published ? 'public' : 'private');
 
   const handlePublishOptionChange = (option: 'public' | 'private') => {
     setPublishOption(option);
@@ -78,5 +78,6 @@ export default SaveContentDrawer;
 
 interface SaveContentDrawerProps {
   children: React.ReactNode;
+  published: boolean;
   onSave: (publishOption: 'public' | 'private') => Promise<void>;
 }

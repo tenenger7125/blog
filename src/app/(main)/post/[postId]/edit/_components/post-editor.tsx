@@ -20,7 +20,7 @@ const PostEditor = ({ post }: PostEditorProps) => {
           onChange={e => setInput(e.target.value)}
         />
       </div>
-      <SimpleEditor content={post.content} postId={post.id} title={input} isEdit />
+      <SimpleEditor content={post.content} postId={post.id} published={post.published} title={input} isEdit />
     </div>
   );
 };

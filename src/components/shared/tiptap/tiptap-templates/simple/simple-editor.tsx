@@ -86,11 +86,13 @@ const MainToolbarContent = ({
   onLinkClick,
   onSave,
   isMobile,
+  published,
 }: {
   onHighlighterClick: () => void;
   onLinkClick: () => void;
   onSave: (publishOption: 'public' | 'private') => Promise<void>;
   isMobile: boolean;
+  published: boolean;
 }) => (
   <>
     <Spacer />
@@ -146,7 +148,7 @@ const MainToolbarContent = ({
     <ToolbarSeparator />
 
     <ToolbarGroup>
-      <SaveContentDrawer onSave={onSave}>
+      <SaveContentDrawer published={published} onSave={onSave}>
         <ActionIconButton label="저장">
           <Save />
         </ActionIconButton>
@@ -187,11 +189,13 @@ export function SimpleEditor({
   content = '',
   postId,
   isEdit = false,
+  published = false,
 }: {
   title?: string;
   content?: string;
   postId: number;
   isEdit?: boolean;
+  published?: boolean;
 }) {
   const uuid = uuidv4();
 
@@ -331,6 +335,7 @@ export function SimpleEditor({
           {mobileView === 'main' ? (
             <MainToolbarContent
               isMobile={isMobile}
+              published={published}
               onHighlighterClick={() => setMobileView('highlighter')}
               onLinkClick={() => setMobileView('link')}
               onSave={handleSave}
