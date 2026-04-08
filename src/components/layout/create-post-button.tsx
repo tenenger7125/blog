@@ -1,35 +1,24 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
 import { FilePlusCorner } from 'lucide-react';
+import { unstable_noStore as noStore } from 'next/cache';
 import Link from 'next/link';
 
 import { COOKIE_KEYS, PATH } from '@/constants';
-import { getCookie as getCookieClient } from '@/lib/cookie';
+import { getCookie } from '@/lib/node/cookie';
 
 import ActionIconButton from '../shared/action-icon-button';
 
-const CreatePostButton = () => {
-  const [cookie, setCookie] = useState<string | null | undefined>(undefined);
+const CreatePostButton = async () => {
+  noStore();
+  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
 
-  useEffect(() => {
-    const value = getCookieClient(COOKIE_KEYS.ACCESS_TOKEN);
-    setCookie(value);
-  }, []);
-
-  if (cookie === undefined) {
-    return null;
-  }
+  if (!accessToken) return null;
 
   return (
-    cookie && (
-      <Link href={PATH.POST_NEW}>
-        <ActionIconButton className="px-4 py-2" label="새 포스트 작성">
-          <FilePlusCorner className="dark:text-white" />
-        </ActionIconButton>
-      </Link>
-    )
+    <Link href={PATH.POST_NEW}>
+      <ActionIconButton className="px-4 py-2" label="새 포스트 작성">
+        <FilePlusCorner className="dark:text-white" />
+      </ActionIconButton>
+    </Link>
   );
 };
 

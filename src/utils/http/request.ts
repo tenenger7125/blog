@@ -79,7 +79,7 @@ async function withAuthRedirect<T>(fn: () => Promise<T>): Promise<T> {
   } catch (err) {
     if (err instanceof AuthError) {
       if (typeof window === 'undefined') {
-        redirect(PATH.LOGIN);
+        redirect(`${PATH.LOGIN}?logout=true`);
       } else {
         await fetch(INTERNAL_URL_IN_CLIENT.LOGOUT, { method: 'POST' });
         window.location.href = PATH.LOGIN;

@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import { Separator } from '@/components/ui/separator';
 import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { getHighlightedHtml } from '@/lib/parse-html';
@@ -18,7 +20,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   const post = res.data;
 
   if (!post) {
-    return null;
+    notFound();
   }
 
   const highlightedContent = await getHighlightedHtml(post.content);

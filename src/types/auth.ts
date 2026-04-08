@@ -20,3 +20,12 @@ export type SignupRequestData = {
   password: string;
   confirmPassword: string;
 };
+
+export type ValidateResponseData = {
+  message: string;
+};
+
+export type ReIssueTokenResponseData = {
+  accessToken: string;
+  refreshToken: string;
+};

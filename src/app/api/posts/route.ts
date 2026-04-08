@@ -8,11 +8,11 @@ export async function GET(req: NextRequest) {
   const page = req.nextUrl.searchParams.get('page');
   const pageSize = req.nextUrl.searchParams.get('pageSize');
 
-  const result = await fetchServerWithAuth<PostsDataResponse>(
-    `${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${pageSize}`,
-  );
+  const url = `${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${pageSize}`;
 
-  return Response.json(result, { status: 200 });
+  const result = await fetchServerWithAuth<PostsDataResponse>(url);
+
+  return Response.json(result, { status: result.statusCode });
 }
 
 export async function POST(request: Request) {

@@ -289,6 +289,7 @@ export function SimpleEditor({
       const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
       const highlighted = await getHighlightedHtml(html);
 
+      //! 저장 요청시 로그인 모달 창 띄우고 -> 로그인 성공 시 저장 요청 다시 보내기 -> 로그인 상태도 유지하기(토큰 갱신)
       if (isEdit) {
         const res = await requestHttp.put(`${INTERNAL_URL_IN_CLIENT.POSTS}/${postId}`, {
           title,

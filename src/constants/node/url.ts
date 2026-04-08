@@ -1,6 +1,7 @@
 export const BLOG_SERVER_BASE_URL = process.env.BLOG_SERVER;
 
 export const EXTERNAL_URL_IN_NODE = {
+  VALIDATE: `${BLOG_SERVER_BASE_URL}/api/auth/validate`,
   LOGIN: `${BLOG_SERVER_BASE_URL}/api/auth/login`,
   SIGNUP: `${BLOG_SERVER_BASE_URL}/api/auth/signup`,
   LOGOUT: `${BLOG_SERVER_BASE_URL}/api/auth/logout`,

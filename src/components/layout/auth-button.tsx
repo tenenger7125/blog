@@ -1,55 +1,25 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
-import { LoaderCircle, LogIn, LogOut } from 'lucide-react';
+import { LogIn } from 'lucide-react';
+import { unstable_noStore as noStore } from 'next/cache';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
+import ActionIconButton from '@/components/shared/action-icon-button';
 import { COOKIE_KEYS, PATH } from '@/constants';
-import { getCookie as getCookieClient } from '@/lib/cookie';
-import { setCookie as setCookieClient } from '@/lib/node/cookie';
+import { getCookie } from '@/lib/node/cookie';
 
-import ActionIconButton from '../shared/action-icon-button';
+import LogoutButton from './logout-button';
 
-const AuthButton = () => {
-  const router = useRouter();
-  const [cookie, setCookie] = useState<string | null | undefined>(undefined);
+const AuthButton = async () => {
+  noStore();
+  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
 
-  useEffect(() => {
-    const value = getCookieClient(COOKIE_KEYS.ACCESS_TOKEN);
-    setCookie(value);
-  }, []);
-
-  const logout = () => {
-    setCookieClient(COOKIE_KEYS.ACCESS_TOKEN, '', { maxAge: 0 });
-    setCookieClient(COOKIE_KEYS.REFRESH_TOKEN, '', { maxAge: 0 });
-    setCookie(null);
-    router.push(PATH.HOME);
-  };
-
-  if (cookie === undefined) {
-    return (
-      <ActionIconButton className="px-4 py-2" label="로딩 중">
-        <LoaderCircle className="animate-spin dark:text-white" />
+  return accessToken ? (
+    <LogoutButton />
+  ) : (
+    <Link href={PATH.LOGIN}>
+      <ActionIconButton className="px-4 py-2" label="로그인">
+        <LogIn className="dark:text-white" />
       </ActionIconButton>
-    );
-  }
-
-  return (
-    <>
-      {cookie ? (
-        <ActionIconButton className="px-4 py-2" label="로그아웃" onClick={logout}>
-          <LogOut className="dark:text-white" />
-        </ActionIconButton>
-      ) : (
-        <Link href={PATH.LOGIN}>
-          <ActionIconButton className="px-4 py-2" label="로그인">
-            <LogIn className="dark:text-white" />
-          </ActionIconButton>
-        </Link>
-      )}
-    </>
+    </Link>
   );
 };
 

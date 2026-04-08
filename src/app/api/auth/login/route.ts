@@ -11,8 +11,10 @@ export async function POST(request: Request) {
     body: JSON.stringify(await request.json()),
   });
 
-  setCookie(COOKIE_KEYS.ACCESS_TOKEN, result.data?.accessToken || '');
-  setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data?.refreshToken || '');
+  if (result.data?.accessToken) {
+    setCookie(COOKIE_KEYS.ACCESS_TOKEN, result.data.accessToken, { httpOnly: true });
+    setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data.refreshToken || '', { httpOnly: true });
+  }
 
   return Response.json(result, { status: result.statusCode });
 }

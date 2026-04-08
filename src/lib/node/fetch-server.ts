@@ -1,6 +1,7 @@
 import { COOKIE_KEYS } from '@/constants/key';
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { ApiResponse } from '@/types/api';
+import { ReIssueTokenResponseData } from '@/types/auth';
 
 import { getCookie, setCookie } from './cookie';
 
@@ -39,11 +40,6 @@ export const fetchServer = async <ResponseData>(
   }
 };
 
-type RefreshResponseData = {
-  accessToken: string;
-  refreshToken: string;
-};
-
 export const fetchServerWithAuth = async <ResponseData>(
   input: RequestInfo,
   init?: RequestInit,
@@ -64,7 +60,7 @@ export const fetchServerWithAuth = async <ResponseData>(
 
   const refreshToken = (await getCookie(COOKIE_KEYS.REFRESH_TOKEN)) ?? '';
 
-  const refreshResult = await fetchServer<RefreshResponseData>(EXTERNAL_URL_IN_NODE.REFRESH, {
+  const refreshResult = await fetchServer<ReIssueTokenResponseData>(EXTERNAL_URL_IN_NODE.REFRESH, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ refreshToken }),
@@ -74,8 +70,13 @@ export const fetchServerWithAuth = async <ResponseData>(
     return result;
   }
 
-  setCookie(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken);
-  setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken);
+  // Route Handler 컨텍스트에서는 쿠키 저장 가능, Server Component에서는 불가
+  try {
+    setCookie(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken);
+    setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken);
+  } catch {
+    // Server Component 컨텍스트: cookies().set() 불가 — 미들웨어에서 처리 필요
+  }
 
   return fetchServer<ResponseData>(input, {
     ...init,

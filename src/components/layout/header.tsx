@@ -7,10 +7,7 @@ import DarkModeButton from '@/components/shared/dark-mode-button';
 import { PATH } from '@/constants';
 import useScroll from '@/hooks/use-scroll';
 
-import AuthButton from './auth-button';
-import CreatePostButton from './create-post-button';
-
-const Header = () => {
+const Header = ({ slot }: { slot?: React.ReactNode }) => {
   const scroll = useScroll();
 
   return (
@@ -28,8 +25,7 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <CreatePostButton />
-          <AuthButton />
+          {slot}
           <DarkModeButton />
         </div>
       </div>
