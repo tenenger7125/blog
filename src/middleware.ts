@@ -57,6 +57,8 @@ export const middleware = async (request: NextRequest) => {
     res.cookies.delete(COOKIE_KEYS.ACCESS_TOKEN);
     res.cookies.delete(COOKIE_KEYS.REFRESH_TOKEN);
 
+    res.headers.set('Cache-Control', 'no-store, max-age=0, must-revalidate');
+
     return res;
   }
 

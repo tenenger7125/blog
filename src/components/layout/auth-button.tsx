@@ -1,18 +1,17 @@
 import { LogIn } from 'lucide-react';
-import { unstable_noStore as noStore } from 'next/cache';
 import Link from 'next/link';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
-import { COOKIE_KEYS, PATH } from '@/constants';
-import { getCookie } from '@/lib/node/cookie';
+import { PATH } from '@/constants';
+import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { fetchServerWithAuth } from '@/lib/node/fetch-server';
 
 import LogoutButton from './logout-button';
 
 const AuthButton = async () => {
-  noStore();
-  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
+  const validate = await fetchServerWithAuth(EXTERNAL_URL_IN_NODE.VALIDATE, { method: 'GET' });
 
-  return accessToken ? (
+  return validate.ok ? (
     <LogoutButton />
   ) : (
     <Link href={PATH.LOGIN}>
@@ -24,3 +23,5 @@ const AuthButton = async () => {
 };
 
 export default AuthButton;
+
+export const revalidate = 0;

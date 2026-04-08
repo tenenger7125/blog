@@ -1,7 +1,8 @@
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 import { Separator } from '@/components/ui/separator';
-import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { EXTERNAL_URL_IN_NODE, INTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { fetchServerWithAuth } from '@/lib/node/fetch-server';
 import { getHighlightedHtml } from '@/lib/parse-html';
 import { PostDataResponse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
@@ -15,12 +16,13 @@ import ScrollRestoration from './_components/scroll-restoration';
 import 'highlight.js/styles/github-dark.css'; // 에디터와 동일한 CSS 로드
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
-  const res = await requestHttp.get<PostDataResponse>(`${INTERNAL_URL_IN_NODE.POSTS}/${postId}`);
+  const res = await fetchServerWithAuth<PostDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}/${postId}`, { method: 'GET' });
 
   const post = res.data;
 
   if (!post) {
-    notFound();
+    //* cache 때문에 post가 없을 때 404 페이지로 리디렉션
+    redirect(`/not-found`);
   }
 
   const highlightedContent = await getHighlightedHtml(post.content);

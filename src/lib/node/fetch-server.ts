@@ -67,7 +67,11 @@ export const fetchServerWithAuth = async <ResponseData>(
   });
 
   if (!refreshResult.ok || !refreshResult.data?.accessToken) {
-    return result;
+    // refresh 실패 시 Authorization 없이 재시도 → 공개 데이터는 그대로 반환
+    return fetchServer<ResponseData>(input, {
+      ...init,
+      headers: { ...init?.headers },
+    });
   }
 
   // Route Handler 컨텍스트에서는 쿠키 저장 가능, Server Component에서는 불가

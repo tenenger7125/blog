@@ -2,14 +2,15 @@ import { FilePenLine } from 'lucide-react';
 import Link from 'next/link';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
-import { COOKIE_KEYS, PATH } from '@/constants';
-import { getCookie } from '@/lib/node/cookie';
+import { PATH } from '@/constants';
+import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { fetchServerWithAuth } from '@/lib/node/fetch-server';
 
 const EditPostButton = async ({ postId }: EditPostButtonProps) => {
-  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
+  const validate = await fetchServerWithAuth(EXTERNAL_URL_IN_NODE.VALIDATE, { method: 'GET' });
 
   return (
-    accessToken && (
+    validate.ok && (
       <Link href={PATH.POST_EDIT(postId)}>
         <ActionIconButton className="px-4 py-2" label="포스트 수정">
           <FilePenLine className="dark:text-white" />
