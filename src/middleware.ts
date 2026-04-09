@@ -15,6 +15,8 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.next();
   }
 
+  console.log('📍 BLOG_SERVER 환경변수 직접확인:', process.env.BLOG_SERVER);
+  console.log('📍 최종 VALIDATE 주소:', EXTERNAL_URL_IN_NODE.VALIDATE);
   const allCookies = request.cookies.getAll();
   console.log('모든 쿠키:', allCookies);
   if (request.nextUrl.searchParams.get('logout') === 'true') {

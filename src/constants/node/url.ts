@@ -1,14 +1,31 @@
 export const BLOG_SERVER_BASE_URL = process.env.BLOG_SERVER;
 
 export const EXTERNAL_URL_IN_NODE = {
-  VALIDATE: `${BLOG_SERVER_BASE_URL}/api/auth/validate`,
-  LOGIN: `${BLOG_SERVER_BASE_URL}/api/auth/login`,
-  SIGNUP: `${BLOG_SERVER_BASE_URL}/api/auth/signup`,
-  LOGOUT: `${BLOG_SERVER_BASE_URL}/api/auth/logout`,
-  REFRESH: `${BLOG_SERVER_BASE_URL}/api/auth/refresh`,
-  IMAGE_UPLOAD: `${BLOG_SERVER_BASE_URL}/api/images/upload`,
-  STATIC_IMAGE: `${BLOG_SERVER_BASE_URL}/api/static/images`,
-  POSTS: `${BLOG_SERVER_BASE_URL}/api/posts`,
+  BLOG_SERVER_BASE_URL: process.env.BLOG_SERVER,
+  get VALIDATE() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/auth/validate`;
+  },
+  get LOGIN() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/auth/login`;
+  },
+  get SIGNUP() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/auth/signup`;
+  },
+  get LOGOUT() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/auth/logout`;
+  },
+  get REFRESH() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/auth/refresh`;
+  },
+  get IMAGE_UPLOAD() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/images/upload`;
+  },
+  get STATIC_IMAGE() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/static/images`;
+  },
+  get POSTS() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/posts`;
+  },
 } as const;
 
 export const INTERNAL_URL_IN_NODE = {
