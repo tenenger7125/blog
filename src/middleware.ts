@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { COOKIE_KEYS, PATH } from './constants';
+import { COOKIE_KEYS, COOKIE_OPTIONS } from '@/constants/cookie';
+
+import { PATH } from './constants';
 import { AUTH_EXEMPT_PATHS, AUTH_REQUIRED_PATHS, AUTH_REQUIRED_REGEX_PATHS } from './constants/auth-path';
 import { EXTERNAL_URL_IN_NODE } from './constants/node/url';
 import { fetchServer } from './lib/node/fetch-server';
@@ -46,8 +48,8 @@ export const middleware = async (request: NextRequest) => {
       response.cookies.delete(COOKIE_KEYS.REFRESH_TOKEN);
       valid = false;
     } else {
-      response.cookies.set(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken);
-      response.cookies.set(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken);
+      response.cookies.set(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken, COOKIE_OPTIONS);
+      response.cookies.set(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken, COOKIE_OPTIONS);
     }
   }
 

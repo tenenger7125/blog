@@ -1,4 +1,4 @@
-import { COOKIE_KEYS } from '@/constants';
+import { COOKIE_KEYS } from '@/constants/cookie';
 import { deleteCookie } from '@/lib/node/cookie';
 
 export function POST() {

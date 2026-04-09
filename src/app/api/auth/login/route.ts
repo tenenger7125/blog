@@ -1,4 +1,4 @@
-import { COOKIE_KEYS } from '@/constants';
+import { COOKIE_KEYS, COOKIE_OPTIONS } from '@/constants/cookie';
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { setCookie } from '@/lib/node/cookie';
 import { fetchServer } from '@/lib/node/fetch-server';
@@ -12,8 +12,8 @@ export async function POST(request: Request) {
   });
 
   if (result.data?.accessToken) {
-    setCookie(COOKIE_KEYS.ACCESS_TOKEN, result.data.accessToken, { httpOnly: true });
-    setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data.refreshToken || '', { httpOnly: true });
+    setCookie(COOKIE_KEYS.ACCESS_TOKEN, result.data.accessToken, COOKIE_OPTIONS);
+    setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data.refreshToken || '', COOKIE_OPTIONS);
   }
 
   return Response.json(result, { status: result.statusCode });

@@ -1,4 +1,4 @@
-import { COOKIE_KEYS } from '@/constants/key';
+import { COOKIE_KEYS } from '@/constants/cookie';
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { ApiResponse } from '@/types/api';
 import { ReIssueTokenResponseData } from '@/types/auth';
