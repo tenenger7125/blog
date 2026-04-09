@@ -1,4 +1,4 @@
-import { COOKIE_KEYS } from '@/constants/cookie';
+import { COOKIE_KEYS, COOKIE_OPTIONS } from '@/constants/cookie';
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { ApiResponse } from '@/types/api';
 import { ReIssueTokenResponseData } from '@/types/auth';
@@ -76,8 +76,8 @@ export const fetchServerWithAuth = async <ResponseData>(
 
   // Route Handler 컨텍스트에서는 쿠키 저장 가능, Server Component에서는 불가
   try {
-    setCookie(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken);
-    setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken);
+    setCookie(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken, COOKIE_OPTIONS);
+    setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken, COOKIE_OPTIONS);
   } catch {
     // Server Component 컨텍스트: cookies().set() 불가 — 미들웨어에서 처리 필요
   }
