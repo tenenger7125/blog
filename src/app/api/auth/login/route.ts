@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
   if (result.data?.accessToken) {
     setCookie(COOKIE_KEYS.ACCESS_TOKEN, result.data.accessToken, COOKIE_OPTIONS);
-    setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data.refreshToken || '', COOKIE_OPTIONS);
+    setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data.refreshToken, COOKIE_OPTIONS);
   }
 
   return Response.json(result, { status: result.statusCode });
