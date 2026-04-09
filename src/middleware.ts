@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { COOKIE_KEYS } from '@/constants/cookie';
+import { COOKIE_KEYS, COOKIE_OPTIONS } from '@/constants/cookie';
 
 import { PATH } from './constants';
 import { AUTH_EXEMPT_PATHS, AUTH_REQUIRED_PATHS, AUTH_REQUIRED_REGEX_PATHS } from './constants/auth-path';
@@ -9,13 +9,12 @@ import { fetchServer } from './lib/node/fetch-server';
 import { ReIssueTokenResponseData } from './types/auth';
 
 export const middleware = async (request: NextRequest) => {
-  const response = NextResponse.next();
-
   if (request.nextUrl.searchParams.get('logout') === 'true') {
-    const res = NextResponse.redirect(new URL(PATH.LOGIN, request.url));
-    res.cookies.delete(COOKIE_KEYS.ACCESS_TOKEN);
-    res.cookies.delete(COOKIE_KEYS.REFRESH_TOKEN);
-    return res; // 여기서 끝, 이후 로직 안 탐
+    const response = NextResponse.redirect(new URL(PATH.LOGIN, request.url));
+    response.cookies.delete(COOKIE_KEYS.ACCESS_TOKEN);
+    response.cookies.delete(COOKIE_KEYS.REFRESH_TOKEN);
+    console.log('쿠키삭제1');
+    return response; // 여기서 끝, 이후 로직 안 탐
   }
 
   const isAuthRequired = AUTH_REQUIRED_PATHS.some(path => request.nextUrl.pathname.startsWith(path));
@@ -30,7 +29,7 @@ export const middleware = async (request: NextRequest) => {
     });
 
     if (validate.ok) {
-      return response;
+      return NextResponse.next();
     }
 
     const refreshToken = request.cookies.get(COOKIE_KEYS.REFRESH_TOKEN)?.value;
@@ -40,12 +39,18 @@ export const middleware = async (request: NextRequest) => {
       body: JSON.stringify({ refreshToken }),
     });
 
-    if (!refreshResult.ok || !refreshResult.data?.accessToken) {
-      const res = NextResponse.redirect(new URL(PATH.LOGIN, request.url));
-      res.cookies.delete(COOKIE_KEYS.ACCESS_TOKEN);
-      res.cookies.delete(COOKIE_KEYS.REFRESH_TOKEN);
-      return res;
+    if (refreshResult.ok && refreshResult.data?.accessToken && refreshResult.data.refreshToken) {
+      const response = NextResponse.next();
+      response.cookies.set(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken, COOKIE_OPTIONS);
+      response.cookies.set(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken, COOKIE_OPTIONS);
+      return response;
     }
+
+    console.log('쿠키삭제2');
+    const response = NextResponse.redirect(new URL(PATH.LOGIN, request.url));
+    response.cookies.delete(COOKIE_KEYS.ACCESS_TOKEN);
+    response.cookies.delete(COOKIE_KEYS.REFRESH_TOKEN);
+    return response;
   }
 
   const isAuthExcluded = AUTH_EXEMPT_PATHS.some(path => request.nextUrl.pathname.startsWith(path));
@@ -70,11 +75,16 @@ export const middleware = async (request: NextRequest) => {
     });
 
     if (refreshResult.ok) {
-      return NextResponse.redirect(new URL(PATH.HOME, request.url));
+      const response = NextResponse.redirect(new URL(PATH.HOME, request.url));
+      response.cookies.set(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data?.accessToken || '', COOKIE_OPTIONS);
+      response.cookies.set(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data?.refreshToken || '', COOKIE_OPTIONS);
+      return response;
     }
+
+    return NextResponse.next();
   }
 
-  return response;
+  return NextResponse.next();
 };
 
 export const config = {
