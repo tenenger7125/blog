@@ -18,7 +18,9 @@ export const fetchServer = async <ResponseData>(
 ): Promise<Result<ResponseData>> => {
   try {
     const res = await fetch(input, { cache: 'no-store', ...init });
+    console.log('here!!!', { res });
     const body = (await res.json()) as ApiResponse<ResponseData>;
+    console.log('here!!!', { body });
 
     if (!res.ok) {
       return {
@@ -31,6 +33,7 @@ export const fetchServer = async <ResponseData>(
 
     return { ok: true, statusCode: body.statusCode, message: body.message, data: body.data };
   } catch (err) {
+    console.log('Fetch error:', err);
     return {
       ok: false,
       statusCode: 500,
