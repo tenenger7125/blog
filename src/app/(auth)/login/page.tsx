@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants';
+import { INTERNAL_URL_IN_CLIENT } from '@/constants/url';
 import { cn } from '@/lib/utils';
 import { LoginRequestData, LoginResponseData } from '@/types/auth';
 import { requestHttp } from '@/utils/http/request';
@@ -26,7 +27,7 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (data: LoginSchema) => {
-    const res = await requestHttp.post<LoginResponseData, LoginRequestData>('/api/auth/login', data);
+    const res = await requestHttp.post<LoginResponseData, LoginRequestData>(INTERNAL_URL_IN_CLIENT.LOGIN, data);
     if (res.ok) {
       toast.success('Login successful!');
       router.push(PATH.HOME);

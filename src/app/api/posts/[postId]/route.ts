@@ -6,7 +6,7 @@ export const GET = async (_request: Request, ctx: { params: { postId: string } }
 
   const data = await fetchServerWithAuth(`${EXTERNAL_URL_IN_NODE.POSTS}/${postId}`);
 
-  return Response.json(data, { status: 200 });
+  return Response.json(data, { status: data.statusCode });
 };
 
 export const PUT = async (request: Request, ctx: { params: { postId: string } }) => {

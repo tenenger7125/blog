@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { PATH } from '@/constants';
@@ -15,6 +16,10 @@ const NotFound = async () => {
   const res = await requestHttp.get<PostsDataResponse>(
     `${INTERNAL_URL_IN_NODE.POSTS}?page=${1}&pageSize=${LIMIT_POST}`,
   );
+
+  if (res.statusCode === 401) {
+    redirect(`${PATH.REFRESH}?callbackUrl=${PATH.NOT_FOUND}`);
+  }
 
   const posts = res.data?.posts || [];
 

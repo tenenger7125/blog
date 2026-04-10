@@ -33,4 +33,13 @@ export const INTERNAL_URL_IN_NODE = {
   get POSTS() {
     return `${this.BLOG_BASE_URL}/api/posts`;
   },
+  get VALIDATE() {
+    return `${this.BLOG_BASE_URL}/api/auth/validate`;
+  },
+  get CLEAR_EXPIRED_TOKEN() {
+    return `${this.BLOG_BASE_URL}/api/auth/clear-expired-token`;
+  },
+  get LOGOUT() {
+    return `${this.BLOG_BASE_URL}/api/auth/logout`;
+  },
 };

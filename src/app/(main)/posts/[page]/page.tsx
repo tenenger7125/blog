@@ -1,6 +1,9 @@
-import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
-import { fetchServerWithAuth } from '@/lib/node/fetch-server';
+import { redirect } from 'next/navigation';
+
+import { PATH } from '@/constants';
+import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostsDataResponse } from '@/types/post';
+import { requestHttp } from '@/utils/http/request';
 
 import PostList from './_components/post-list';
 import PostPagination from './_components/post-pagination';
@@ -10,9 +13,13 @@ const LIMIT_POST = 10;
 const POSTS = async ({ params }: PostProps) => {
   const page = +params.page;
 
-  const res = await fetchServerWithAuth<PostsDataResponse>(
-    `${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
+  const res = await requestHttp.get<PostsDataResponse>(
+    `${INTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
   );
+
+  if (res.statusCode === 401) {
+    redirect(`${PATH.REFRESH}?callbackUrl=/posts`);
+  }
 
   const posts = res.data?.posts || [];
   const totalPage = res.data?.totalPage || 0;

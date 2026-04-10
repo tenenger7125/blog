@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     body: JSON.stringify(await request.json()),
   });
 
-  if (result.data?.accessToken) {
+  if (result.data) {
     setCookie(COOKIE_KEYS.ACCESS_TOKEN, result.data.accessToken, COOKIE_OPTIONS);
     setCookie(COOKIE_KEYS.REFRESH_TOKEN, result.data.refreshToken, COOKIE_OPTIONS);
   }

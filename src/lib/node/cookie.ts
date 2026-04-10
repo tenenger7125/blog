@@ -18,7 +18,7 @@ export const setCookie = (
   cookieStore.set(name, value, options);
 };
 
-export const deleteCookie = (name: string) => {
+export const deleteCookie = (name: string, options?: { maxAge?: number; httpOnly?: boolean; path?: string }) => {
   const cookieStore = cookies();
-  cookieStore.delete(name);
+  cookieStore.delete({ name, ...options });
 };

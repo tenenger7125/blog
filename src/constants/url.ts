@@ -3,6 +3,7 @@ export const INTERNAL_URL_IN_CLIENT = {
   LOGIN: '/api/auth/login',
   SIGNUP: '/api/auth/signup',
   LOGOUT: '/api/auth/logout',
+  REFRESH: '/api/auth/refresh',
   IMAGE_UPLOAD: `/api/images/upload`,
   STATIC_IMAGE: `/api/images/static`,
   POSTS: `/api/posts`,

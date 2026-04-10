@@ -1,21 +1,15 @@
-import { COOKIE_KEYS, COOKIE_OPTIONS } from '@/constants/cookie';
-import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { redirect } from 'next/navigation';
+
+import { PATH } from '@/constants';
+import { COOKIE_KEYS } from '@/constants/cookie';
 import { ApiResponse } from '@/types/api';
-import { ReIssueTokenResponseData } from '@/types/auth';
 
-import { getCookie, setCookie } from './cookie';
-
-type Result<ResponseData> = {
-  ok: boolean;
-  statusCode: number;
-  message: string | object | null;
-  data: ResponseData | null;
-};
+import { getCookie } from './cookie';
 
 export const fetchServer = async <ResponseData>(
   input: RequestInfo,
   init?: RequestInit,
-): Promise<Result<ResponseData>> => {
+): Promise<ApiResponse<ResponseData>> => {
   try {
     const res = await fetch(input, { cache: 'no-store', ...init });
 
@@ -29,6 +23,7 @@ export const fetchServer = async <ResponseData>(
           statusCode: res.status,
           message: text,
           data: null,
+          detail: text,
         };
       }
 
@@ -37,6 +32,7 @@ export const fetchServer = async <ResponseData>(
         statusCode: res.status,
         message: text,
         data: text as ResponseData,
+        detail: text,
       };
     }
 
@@ -48,18 +44,18 @@ export const fetchServer = async <ResponseData>(
         statusCode: body.statusCode,
         message: body.message,
         data: null,
+        detail: body.detail,
       };
     }
 
-    return { ok: true, statusCode: body.statusCode, message: body.message, data: body.data };
+    return { ok: true, statusCode: body.statusCode, message: body.message, data: body.data, detail: body.detail };
   } catch (err) {
-    console.error('--- fetchServer 에러 상세 ---');
-    console.error('에러:', err);
     return {
       ok: false,
       statusCode: 500,
       message: 'External service unreachable',
       data: null,
+      detail: JSON.stringify(err, null, 2),
     };
   }
 };
@@ -67,50 +63,91 @@ export const fetchServer = async <ResponseData>(
 export const fetchServerWithAuth = async <ResponseData>(
   input: RequestInfo,
   init?: RequestInit,
-): Promise<Result<ResponseData>> => {
-  const accessToken = (await getCookie(COOKIE_KEYS.ACCESS_TOKEN)) ?? '';
-
+): Promise<ApiResponse<ResponseData>> => {
+  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
   const result = await fetchServer<ResponseData>(input, {
     ...init,
-    headers: {
-      ...init?.headers,
-      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
-    },
+    headers: { ...init?.headers, ...(accessToken && { Authorization: `Bearer ${accessToken}` }) },
   });
 
-  if (result.statusCode !== 401) {
-    return result;
-  }
+  return result;
+};
 
-  const refreshToken = (await getCookie(COOKIE_KEYS.REFRESH_TOKEN)) ?? '';
+export const fetchServerWithAuthRedirect = async <ResponseData>(
+  input: RequestInfo,
+  init?: RequestInit,
+  isRetry = false,
+): Promise<ApiResponse<ResponseData>> => {
+  // // 1. 요청하려는 주소 자체가 'validate'인지 확인 (중요)
+  // const urlString = input.toString();
+  // const isValidateRequest = urlString.includes('/auth/validate');
 
-  const refreshResult = await fetchServer<ReIssueTokenResponseData>(EXTERNAL_URL_IN_NODE.REFRESH, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ refreshToken }),
-  });
-
-  if (!refreshResult.ok || !refreshResult.data?.accessToken) {
-    // refresh 실패 시 Authorization 없이 재시도 → 공개 데이터는 그대로 반환
-    return fetchServer<ResponseData>(input, {
-      ...init,
-      headers: { ...init?.headers },
-    });
-  }
-
-  // Route Handler 컨텍스트에서는 쿠키 저장 가능, Server Component에서는 불가
-  try {
-    setCookie(COOKIE_KEYS.ACCESS_TOKEN, refreshResult.data.accessToken, COOKIE_OPTIONS);
-    setCookie(COOKIE_KEYS.REFRESH_TOKEN, refreshResult.data.refreshToken, COOKIE_OPTIONS);
-  } catch {
-    // Server Component 컨텍스트: cookies().set() 불가 — 미들웨어에서 처리 필요
-  }
-
-  return fetchServer<ResponseData>(input, {
+  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
+  const result = await fetchServer<ResponseData>(input, {
     ...init,
-    headers: {
-      ...init?.headers,
-      Authorization: `Bearer ${refreshResult.data.accessToken}`,
-    },
+    headers: { ...init?.headers, ...(accessToken && { Authorization: `Bearer ${accessToken}` }) },
   });
+
+  if (result.statusCode === 401) {
+    // // 이미 재시도 중이거나 리프레시 토큰이 없으면 로그인으로
+    // const refreshToken = await getCookie(COOKIE_KEYS.REFRESH_TOKEN);
+    // if (isRetry || !refreshToken) {
+    //   redirect(PATH.LOGIN);
+    // }
+
+    // // [방어막] validate 요청에서 401이 났을 때 리다이렉트할 callbackUrl 설정 주의
+    // const headerList = headers();
+    // const referer = headerList.get('referer');
+
+    // // 만약 referer가 없거나 자기 자신이면 무한 루프 방지를 위해 / 로 고정
+    // let callbackPath = '/';
+    // if (referer) {
+    //   try {
+    //     const url = new URL(referer);
+    //     callbackPath = url.pathname;
+    //     // 리프레시 페이지에서 또 리프레시로 가는 것 방지
+    //     if (callbackPath.includes(PATH.REFRESH)) callbackPath = '/';
+    //   } catch (e) {
+    //     callbackPath = '/';
+    //   }
+    // }
+
+    // validate API 자체가 실패한 거라면 referer를 믿지 말고 현재 페이지로 가야함
+    redirect(`${PATH.REFRESH}`);
+    // redirect(`${PATH.REFRESH}?callbackUrl=${encodeURIComponent(callbackPath)}`);
+  }
+
+  // const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
+  // const result = await fetchServer<ResponseData>(input, {
+  //   ...init,
+  //   headers: { ...init?.headers, ...(accessToken && { Authorization: `Bearer ${accessToken}` }) },
+  // });
+
+  // //* 재갱신 요청도 토큰 만료시 / 로그인 페이지 리다이렉트.
+  // if (result.statusCode === 401 && isRetry) {
+  //   redirect(PATH.LOGIN);
+  // }
+
+  // //* 토큰 만료 시 / 재갱신 페이지 리다이렉트.
+  // if (result.statusCode === 401) {
+  //   const headerList = headers();
+  //   const referer = headerList.get('referer');
+
+  //   // 현재 referer가 이미 refresh 페이지라면 더 이상 리다이렉트 하지 않음
+  //   if (referer?.includes(PATH.REFRESH)) {
+  //     redirect(PATH.LOGIN);
+  //   }
+
+  //   const currentPath = referer ? new URL(referer).pathname : '/';
+  //   redirect(`${PATH.REFRESH}?callbackUrl=${encodeURIComponent(currentPath)}`);
+  // }
+  // // if (result.statusCode === 401) {
+  // //   const headerList = headers();
+  // //   const referer = headerList.get('referer');
+  // //   const currentPath = referer ? new URL(referer).pathname : '/';
+
+  // //   redirect(`${PATH.REFRESH}?callbackUrl=${encodeURIComponent(currentPath)}`);
+  // // }
+
+  return result;
 };

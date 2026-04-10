@@ -1,9 +1,15 @@
 export const PATH = {
   HOME: '/',
+  NOT_FOUND: '/not-found',
+  REFRESH: '/refresh',
   LOGIN: '/login',
   SIGNUP: '/signup',
-  POSTS: '/posts',
   POST: '/post',
-  POST_EDIT: (postId: string) => `/post/${postId}/edit`,
-  POST_NEW: '/post/new',
+  get POST_NEW() {
+    return `${this.POST}/new`;
+  },
+  get POST_EDIT() {
+    return (postId: string) => `${this.POST}/${postId}/edit`;
+  },
+  POSTS: '/posts',
 };
