@@ -13,13 +13,17 @@ const Header = ({ slot }: { slot?: React.ReactNode }) => {
   return (
     <header className={headerStyle({ hidden: scroll.isScrollDown })}>
       <div className="max-w-8xl m-auto flex justify-between">
-        <div className="flex items-center gap-10">
-          <h2 className="inline-block font-yOnepickBold text-2xl font-bold">
-            <Link href={PATH.HOME}>동그라미</Link>
+        <div className="flex items-center gap-6">
+          <h2 className="inline-block font-yOnepickBold text-2xl">
+            <Link className="rounded-lg px-3 hover:bg-gray-300 dark:hover:bg-black" href={PATH.HOME}>
+              동그라미
+            </Link>
           </h2>
-          <ol className="flex items-center gap-5 text-lg font-bold">
-            <li>
-              <Link href={PATH.POSTS}>포스트</Link>
+          <ol className="flex items-center gap-5 font-yOnepickBold text-lg">
+            <li className="h-full">
+              <Link className="h-full rounded-lg px-3 hover:bg-gray-300 dark:hover:bg-black" href={PATH.POSTS}>
+                게시글
+              </Link>
             </li>
           </ol>
         </div>
