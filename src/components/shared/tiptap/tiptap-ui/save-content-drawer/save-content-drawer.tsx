@@ -126,10 +126,10 @@ const SaveContentDrawer = ({ category: categoryName, published, children, onSave
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  {isCreateCategory && (
+                  {options.category && (
                     <ActionIconButton
                       className="p-2 text-red-800"
-                      label="생성 취소"
+                      label="선택 취소"
                       onClick={handleCategoryCreateCancelClick}>
                       <Trash2 />
                     </ActionIconButton>
