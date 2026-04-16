@@ -26,6 +26,9 @@ export const EXTERNAL_URL_IN_NODE = {
   get POSTS() {
     return `${this.BLOG_SERVER_BASE_URL}/api/posts`;
   },
+  get POST_CATEGORIES() {
+    return `${this.BLOG_SERVER_BASE_URL}/api/post-categories`;
+  },
 } as const;
 
 export const INTERNAL_URL_IN_NODE = {

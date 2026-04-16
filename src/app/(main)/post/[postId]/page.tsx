@@ -45,7 +45,10 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
             <PostBreadcrumb postId={post.id.toString()} />
             <EditPostButton postId={postId} />
           </div>
-          <h2 className="text-center">{post.title}</h2>
+          <h2 className="text-center">
+            {post.category?.name && `[${post.category.name}] `}
+            {post.title}
+          </h2>
           <article className="tiptap">
             <div className="tiptap-content simple-editor-content">{<PostContentViewer html={contentWithIds} />}</div>
           </article>

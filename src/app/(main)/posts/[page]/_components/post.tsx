@@ -17,7 +17,10 @@ const Post = ({ post }: PostProps) => (
         </ActionIconButton>
       </div>
       <CardHeader>
-        <CardTitle className="line-clamp-1 text-xl">{post.title}</CardTitle>
+        <CardTitle className="line-clamp-1 text-xl">
+          {post.category?.name && `[${post.category.name}] `}
+          {post.title}
+        </CardTitle>
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>

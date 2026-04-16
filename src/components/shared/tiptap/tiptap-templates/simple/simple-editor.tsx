@@ -52,7 +52,7 @@ import { requestHttp } from '@/utils/http/request';
 
 import { getHighlightedHtml } from '../../../../../lib/parse-html';
 import { CustomCodeBlock } from '../../tiptap-ui/code-block-extension/code-block-extension';
-import SaveContentDrawer from '../../tiptap-ui/save-content-drawer/save-content-drawer';
+import SaveContentDrawer, { PostOptions } from '../../tiptap-ui/save-content-drawer/save-content-drawer';
 
 import '@/components/shared/tiptap/tiptap-node/blockquote-node/blockquote-node.scss';
 import '@/components/shared/tiptap/tiptap-node/heading-node/heading-node.scss';
@@ -87,12 +87,14 @@ const MainToolbarContent = ({
   onSave,
   isMobile,
   published,
+  category,
 }: {
   onHighlighterClick: () => void;
   onLinkClick: () => void;
-  onSave: (publishOption: 'public' | 'private') => Promise<void>;
+  onSave: (options: Partial<PostOptions>) => Promise<void>;
   isMobile: boolean;
   published: boolean;
+  category: string;
 }) => (
   <>
     <Spacer />
@@ -148,7 +150,7 @@ const MainToolbarContent = ({
     <ToolbarSeparator />
 
     <ToolbarGroup>
-      <SaveContentDrawer published={published} onSave={onSave}>
+      <SaveContentDrawer category={category} published={published} onSave={onSave}>
         <ActionIconButton label="저장">
           <Save />
         </ActionIconButton>
@@ -190,12 +192,14 @@ export function SimpleEditor({
   postId,
   isEdit = false,
   published = false,
+  category = '',
 }: {
   title?: string;
   content?: string;
   postId: number;
   isEdit?: boolean;
   published?: boolean;
+  category?: string;
 }) {
   const uuid = uuidv4();
 
@@ -284,7 +288,7 @@ export function SimpleEditor({
     }
   }, [isMobile, mobileView]);
 
-  const handleSave = async (publishOption: 'public' | 'private') => {
+  const handleSave = async (options: Partial<PostOptions>) => {
     if (editor) {
       const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
       const highlighted = await getHighlightedHtml(html);
@@ -294,7 +298,8 @@ export function SimpleEditor({
         const res = await requestHttp.put(`${INTERNAL_URL_IN_CLIENT.POSTS}/${postId}`, {
           title,
           content: highlighted,
-          published: publishOption === 'public',
+          published: options.published === 'public',
+          ...(options.category && { category: options.category }),
           sessionId: uuid,
         });
 
@@ -308,7 +313,8 @@ export function SimpleEditor({
         const res = await requestHttp.post(INTERNAL_URL_IN_CLIENT.POSTS, {
           title,
           content: highlighted,
-          published: publishOption === 'public',
+          published: options.published === 'public',
+          ...(options.category && { category: options.category }),
         });
 
         if (res.ok) {
@@ -335,6 +341,7 @@ export function SimpleEditor({
           }}>
           {mobileView === 'main' ? (
             <MainToolbarContent
+              category={category}
               isMobile={isMobile}
               published={published}
               onHighlighterClick={() => setMobileView('highlighter')}

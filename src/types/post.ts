@@ -1,3 +1,5 @@
+import { PostCategoryResponse } from './post-category';
+
 export interface MetaData {
   title: string;
   description: string;
@@ -29,4 +31,6 @@ export type PostDataResponse = {
   createdAt: string;
   updatedAt: string;
   authorId: number;
+  categoryId: number;
+  category: PostCategoryResponse | null;
 };
