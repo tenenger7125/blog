@@ -1,7 +1,7 @@
 import { Icon } from 'dotori-icons';
 import { getNowMonthDate } from 'dotori-utils';
 
-import ActionIconButton from '../shared/action-icon-button';
+import ActionIconButton from '@/components/shared/action-icon-button';
 
 const Footer = () => {
   const { year } = getNowMonthDate();

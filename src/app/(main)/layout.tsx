@@ -1,7 +1,7 @@
-import AuthButton from '@/components/layout/auth-button';
-import CreatePostButton from '@/components/layout/create-post-button';
-import Footer from '@/components/layout/footer';
-import Header from '@/components/layout/header';
+import Footer from '@/components/layout/footer/footer';
+import AuthButton from '@/components/layout/header/auth-button';
+import CreatePostButton from '@/components/layout/header/create-post-button';
+import Header from '@/components/layout/header/header';
 import Main from '@/components/layout/main';
 
 const layout = ({ children }: { children: React.ReactNode }) => (

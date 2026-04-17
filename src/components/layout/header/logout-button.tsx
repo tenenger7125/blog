@@ -3,9 +3,8 @@
 import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+import ActionIconButton from '@/components/shared/action-icon-button';
 import { INTERNAL_URL_IN_CLIENT } from '@/constants/url';
-
-import ActionIconButton from '../shared/action-icon-button';
 
 const LogoutButton = () => {
   const router = useRouter();

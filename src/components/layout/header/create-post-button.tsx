@@ -1,11 +1,10 @@
 import { FilePlusCorner } from 'lucide-react';
 import Link from 'next/link';
 
+import ActionIconButton from '@/components/shared/action-icon-button';
 import { PATH } from '@/constants';
 import { COOKIE_KEYS } from '@/constants/cookie';
 import { getCookie } from '@/lib/node/cookie';
-
-import ActionIconButton from '../shared/action-icon-button';
 
 const CreatePostButton = async () => {
   const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
