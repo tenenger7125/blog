@@ -3,6 +3,8 @@ import { getNowMonthDate } from 'dotori-utils';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
 
+import UpScrollButton from './up-scroll-button';
+
 const Footer = () => {
   const { year } = getNowMonthDate();
 
@@ -19,10 +21,11 @@ const Footer = () => {
                 &copy; <span>{year} LEE_DONG_GYU, All rights reserved.</span>
               </div>
             </div>
-            <div className="h-fit">
-              <ActionIconButton className="p-1 dark:bg-black dark:hover:bg-gray-800" label="깃허브" asChild>
+            <div className="flex gap-2">
+              <UpScrollButton />
+              <ActionIconButton className="p-2 dark:bg-black dark:hover:bg-gray-800" label="깃허브" asChild>
                 <a href="https://github.com/tenenger7125/blog" rel="noopener noreferrer">
-                  <Icon icon="github" />
+                  <Icon className="h-6 w-6" icon="github" />
                 </a>
               </ActionIconButton>
             </div>
