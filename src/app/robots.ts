@@ -13,5 +13,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${INTERNAL_URL_IN_NODE.BLOG_BASE_URL}/sitemap.xml`,
+    host: INTERNAL_URL_IN_NODE.BLOG_BASE_URL,
   };
 }

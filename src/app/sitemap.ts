@@ -7,8 +7,6 @@ import { PostsSitemapDataResonse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 게시글 목록 자동으로 가져옴
-  // 1. 첫 페이지로 totalPage 파악
   const res = await requestHttp.get<PostsSitemapDataResonse[]>(INTERNAL_URL_IN_NODE.POSTS_SITEMAP);
   const posts = res.data ?? [];
 
