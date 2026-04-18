@@ -36,6 +36,9 @@ export const INTERNAL_URL_IN_NODE = {
   get POSTS() {
     return `${this.BLOG_BASE_URL}/api/posts`;
   },
+  get POSTS_SITEMAP() {
+    return `${this.BLOG_BASE_URL}/api/posts/sitemap`;
+  },
   get VALIDATE() {
     return `${this.BLOG_BASE_URL}/api/auth/validate`;
   },

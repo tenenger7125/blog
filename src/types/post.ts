@@ -23,6 +23,11 @@ export type PostsDataResponse = {
   posts: PostDataResponse[];
 };
 
+export type PostsSitemapDataResonse = {
+  id: number;
+  updatedAt: string;
+};
+
 export type PostDataResponse = {
   id: number;
   title: string;
