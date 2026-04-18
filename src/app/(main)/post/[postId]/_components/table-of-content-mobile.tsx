@@ -5,9 +5,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import type { Heading } from '@/lib/node/heading';
 
 const TableOfContentMobile = ({ headings }: { headings: Heading[] }) => (
-  <Accordion className="rounded-lg border px-4" type="single" collapsible>
+  <Accordion className="rounded-lg border px-4 dark:border-gray-0" type="single" collapsible>
     <AccordionItem className="border-none" value="toc">
-      <AccordionTrigger className="text-sm font-medium">목차</AccordionTrigger>
+      <AccordionTrigger className="text-sm font-medium dark:text-gray-0">목차</AccordionTrigger>
       <AccordionContent>
         <ul className="flex flex-col gap-1">
           {headings.map(h => (
