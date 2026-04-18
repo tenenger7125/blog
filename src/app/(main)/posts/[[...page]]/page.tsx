@@ -11,7 +11,7 @@ import PostPagination from './_components/post-pagination';
 const LIMIT_POST = 10;
 
 const POSTS = async ({ params }: PostProps) => {
-  const page = +params.page;
+  const page = +(params.page?.[0] ?? 1);
 
   const res = await requestHttp.get<PostsDataResponse>(
     `${INTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
@@ -33,7 +33,7 @@ const POSTS = async ({ params }: PostProps) => {
 };
 
 interface PostProps {
-  params: { page: string };
+  params: { page?: string[] };
 }
 
 export default POSTS;
