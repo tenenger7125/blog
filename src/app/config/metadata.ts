@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   publisher: 'vercel',
   robots: 'index, follow',
   metadataBase: new URL('https://blog-nu-dun-70.vercel.app'),
+  verification: {
+    google: 'DsoUHH2mCAIiDB5O_efUju_A9MBE4xuqQgJkvydYRRY',
+  },
   openGraph: {
     type: 'website',
     url: 'https://blog-nu-dun-70.vercel.app',
