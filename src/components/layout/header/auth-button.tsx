@@ -23,5 +23,3 @@ const AuthButton = async () => {
 };
 
 export default AuthButton;
-
-export const revalidate = 0;

@@ -19,9 +19,9 @@ export default function ReissuePage() {
     const syncToken = async () => {
       const res = await requestHttp.post(INTERNAL_URL_IN_CLIENT.REFRESH);
       if (res.ok) {
-        router.replace(callbackUrl || PATH.HOME);
+        window.location.href = callbackUrl || PATH.HOME;
       } else {
-        router.replace(PATH.LOGIN);
+        window.location.href = PATH.LOGIN;
       }
     };
 

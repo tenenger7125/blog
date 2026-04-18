@@ -7,6 +7,15 @@ export const defaultTheme: Config['theme'] = {
     dimmed: 'rgba(0, 0, 0, 0.2)',
     white: '#ffffff',
     black: '#000000',
+    dracula: {
+      bg: '#282a36',
+      border: '#44475a',
+      text: '#f8f8f2',
+      comment: '#6272a4',
+      green: '#50fa7b',
+      purple: '#bd93f9',
+      cyan: '#8be9fd',
+    },
     gray: {
       0: '#f8f9fa',
       100: '#f1f3f5',

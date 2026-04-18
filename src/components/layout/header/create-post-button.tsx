@@ -21,5 +21,3 @@ const CreatePostButton = async () => {
 };
 
 export default CreatePostButton;
-
-export const revalidate = 0;
