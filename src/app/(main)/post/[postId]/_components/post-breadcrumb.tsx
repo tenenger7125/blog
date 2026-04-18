@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Link from 'next/link';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,7 +24,9 @@ const PostBreadcrumb = ({ postId }: PostBreadcrumbProps) => {
         {breadcrumbs.map((breadcrumb, index) => (
           <React.Fragment key={breadcrumb.title}>
             <BreadcrumbItem>
-              <BreadcrumbLink href={breadcrumb.href}>{breadcrumb.title}</BreadcrumbLink>
+              <BreadcrumbLink asChild>
+                <Link href={breadcrumb.href}>{breadcrumb.title}</Link>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
           </React.Fragment>
