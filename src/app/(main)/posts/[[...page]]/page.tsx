@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { PATH } from '@/constants';
 import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
@@ -11,7 +11,15 @@ import PostPagination from './_components/post-pagination';
 const LIMIT_POST = 10;
 
 const POSTS = async ({ params }: PostProps) => {
-  const page = +(params.page?.[0] ?? 1);
+  const rawPage = params.page?.[0] ?? '1';
+
+  if (params.page && params.page.length > 1) notFound();
+
+  const pageNum = Number(rawPage);
+
+  if (!Number.isInteger(pageNum) || pageNum < 1) notFound();
+
+  const page = pageNum;
 
   const res = await requestHttp.get<PostsDataResponse>(
     `${INTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
