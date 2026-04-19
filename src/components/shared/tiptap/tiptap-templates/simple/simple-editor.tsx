@@ -50,7 +50,6 @@ import { useWindowSize } from '@/hooks/use-window-size';
 import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
 import { requestHttp } from '@/utils/http/request';
 
-import { getHighlightedHtml } from '../../../../../lib/parse-html';
 import { CustomCodeBlock } from '../../tiptap-ui/code-block-extension/code-block-extension';
 import SaveContentDrawer, { PostOptions } from '../../tiptap-ui/save-content-drawer/save-content-drawer';
 
@@ -291,13 +290,13 @@ export function SimpleEditor({
   const handleSave = async (options: Partial<PostOptions>) => {
     if (editor) {
       const html = editor.getHTML(); // 에디터 내용을 HTML로 추출
-      const highlighted = await getHighlightedHtml(html);
+      // const highlighted = await getHighlightedHtml(html);
 
       //! 저장 요청시 로그인 모달 창 띄우고 -> 로그인 성공 시 저장 요청 다시 보내기 -> 로그인 상태도 유지하기(토큰 갱신)
       if (isEdit) {
         const res = await requestHttp.put(`${INTERNAL_URL_IN_CLIENT.POSTS}/${postId}`, {
           title,
-          content: highlighted,
+          content: html,
           published: options.published === 'public',
           ...(options.category && { category: options.category }),
           sessionId: uuid,
@@ -312,7 +311,7 @@ export function SimpleEditor({
       } else {
         const res = await requestHttp.post(INTERNAL_URL_IN_CLIENT.POSTS, {
           title,
-          content: highlighted,
+          content: html,
           published: options.published === 'public',
           ...(options.category && { category: options.category }),
         });
