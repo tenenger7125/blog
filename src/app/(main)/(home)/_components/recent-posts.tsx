@@ -1,5 +1,6 @@
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATH } from '@/constants';
@@ -34,6 +35,10 @@ const RecentPosts = async () => {
   const res = await requestHttp.get<PostsDataResponse>(
     `${INTERNAL_URL_IN_NODE.POSTS}?page=1&pageSize=${PREVIEW_COUNT}`,
   );
+
+  if (res.statusCode === 401) {
+    redirect(`${PATH.REFRESH}?callbackUrl=${PATH.HOME}`);
+  }
 
   const posts = res.data?.posts ?? [];
 
