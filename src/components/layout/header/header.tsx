@@ -2,13 +2,20 @@
 
 import { cn } from 'dotori-utils';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import DarkModeButton from '@/components/shared/dark-mode-button';
 import { PATH } from '@/constants';
 import useScroll from '@/hooks/use-scroll';
 
-const Header = ({ slot }: { slot?: React.ReactNode }) => {
+import AuthButton from './auth-button';
+import CreatePostButton from './create-post-button';
+
+const Header = () => {
+  const pathname = usePathname();
   const scroll = useScroll();
+
+  const isMatch = [PATH.LOGIN, PATH.SIGNUP].some(path => pathname.includes(path));
 
   return (
     <header className={headerStyle({ hidden: scroll.isScrollDown })}>
@@ -29,7 +36,8 @@ const Header = ({ slot }: { slot?: React.ReactNode }) => {
         </div>
 
         <div className="flex items-center gap-4">
-          {slot}
+          {!isMatch && <CreatePostButton />}
+          {!isMatch && <AuthButton />}
           <DarkModeButton />
         </div>
       </div>

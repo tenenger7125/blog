@@ -1,21 +1,31 @@
+'use client';
+
 import { FilePlusCorner } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
 import { PATH } from '@/constants';
-import { COOKIE_KEYS } from '@/constants/cookie';
-import { getCookie } from '@/lib/node/cookie';
+import useTokenValidateQuery from '@/hooks/queries/auth/use-token-validate.query';
 
-const CreatePostButton = async () => {
-  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
+const CreatePostButton = () => {
+  const router = useRouter();
+
+  const { data, isLoading } = useTokenValidateQuery();
+  const isLogin = !!data?.ok;
+
+  const handleCreatePostButtonClick = () => {
+    router.push(PATH.POST_NEW);
+  };
 
   return (
-    accessToken && (
-      <Link href={PATH.POST_NEW}>
-        <ActionIconButton className="px-4 py-2" label="새 포스트 작성">
-          <FilePlusCorner className="dark:text-white" />
-        </ActionIconButton>
-      </Link>
+    isLogin && (
+      <ActionIconButton
+        className="px-4 py-2"
+        label="새 포스트 작성"
+        loading={isLoading}
+        onClick={handleCreatePostButtonClick}>
+        <FilePlusCorner className="dark:text-white" />
+      </ActionIconButton>
     )
   );
 };

@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { PATH } from '@/constants';
-import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostsDataResponse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
 import { excludeImageTag } from '@/utils/sanitize';
@@ -14,12 +13,8 @@ const LIMIT_POST = 2;
 
 const NotFound = async () => {
   const res = await requestHttp.get<PostsDataResponse>(
-    `${INTERNAL_URL_IN_NODE.POSTS}?page=${1}&pageSize=${LIMIT_POST}`,
+    `${EXTERNAL_URL_IN_NODE.POSTS}?page=${1}&pageSize=${LIMIT_POST}`,
   );
-
-  if (res.statusCode === 401) {
-    redirect(`${PATH.REFRESH}?callbackUrl=${PATH.NOT_FOUND}`);
-  }
 
   const posts = res.data?.posts || [];
 

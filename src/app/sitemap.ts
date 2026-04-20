@@ -2,12 +2,12 @@
 import { MetadataRoute } from 'next';
 
 import { PATH } from '@/constants';
-import { INTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { EXTERNAL_URL_IN_NODE, INTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostsSitemapDataResonse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const res = await requestHttp.get<PostsSitemapDataResonse[]>(INTERNAL_URL_IN_NODE.POSTS_SITEMAP);
+  const res = await requestHttp.get<PostsSitemapDataResonse[]>(EXTERNAL_URL_IN_NODE.POSTS_SITEMAP);
   const posts = res.data ?? [];
 
   const postUrls = posts.map(post => ({

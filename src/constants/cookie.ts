@@ -6,6 +6,7 @@ export const COOKIE_KEYS = {
 export const COOKIE_OPTIONS = {
   httpOnly: true,
   path: '/',
-  secure: true,
+  // secure: process.env.NODE_ENV === 'production',
+  secure: process.env.SECURE_COOKIE === 'true',
   sameSite: 'lax',
 } as const;

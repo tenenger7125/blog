@@ -1,17 +1,18 @@
 import { forwardRef } from 'react';
 
 import { cn, VariantProps } from 'dotori-utils';
+import { LoaderCircle } from 'lucide-react';
 
 import { Button, ButtonProps } from '@/components/ui/button';
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 const ActionIconButton = forwardRef<HTMLButtonElement, ActionIconButtonProps>(
-  ({ children, className, label, iconSize, ...props }, ref) => (
+  ({ children, className, label, iconSize, loading, ...props }, ref) => (
     <Tooltip>
       <TooltipTrigger asChild>
         <Button ref={ref} className={actionIconButtonStyle({ className, iconSize })} variant="white" {...props}>
-          {children}
+          {loading ? <LoaderCircle className="animate-spin dark:text-white" /> : children}
         </Button>
       </TooltipTrigger>
       <TooltipContent>
@@ -27,6 +28,7 @@ ActionIconButton.displayName = 'ActionIconButton'; // 디버깅을 위해 이름
 interface ActionIconButtonProps extends ButtonProps, VariantProps<typeof actionIconButtonStyle> {
   children: React.ReactNode;
   label: string;
+  loading?: boolean;
 }
 
 // 'bg-gray-800 dark:hover:bg-gray-100'

@@ -1,24 +1,37 @@
-import { LogIn } from 'lucide-react';
-import Link from 'next/link';
+'use client';
+
+import { LogIn, LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
 import { PATH } from '@/constants';
-import { COOKIE_KEYS } from '@/constants/cookie';
-import { getCookie } from '@/lib/node/cookie';
+import useLogoutMutation from '@/hooks/mutations/auth/use-logout.mutation';
+import useTokenValidateQuery from '@/hooks/queries/auth/use-token-validate.query';
 
-import LogoutButton from './logout-button';
+const AuthButton = () => {
+  const router = useRouter();
 
-const AuthButton = async () => {
-  const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
+  const { data, isLoading } = useTokenValidateQuery();
+  const isLogin = !!data?.ok;
 
-  return accessToken ? (
-    <LogoutButton />
-  ) : (
-    <Link href={PATH.LOGIN}>
-      <ActionIconButton className="px-4 py-2" label="로그인">
-        <LogIn className="dark:text-white" />
-      </ActionIconButton>
-    </Link>
+  const { mutateAsync: logoutMutateAsync } = useLogoutMutation();
+
+  const logout = async () => {
+    await logoutMutateAsync();
+  };
+
+  const login = () => {
+    router.push(PATH.LOGIN);
+  };
+
+  return (
+    <ActionIconButton
+      className="px-4 py-2"
+      label={isLogin ? '로그아웃' : '로그인'}
+      loading={isLoading}
+      onClick={isLogin ? logout : login}>
+      {isLogin ? <LogOut className="dark:text-white" /> : <LogIn className="dark:text-white" />}
+    </ActionIconButton>
   );
 };
 

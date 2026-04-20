@@ -1,4 +1,4 @@
-export type ApiResponse<T> = {
+export type ApiResponse<T = null> = {
   ok: boolean;
   statusCode: number;
   message: string | object | null;
