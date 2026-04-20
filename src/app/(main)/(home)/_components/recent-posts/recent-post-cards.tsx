@@ -6,8 +6,8 @@ import { PostsDataResponse } from '@/types/post';
 
 import RecentPostCard from './recent-post-card';
 
-const RecentPostCards = ({ initialData, previewCount }: RecentPostCardsProps) => {
-  const { data } = useRecentPostsQuery(1, previewCount, { initialData });
+const RecentPostCards = ({ initialData, page, pageSize }: RecentPostCardsProps) => {
+  const { data } = useRecentPostsQuery(page, pageSize, { initialData });
 
   return (
     <div className="flex flex-col gap-2">
@@ -20,5 +20,6 @@ export default RecentPostCards;
 
 interface RecentPostCardsProps {
   initialData: ApiResponse<PostsDataResponse>;
-  previewCount: number;
+  page: number;
+  pageSize: number;
 }
