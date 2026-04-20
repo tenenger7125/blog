@@ -14,7 +14,7 @@ const RootLayout = ({ children }: RootLayoutProps) => (
     <body
       className={`${pretendardFont.className} ${yOnepickBoldFont.variable} flex min-h-screen flex-col overflow-x-hidden bg-white text-gray-900 dark:bg-gray-800`}>
       <Toaster position="top-center" />
-      <ThemeProvider nonce="nonce">
+      <ThemeProvider>
         <TooltipProvider delayDuration={0}>
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </TooltipProvider>
