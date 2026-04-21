@@ -32,10 +32,9 @@ export async function generateStaticParams() {
   try {
     const res = await requestHttp.get<PostsDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}?page=1&pageSize=${LIMIT_POST}`);
 
-    const totalCount = res.data?.totalPage || 1;
-    const totalPages = Math.ceil(totalCount / LIMIT_POST);
+    const totalPage = res.data?.totalPage || 1;
 
-    return Array.from({ length: totalPages }, (_, i) => ({
+    return Array.from({ length: totalPage }, (_, i) => ({
       page: String(i + 1),
     }));
   } catch {
@@ -44,4 +43,4 @@ export async function generateStaticParams() {
 }
 
 export const revalidate = 3600;
-export const dynamicParams = false;
+export const dynamicParams = true;
