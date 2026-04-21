@@ -22,10 +22,6 @@ const request = async <Data, Body = unknown>(method: HttpMethod, url: string, bo
 
   const data = (await response.json()) as ApiResponse<Data>;
 
-  if (!response.ok) {
-    throw data;
-  }
-
   return data;
 };
 
