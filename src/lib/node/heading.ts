@@ -1,4 +1,5 @@
-// utils/extractHeadings.ts
+'use client';
+
 import * as cheerio from 'cheerio';
 import { slug } from 'github-slugger';
 

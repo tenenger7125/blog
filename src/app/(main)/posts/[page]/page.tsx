@@ -28,4 +28,19 @@ interface PostProps {
 
 export default POSTS;
 
-export const revalidate = 60;
+export async function generateStaticParams() {
+  try {
+    const res = await requestHttp.get<PostsDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}?page=1&pageSize=${LIMIT_POST}`);
+
+    const totalCount = res.data?.totalPage || 1;
+    const totalPages = Math.ceil(totalCount / LIMIT_POST);
+
+    return Array.from({ length: totalPages }, (_, i) => ({
+      page: String(i + 1),
+    }));
+  } catch {
+    return []; // 빌드 실패 방지
+  }
+}
+
+export const revalidate = 3600;
