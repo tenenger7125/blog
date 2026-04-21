@@ -1,3 +1,5 @@
+import { revalidatePath } from 'next/cache';
+
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { fetchServerWithAuth } from '@/lib/node/fetch-server';
 import { PostsDataResponse } from '@/types/post';
@@ -21,6 +23,9 @@ export async function POST(request: Request) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(await request.json()),
   });
+
+  revalidatePath('/'); // 홈 최근 게시글
+  revalidatePath('/posts/[page]', 'page'); // 목록 전체 페이지
 
   return Response.json(result, { status: result.statusCode });
 }

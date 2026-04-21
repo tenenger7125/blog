@@ -1,4 +1,4 @@
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { fetchServerWithAuth } from '@/lib/node/fetch-server';
@@ -20,7 +20,9 @@ export const PUT = async (request: Request, ctx: { params: { postId: string } })
     body: JSON.stringify(await request.json()),
   });
 
-  revalidateTag(`post-${postId}`); // ✅ 해당 포스트 캐시만 무효화 likey Redis
+  revalidatePath('/');
+  revalidatePath('/posts/[page]', 'page');
+  revalidatePath(`/post/${postId}`);
 
   return Response.json(result, { status: result.statusCode });
 };
