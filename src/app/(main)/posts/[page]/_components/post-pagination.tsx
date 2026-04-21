@@ -6,10 +6,14 @@ import { useRouter } from 'next/navigation';
 
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { PATH } from '@/constants';
+import usePostsQuery from '@/hooks/queries/post/use-posts.query';
+import { ApiResponse } from '@/types/api';
+import { PostsDataResponse } from '@/types/post';
 
-const PostPagination = ({ page: defaultPage, totalPage }: PostPaginationProps) => {
-  const router = useRouter();
+const PostPagination = ({ page: defaultPage, pageSize, initialData }: PostPaginationProps) => {
   const [page, setPage] = useState(defaultPage);
+  const { data } = usePostsQuery(page, pageSize, { initialData });
+  const router = useRouter();
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -20,7 +24,7 @@ const PostPagination = ({ page: defaultPage, totalPage }: PostPaginationProps) =
     <div className="py-7">
       <Pagination>
         <PaginationContent>
-          {Array.from({ length: totalPage }, (_, i) => i + 1).map(pageNumber => (
+          {Array.from({ length: data?.data?.totalPage || 0 }, (_, i) => i + 1).map(pageNumber => (
             <PaginationItem key={pageNumber} onClick={() => handlePageChange(pageNumber)}>
               <PaginationLink isActive={pageNumber === page}>{pageNumber}</PaginationLink>
             </PaginationItem>
@@ -35,5 +39,6 @@ export default PostPagination;
 
 interface PostPaginationProps {
   page: number;
-  totalPage: number;
+  pageSize: number;
+  initialData: ApiResponse<PostsDataResponse>;
 }

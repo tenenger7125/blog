@@ -1,46 +1,28 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants';
-import { INTERNAL_URL_IN_CLIENT } from '@/constants/url';
+import useLoginMutation from '@/hooks/mutations/auth/use-login.mutation';
 import { cn } from '@/lib/utils';
-import { LoginRequestData, LoginResponseData } from '@/types/auth';
-import { requestHttp } from '@/utils/http/request';
 
 import { loginSchema, type LoginSchema } from './_schema/login.schema';
 
 const LoginPage = () => {
-  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(loginSchema),
   });
+  const { mutate: loginMutate } = useLoginMutation();
 
-  const onSubmit = async (data: LoginSchema) => {
-    const res = await requestHttp.post<LoginResponseData, LoginRequestData>(INTERNAL_URL_IN_CLIENT.LOGIN, data);
-    if (res.ok) {
-      toast.success('Login successful!');
-      router.push(PATH.HOME);
-      router.refresh();
-    } else {
-      toast.error('Failed to login. Please try again.');
-    }
+  const onSubmit = (data: LoginSchema) => {
+    loginMutate(data);
   };
-
-  useEffect(() => {
-    router.refresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className={cn('m-auto flex flex-col gap-6')}>

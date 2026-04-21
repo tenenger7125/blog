@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { ApiResponse } from '@/types/api';
@@ -8,7 +10,7 @@ import { postQueryKey } from './post-query-key';
 type Base = ReturnType<typeof postQueryKey.post.list>;
 type QueryKeyType = Base extends { queryKey: infer K } ? K : readonly unknown[];
 
-const useRecentPostsQuery = (
+const usePostsQuery = (
   page: number,
   pageSize: number,
   options?: Omit<
@@ -18,7 +20,8 @@ const useRecentPostsQuery = (
 ) =>
   useQuery<ApiResponse<PostsDataResponse>, unknown, ApiResponse<PostsDataResponse>, QueryKeyType>({
     ...postQueryKey.post.list({ page, pageSize }),
+    staleTime: 0,
     ...(options ?? {}),
   });
 
-export default useRecentPostsQuery;
+export default usePostsQuery;

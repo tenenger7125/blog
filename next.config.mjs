@@ -5,7 +5,17 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  // reactStrictMode: true,
+  redirects() {
+    return [
+      {
+        source: '/posts',
+        destination: '/posts/1',
+        permanent: true, // 301 리다이렉트 (SEO에 좋음)
+      },
+    ];
+  },
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [

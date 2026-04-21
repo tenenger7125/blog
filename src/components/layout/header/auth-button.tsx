@@ -18,6 +18,7 @@ const AuthButton = () => {
 
   const logout = async () => {
     await logoutMutateAsync();
+    router.refresh();
   };
 
   const login = () => {

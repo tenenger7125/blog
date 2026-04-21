@@ -1,13 +1,13 @@
 'use client';
 
-import useRecentPostsQuery from '@/hooks/queries/post/use-recent-posts.query';
+import usePostsQuery from '@/hooks/queries/post/use-posts.query';
 import { ApiResponse } from '@/types/api';
 import { PostsDataResponse } from '@/types/post';
 
 import RecentPostCard from './recent-post-card';
 
 const RecentPostCards = ({ initialData, page, pageSize }: RecentPostCardsProps) => {
-  const { data } = useRecentPostsQuery(page, pageSize, { initialData });
+  const { data } = usePostsQuery(page, pageSize, { initialData });
 
   return (
     <div className="flex flex-col gap-2">

@@ -8,4 +8,5 @@ export const INTERNAL_URL_IN_CLIENT = {
   STATIC_IMAGE: `/api/images/static`,
   POSTS: `/api/posts`,
   POST_CATEGORIES: `/api/post-categories`,
+  VALIDATE: `/api/auth/validate`,
 } as const;
