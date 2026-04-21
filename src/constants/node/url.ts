@@ -36,19 +36,4 @@ export const EXTERNAL_URL_IN_NODE = {
 
 export const INTERNAL_URL_IN_NODE = {
   BLOG_BASE_URL: process.env.NEXT_PUBLIC_BLOG_URL || 'http://localhost:3000',
-  get POSTS() {
-    return `${this.BLOG_BASE_URL}/api/posts`;
-  },
-  get POSTS_SITEMAP() {
-    return `${this.BLOG_BASE_URL}/api/posts/sitemap`;
-  },
-  get VALIDATE() {
-    return `${this.BLOG_BASE_URL}/api/auth/validate`;
-  },
-  get CLEAR_EXPIRED_TOKEN() {
-    return `${this.BLOG_BASE_URL}/api/auth/clear-expired-token`;
-  },
-  get LOGOUT() {
-    return `${this.BLOG_BASE_URL}/api/auth/logout`;
-  },
 };

@@ -1,4 +1,4 @@
-import { EXTERNAL_URL_IN_NODE, INTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { ApiResponse } from '@/types/api';
 import { PostDataResponse, PostsSitemapDataResonse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
@@ -26,7 +26,7 @@ export default Post;
 
 export async function generateMetadata({ params }: { params: { postId: string } }) {
   try {
-    const res = await requestHttp.get<PostDataResponse>(`${INTERNAL_URL_IN_NODE.POSTS}/${params.postId}`);
+    const res = await requestHttp.get<PostDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}/${params.postId}`);
     const post = res.data;
     if (!post) {
       return {};
