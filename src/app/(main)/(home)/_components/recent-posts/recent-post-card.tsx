@@ -1,10 +1,10 @@
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
 
+import RelativeDate from '@/components/shared/relative-date';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATH } from '@/constants';
 import { PostDataResponse } from '@/types/post';
-import { formatRelativeDate } from '@/utils/date';
 import { excludeImageTag } from '@/utils/sanitize';
 
 const RecentPostCard = ({ post }: { post: PostDataResponse }) => (
@@ -25,7 +25,9 @@ const RecentPostCard = ({ post }: { post: PostDataResponse }) => (
       <CardFooter>
         <span className="flex items-center gap-1 text-xs">
           <Calendar className="size-4" />
-          <span>{formatRelativeDate(post.createdAt)}</span>
+          <span>
+            <RelativeDate date={post.createdAt} />
+          </span>
         </span>
       </CardFooter>
     </Card>

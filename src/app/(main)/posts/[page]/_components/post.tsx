@@ -2,10 +2,10 @@ import { Calendar, Lock, Unlock } from 'lucide-react';
 import Link from 'next/link';
 
 import ActionIconButton from '@/components/shared/action-icon-button';
+import RelativeDate from '@/components/shared/relative-date';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATH } from '@/constants';
 import { PostDataResponse } from '@/types/post';
-import { formatRelativeDate } from '@/utils/date';
 import { excludeImageTag } from '@/utils/sanitize';
 
 const Post = ({ post }: PostProps) => (
@@ -29,7 +29,9 @@ const Post = ({ post }: PostProps) => (
       <CardFooter>
         <span className="flex items-center gap-1">
           <Calendar className="size-5" />
-          <span>{formatRelativeDate(post.createdAt)}</span>
+          <span>
+            <RelativeDate date={post.createdAt} />
+          </span>
         </span>
       </CardFooter>
     </Card>

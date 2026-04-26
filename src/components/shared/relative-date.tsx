@@ -1,3 +1,7 @@
+'use client';
+
+import { useMemo } from 'react';
+
 export const formatRelativeDate = (utcDate: string): string => {
   const date = new Date(utcDate);
   const now = new Date();
@@ -16,3 +20,11 @@ export const formatRelativeDate = (utcDate: string): string => {
   // 하루 지나면 로컬 시간대 기준 날짜 표시
   return date.toLocaleDateString('ko-KR');
 };
+
+const RelativeDate = ({ date }: { date: string }) => {
+  const label = useMemo(() => formatRelativeDate(date), [date]);
+
+  return label;
+};
+
+export default RelativeDate;
