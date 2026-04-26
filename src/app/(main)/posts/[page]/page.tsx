@@ -12,6 +12,7 @@ const POSTS = async ({ params }: PostProps) => {
 
   const res = await requestHttp.get<PostsDataResponse>(
     `${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
+    { next: { tags: ['posts', `posts-${page}-${LIMIT_POST}`] } },
   );
 
   return (
@@ -42,5 +43,4 @@ export async function generateStaticParams() {
   }
 }
 
-export const revalidate = 3600;
 export const dynamicParams = true;

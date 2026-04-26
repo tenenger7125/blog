@@ -14,6 +14,7 @@ const LIMIT_POST = 2;
 const NotFound = async () => {
   const res = await requestHttp.get<PostsDataResponse>(
     `${EXTERNAL_URL_IN_NODE.POSTS}?page=${1}&pageSize=${LIMIT_POST}`,
+    { next: { tags: ['posts', `posts-${1}-${LIMIT_POST}`] } },
   );
 
   const posts = res.data?.posts || [];
@@ -75,3 +76,4 @@ const NotFound = async () => {
 };
 
 export default NotFound;
+export const revalidate = 3600;

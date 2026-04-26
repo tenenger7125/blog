@@ -8,6 +8,7 @@ import RecentPostsHeader from './recent-posts-header';
 const RecentPosts = async ({ page, pageSize }: RecentPostsProps) => {
   const res = await requestHttp.get<PostsDataResponse>(
     `${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${pageSize}`,
+    { next: { tags: ['posts', `posts-${page}-${pageSize}`] } },
   );
 
   return (

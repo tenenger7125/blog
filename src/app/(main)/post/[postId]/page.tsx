@@ -9,7 +9,7 @@ const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
   let initialData: ApiResponse<PostDataResponse> | undefined;
   try {
     initialData = await requestHttp.get<PostDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}/${postId}`, {
-      next: { tags: [`post-${postId}`] },
+      next: { tags: ['post', `post-${postId}`] },
     });
   } catch {
     // 에러 처리: 포스트를 불러오지 못한 경우, initialData는 undefined로 남겨둡니다.
@@ -70,7 +70,9 @@ export async function generateMetadata({ params }: { params: { postId: string } 
 
 export async function generateStaticParams() {
   try {
-    const res = await requestHttp.get<PostsSitemapDataResonse[]>(EXTERNAL_URL_IN_NODE.POSTS_SITEMAP);
+    const res = await requestHttp.get<PostsSitemapDataResonse[]>(EXTERNAL_URL_IN_NODE.POSTS_SITEMAP, {
+      next: { tags: ['posts'] },
+    });
     const posts = res.data ?? [];
 
     return posts.map(post => ({ postId: post.id.toString() }));
@@ -79,4 +81,4 @@ export async function generateStaticParams() {
   }
 }
 
-export const revalidate = 3600; // 1시간마다 자동 갱신
+export const revalidate = 3600;

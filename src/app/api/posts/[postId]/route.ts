@@ -1,4 +1,4 @@
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { fetchServerWithAuth } from '@/lib/node/fetch-server';
@@ -20,9 +20,8 @@ export const PUT = async (request: Request, ctx: { params: { postId: string } })
     body: JSON.stringify(await request.json()),
   });
 
-  revalidatePath('/');
-  revalidatePath('/posts/[page]', 'page');
-  revalidatePath(`/post/${postId}`);
+  revalidateTag('posts');
+  revalidateTag(`post-${postId}`);
 
   return Response.json(result, { status: result.statusCode });
 };
