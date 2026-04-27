@@ -1,23 +1,28 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
-import { ApiResponse } from '@/types/api';
+import { postQueryKey } from '@/hooks/queries/post/post-query-key';
 import { PostDataResponse, PostsSitemapDataResonse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
 
 import PostViewer from './_components/post-viewer';
 
 const Post = async ({ params: { postId } }: { params: { postId: string } }) => {
-  let initialData: ApiResponse<PostDataResponse> | undefined;
-  try {
-    initialData = await requestHttp.get<PostDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}/${postId}`, {
-      next: { tags: ['post', `post-${postId}`] },
-    });
-  } catch {
-    // 에러 처리: 포스트를 불러오지 못한 경우, initialData는 undefined로 남겨둡니다.
-  }
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: postQueryKey.post.one({ postId }).queryKey,
+    queryFn: async () =>
+      requestHttp.get<PostDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}/${postId}`, {
+        next: { tags: ['post', `post-${postId}`] },
+      }),
+  });
 
   return (
     <div className="relative mx-auto flex w-full max-w-5xl flex-col justify-center gap-5">
-      <PostViewer initialData={initialData} postId={postId} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PostViewer postId={postId} />
+      </HydrationBoundary>
     </div>
   );
 };
@@ -82,3 +87,4 @@ export async function generateStaticParams() {
 }
 
 export const revalidate = 3600;
+export const dynamicParams = true;

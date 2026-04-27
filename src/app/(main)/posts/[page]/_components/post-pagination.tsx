@@ -7,12 +7,10 @@ import { useRouter } from 'next/navigation';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { PATH } from '@/constants';
 import usePostsQuery from '@/hooks/queries/post/use-posts.query';
-import { ApiResponse } from '@/types/api';
-import { PostsDataResponse } from '@/types/post';
 
-const PostPagination = ({ page: defaultPage, pageSize, initialData }: PostPaginationProps) => {
+const PostPagination = ({ page: defaultPage, pageSize }: PostPaginationProps) => {
   const [page, setPage] = useState(defaultPage);
-  const { data } = usePostsQuery(page, pageSize, { initialData });
+  const { data } = usePostsQuery(page, pageSize);
   const router = useRouter();
 
   const handlePageChange = (newPage: number) => {
@@ -40,5 +38,4 @@ export default PostPagination;
 interface PostPaginationProps {
   page: number;
   pageSize: number;
-  initialData: ApiResponse<PostsDataResponse>;
 }

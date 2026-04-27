@@ -1,13 +1,11 @@
 'use client';
 
 import usePostsQuery from '@/hooks/queries/post/use-posts.query';
-import { ApiResponse } from '@/types/api';
-import { PostsDataResponse } from '@/types/post';
 
 import Post from './post';
 
-const PostCards = ({ page, pageSize, initialData }: PostListProps) => {
-  const { data } = usePostsQuery(page, pageSize, { initialData });
+const PostCards = ({ page, pageSize }: PostListProps) => {
+  const { data } = usePostsQuery(page, pageSize);
 
   return (
     <div className="flex flex-wrap gap-2 leading-loose">
@@ -19,7 +17,6 @@ const PostCards = ({ page, pageSize, initialData }: PostListProps) => {
 interface PostListProps {
   page: number;
   pageSize: number;
-  initialData: ApiResponse<PostsDataResponse>;
 }
 
 export default PostCards;

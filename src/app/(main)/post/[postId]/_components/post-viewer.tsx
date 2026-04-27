@@ -8,8 +8,6 @@ import { Separator } from '@/components/ui/separator';
 import usePostQuery from '@/hooks/queries/post/use-post.query';
 import { extractHeadings, injectHeadingIds } from '@/lib/node/heading';
 import { getHighlightedHtml } from '@/lib/parse-html';
-import { ApiResponse } from '@/types/api';
-import { PostDataResponse } from '@/types/post';
 
 import Comment from './comment';
 import EditPostButton from './edit-post-button';
@@ -20,11 +18,11 @@ import TableOfContentMobile from './table-of-content-mobile';
 
 import 'highlight.js/styles/github-dark.css'; // 에디터와 동일한 CSS 로드
 
-const PostViewer = ({ initialData, postId }: PostViewerProps) => {
-  const { data, isFetched } = usePostQuery(postId, { initialData });
+const PostViewer = ({ postId }: PostViewerProps) => {
+  const { data, isRefetching } = usePostQuery(postId);
   const post = data?.data;
 
-  if (isFetched && !post) {
+  if (!isRefetching && !post) {
     notFound();
   }
 
@@ -64,6 +62,5 @@ const PostViewer = ({ initialData, postId }: PostViewerProps) => {
 export default PostViewer;
 
 interface PostViewerProps {
-  initialData: ApiResponse<PostDataResponse> | undefined;
   postId: string;
 }

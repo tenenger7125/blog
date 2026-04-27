@@ -1,4 +1,7 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
+import { postQueryKey } from '@/hooks/queries/post/post-query-key';
 import { PostsDataResponse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
 
@@ -8,17 +11,23 @@ import PostPagination from './_components/post-pagination';
 const LIMIT_POST = 10;
 
 const POSTS = async ({ params }: PostProps) => {
+  const queryClient = new QueryClient();
   const page = Number(params.page || 1);
 
-  const res = await requestHttp.get<PostsDataResponse>(
-    `${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`,
-    { next: { tags: ['posts', `posts-${page}-${LIMIT_POST}`] } },
-  );
+  await queryClient.prefetchQuery({
+    queryKey: postQueryKey.post.list({ page, pageSize: LIMIT_POST }).queryKey,
+    queryFn: async () =>
+      requestHttp.get<PostsDataResponse>(`${EXTERNAL_URL_IN_NODE.POSTS}?page=${page}&pageSize=${LIMIT_POST}`, {
+        next: { tags: ['posts', `posts-${page}-${LIMIT_POST}`] },
+      }),
+  });
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col justify-between">
-      <PostCards initialData={res} page={page} pageSize={LIMIT_POST} />
-      <PostPagination initialData={res} page={page} pageSize={LIMIT_POST} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PostCards page={page} pageSize={LIMIT_POST} />
+        <PostPagination page={page} pageSize={LIMIT_POST} />
+      </HydrationBoundary>
     </div>
   );
 };

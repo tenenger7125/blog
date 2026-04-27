@@ -1,13 +1,12 @@
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATH } from '@/constants';
 import { EXTERNAL_URL_IN_NODE } from '@/constants/node/url';
 import { PostsDataResponse } from '@/types/post';
 import { requestHttp } from '@/utils/http/request';
 import { excludeImageTag } from '@/utils/sanitize';
-
-import { Card, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 
 const LIMIT_POST = 2;
 

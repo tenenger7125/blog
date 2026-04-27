@@ -1,25 +1,18 @@
 'use client';
 
 import usePostsQuery from '@/hooks/queries/post/use-posts.query';
-import { ApiResponse } from '@/types/api';
-import { PostsDataResponse } from '@/types/post';
 
-import RecentPostCard from './recent-post-card';
+import Post from '../../../posts/[page]/_components/post';
 
-const RecentPostCards = ({ initialData, page, pageSize }: RecentPostCardsProps) => {
-  const { data } = usePostsQuery(page, pageSize, { initialData });
+const RecentPostCards = ({ page, pageSize }: RecentPostCardsProps) => {
+  const { data } = usePostsQuery(page, pageSize);
 
-  return (
-    <div className="flex flex-col gap-2">
-      {data?.data?.posts.map(post => <RecentPostCard key={post.id} post={post} />)}
-    </div>
-  );
+  return <div className="flex flex-col gap-2">{data?.data?.posts.map(post => <Post key={post.id} post={post} />)}</div>;
 };
 
 export default RecentPostCards;
 
 interface RecentPostCardsProps {
-  initialData: ApiResponse<PostsDataResponse>;
   page: number;
   pageSize: number;
 }

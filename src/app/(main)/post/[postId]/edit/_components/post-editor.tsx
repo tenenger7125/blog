@@ -5,11 +5,9 @@ import { useEffect, useState } from 'react';
 import { SimpleEditor } from '@/components/shared/tiptap/tiptap-templates/simple/simple-editor';
 import { Input } from '@/components/ui/input';
 import usePostQuery from '@/hooks/queries/post/use-post.query';
-import { ApiResponse } from '@/types/api';
-import { PostDataResponse } from '@/types/post';
 
-const PostEditor = ({ postId, initialData }: PostEditorProps) => {
-  const { data } = usePostQuery(postId, { initialData });
+const PostEditor = ({ postId }: PostEditorProps) => {
+  const { data } = usePostQuery(postId);
   const post = data?.data;
 
   const [input, setInput] = useState(post?.title || '');
@@ -47,5 +45,4 @@ export default PostEditor;
 
 interface PostEditorProps {
   postId: string;
-  initialData: ApiResponse<PostDataResponse> | undefined;
 }
