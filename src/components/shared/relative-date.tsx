@@ -27,7 +27,7 @@ export const formatRelativeDate = (utcDate: string): string => {
 };
 
 const RelativeDate = ({ date }: { date: string }) => {
-  const label = useMemo(() => formatRelativeDate(date), [date]);
+  const label = useMemo(() => toKSTDateString(new Date(date)), [date]);
 
   return label;
 };
