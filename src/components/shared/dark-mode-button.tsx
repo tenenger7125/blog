@@ -12,7 +12,7 @@ const DarkModeButton = () => {
 
   if (!mounted) {
     return (
-      <ActionIconButton className="px-4 py-2" label="로그인">
+      <ActionIconButton className="px-4 py-2" label="다크모드">
         <LoaderCircle className="animate-spin dark:text-white" />
       </ActionIconButton>
     );

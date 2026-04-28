@@ -62,9 +62,9 @@
     box-sizing: border-box;
   }
 
-  /* body { */
-  /* @apply bg-background text-foreground; */
-  /* } */
+  body {
+    min-width: 375px;
+  }
 
   input,
   textarea {

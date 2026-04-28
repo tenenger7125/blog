@@ -4,42 +4,37 @@ import { cn } from 'dotori-utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import DarkModeButton from '@/components/shared/dark-mode-button';
 import { PATH } from '@/constants';
 import useScroll from '@/hooks/use-scroll';
 
-import AuthButton from './auth-button';
-import CreatePostButton from './create-post-button';
+import FeatureButtonGroup from './feature-button-group';
 
 const Header = () => {
   const pathname = usePathname();
   const scroll = useScroll();
 
-  const isMatch = [PATH.LOGIN, PATH.SIGNUP].some(path => pathname.includes(path));
+  const isHome = pathname === PATH.HOME;
+  const isPost = pathname.includes(PATH.POSTS);
 
   return (
     <header className={headerStyle({ hidden: scroll.isScrollDown })}>
       <div className="max-w-8xl m-auto flex justify-between">
         <div className="flex items-center gap-6">
-          <h2 className="inline-block font-yOnepickBold text-2xl">
-            <Link className="rounded-lg px-3 hover:bg-gray-300 dark:hover:bg-black" href={PATH.HOME}>
+          <h2 className="inline-block text-nowrap font-yOnepickBold text-xl sm:text-2xl">
+            <Link className={buttonStyle({ active: isHome })} href={PATH.HOME}>
               동그라미
             </Link>
           </h2>
-          <ol className="flex items-center gap-5 font-yOnepickBold text-lg">
+          <ol className="flex items-center gap-5 text-nowrap font-yOnepickBold text-sm sm:text-lg">
             <li className="h-full">
-              <Link className="h-full rounded-lg px-3 hover:bg-gray-300 dark:hover:bg-black" href={PATH.POSTS}>
+              <Link className={buttonStyle({ active: isPost })} href={PATH.POSTS}>
                 게시글
               </Link>
             </li>
           </ol>
         </div>
 
-        <div className="flex items-center gap-4">
-          {!isMatch && <CreatePostButton />}
-          {!isMatch && <AuthButton />}
-          <DarkModeButton />
-        </div>
+        <FeatureButtonGroup />
       </div>
     </header>
   );
@@ -57,3 +52,12 @@ const headerStyle = cn(
 );
 
 export default Header;
+
+const buttonStyle = cn('rounded-lg px-3 hover:bg-gray-300 dark:hover:bg-black', {
+  variants: {
+    active: {
+      true: 'bg-gray-300 dark:bg-black',
+      flase: '',
+    },
+  },
+});

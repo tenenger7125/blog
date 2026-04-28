@@ -5,7 +5,7 @@ const PAGE = 1;
 const PREVIEW_COUNT = 3;
 
 const HOME = () => (
-  <div className="mx-auto flex w-full max-w-5xl flex-col justify-between">
+  <div className="mx-auto flex w-full max-w-5xl flex-col">
     <TerminalIntro fixedHeight />
     <RecentPosts page={PAGE} pageSize={PREVIEW_COUNT} />
   </div>
