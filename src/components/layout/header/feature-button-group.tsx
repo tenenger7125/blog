@@ -62,7 +62,7 @@ const FeatureButtonGroup = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-40">
             <DropdownMenuGroup>
-              {!isMatch && (
+              {!isMatch && isLogin && (
                 <DropdownMenuItem onClick={handleCreatePostButtonClick}>
                   <FilePlusCorner className="dark:text-white" />
                   <DropdownMenuShortcut>새 포스트 작성</DropdownMenuShortcut>
