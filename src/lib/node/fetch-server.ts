@@ -6,21 +6,28 @@ import { ReIssueTokenResponseData } from '../../types/auth';
 
 import { deleteCookie, getCookie, setCookie } from './cookie';
 
-let refreshPromise: Promise<ReIssueTokenResponseData | null> | null = null;
+const refreshPromiseMap = new Map<string, Promise<ReIssueTokenResponseData | null>>();
 
-const refreshToken = async () => {
-  if (refreshPromise) return refreshPromise; // 이미 진행 중이면 같은 Promise 반환
+const issueTokenByRefreshToken = async (refreshToken: string | null) => {
+  if (!refreshToken) return null;
 
-  refreshPromise = fetchServer<ReIssueTokenResponseData>(EXTERNAL_URL_IN_NODE.REFRESH, {
+  if (refreshPromiseMap.has(refreshToken)) {
+    return refreshPromiseMap.get(refreshToken)!;
+  }
+
+  const promise = fetchServer<ReIssueTokenResponseData>(EXTERNAL_URL_IN_NODE.REFRESH, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ refreshToken: await getCookie(COOKIE_KEYS.REFRESH_TOKEN) }),
-  }).then(result => {
-    refreshPromise = null; // 완료 후 초기화
-    return result.data ?? null;
-  });
+    body: JSON.stringify({ refreshToken }),
+  })
+    .then(result => result.data ?? null)
+    .catch(() => null)
+    .finally(() => {
+      refreshPromiseMap.delete(refreshToken);
+    });
 
-  return refreshPromise;
+  refreshPromiseMap.set(refreshToken, promise);
+  return promise;
 };
 
 export const fetchServer = async <ResponseData>(
@@ -33,27 +40,10 @@ export const fetchServer = async <ResponseData>(
   return data;
 };
 
-const stack: Array<(token: string) => void> = [];
-const isRefreshing = false;
-
 export const fetchServerWithAuth = async <ResponseData>(
   input: RequestInfo,
   init?: RequestInit,
 ): Promise<ApiResponse<ResponseData>> => {
-  // 시작 지점에서 refresh 중이면 대기
-  if (isRefreshing) {
-    return new Promise(resolve => {
-      stack.push((newToken: string) => {
-        resolve(
-          fetchServer<ResponseData>(input, {
-            ...init,
-            headers: { ...init?.headers, Authorization: `Bearer ${newToken}` },
-          }),
-        );
-      });
-    });
-  }
-
   const accessToken = await getCookie(COOKIE_KEYS.ACCESS_TOKEN);
 
   const result = await fetchServer<ResponseData>(input, {
@@ -62,7 +52,8 @@ export const fetchServerWithAuth = async <ResponseData>(
   });
 
   if (typeof window === 'undefined' && result.statusCode === 401) {
-    const newTokenData = await refreshToken(); // 동시 요청도 같은 Promise 공유
+    const userRefreshToken = await getCookie(COOKIE_KEYS.REFRESH_TOKEN);
+    const newTokenData = await issueTokenByRefreshToken(userRefreshToken); // 동시 요청도 같은 Promise 공유
 
     if (!newTokenData) {
       deleteCookie(COOKIE_KEYS.ACCESS_TOKEN, COOKIE_OPTIONS);
